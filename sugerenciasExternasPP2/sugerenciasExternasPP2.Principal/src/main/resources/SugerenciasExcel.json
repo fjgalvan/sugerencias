@@ -1,0 +1,5 @@
+[ {
+  "local;Ubicacion;Producto;Precio;fechaDeVigencia" : "mcDonald;virreyes;hamburguesa;50.0;20/09/2018"
+}, {
+  "local;Ubicacion;Producto;Precio;fechaDeVigencia" : "mcDonald;san miguel;helado;40.0;18/09/2018"
+} ]
