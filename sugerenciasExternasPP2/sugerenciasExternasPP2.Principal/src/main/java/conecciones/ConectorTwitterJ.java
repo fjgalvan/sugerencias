@@ -5,6 +5,7 @@ import interfaces.InterfaceConexion;
 import java.io.BufferedReader; 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 
 import properties.Constants;
 import properties.PropertiesPrincipal;
@@ -85,6 +86,7 @@ public class ConectorTwitterJ implements InterfaceConexion
         System.exit(0);
  
     }
+    
     
     
     static { 

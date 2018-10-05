@@ -1,11 +1,14 @@
 package conecciones;
 
+import java.io.IOException;
 import java.text.ParseException;  
+import java.util.HashMap;
 
 import properties.Constants;
 import properties.PropertiesPrincipal;
 
 import com.google.gson.Gson;
+
 
 
 
@@ -83,4 +86,11 @@ public class UsoTwitterDeUsuario
     	final String representacionJSON = gson.toJson(st);
     	System.out.println("\n\n"+representacionJSON);
     }
+    
+    public HashMap<String, String> conectarsePruebaTwitter() {
+    	HashMap<String, String> map= new HashMap<String, String>();
+		try {conexionConTwitterDeUsuario();
+		} catch (TwitterException e) {e.printStackTrace();}
+		return map;
+	}
 }

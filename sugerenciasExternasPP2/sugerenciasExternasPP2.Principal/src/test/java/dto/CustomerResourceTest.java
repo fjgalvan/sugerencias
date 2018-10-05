@@ -15,7 +15,7 @@ import org.junit.Test;
  */
 public class CustomerResourceTest {
   @Test
-  public void shouldGetAllCustomers() {
+  public void shouldGetAllCustomersTest() {
     CustomerDto customer = new CustomerDto("1", "usuarioA", "chatarras", "postres");
     List<CustomerDto> customers = new ArrayList<>();
     customers.add(customer);
@@ -32,7 +32,7 @@ public class CustomerResourceTest {
   }
 
   @Test
-  public void shouldSaveCustomer() {
+  public void shouldSaveCustomerTest() {
     CustomerDto customer = new CustomerDto("1", "usuarioA", "chatarras", "postres");
     CustomerResource customerResource = new CustomerResource(new ArrayList<>());
 
@@ -46,7 +46,7 @@ public class CustomerResourceTest {
   }
 
   @Test
-  public void shouldDeleteCustomer() {
+  public void shouldDeleteCustomerTest() {
     CustomerDto customer = new CustomerDto("1", "usuarioA", "chatarras", "postres");
     List<CustomerDto> customers = new ArrayList<>();
     customers.add(customer);
