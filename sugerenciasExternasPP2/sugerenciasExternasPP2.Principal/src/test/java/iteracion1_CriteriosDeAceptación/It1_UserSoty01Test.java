@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import promosEnJson.PromoTwitter;
+import promo.Twitter.PromoTwitter;
 import sugerencias.ConvertirString_a_Sugerencia;
 import sugerencias.Sugerencias;
 import sugerencias.SugerenciaTwitter;
@@ -24,7 +24,7 @@ import com.mongodb.Mongo;
 import com.mongodb.MongoException;
 import com.mongodb.util.JSON;
 
-import conecciones.UsoTwitterDeUsuario;
+import conexiones.conexionTwitter.UsoTwitterDeUsuario;
 
 
 public class It1_UserSoty01Test {

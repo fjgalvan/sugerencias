@@ -1,4 +1,4 @@
-package conecciones;
+package conexiones.conexionTwitter;
 
 import java.io.IOException;
 import java.text.ParseException;  
@@ -15,7 +15,8 @@ import com.google.gson.Gson;
 
 
 
-import dao.MyConstants;
+
+import dao.mongoDB.MyConstants;
 import sugerencias.Sugerencias;
 import sugerencias.SugerenciaTwitter;
 //import PP2.sugerencias.InterfazDeSugerencias;

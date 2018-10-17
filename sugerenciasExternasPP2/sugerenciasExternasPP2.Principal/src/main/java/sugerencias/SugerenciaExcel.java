@@ -1,6 +1,6 @@
 package sugerencias;
 
-import conecciones.LeerExcelCSV;
+import conexiones.conexionExel.LeerExcelCSV;
 import util.Date;
 
 public class SugerenciaExcel extends Sugerencias{

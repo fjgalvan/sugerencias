@@ -1,7 +1,7 @@
 package mvc_observer_controlador_vista;
 
 import mvc_modelo_observable.Modelo;
-import mvc_modelo_observable.ModeloObserver;
+
 
 
 
@@ -15,24 +15,20 @@ import mvc_modelo_observable.ModeloObserver;
  * @author fon
  */
 public class MVC_sePP2vistas {
-    /**
-     * Main del programa
-     * @param args : Array de argumentos de entrada. No los utilizamos. 
-     */
-    public static void main(String args[]){
-        
+
+    @SuppressWarnings("unused")
+	public static void main(String args[]){
         //Cargamos modelo
-        Modelo m = new Modelo();
+        Modelo m = new Modelo("recomendaciones","preferencias", "usuarios");
+      
+        //Cargamos vista
+        Vista v = new Vista(m); 
         
         //Cargamos controlador y le asignamos qué modelo controlar
-        Controlador c = new Controlador(m);
+        Controlador c = new Controlador(m, v);
         
-        //Cargamos 23vistas y asignamos cual queremos que sea su controlador **No tenemos en cuenta threads sobre 
-        //el controlador, pero no lo llamaremos a la par.
-        Vista v = new Vista(c); 
-        //añadimos observadores al modelo. En este caso, dos vistas.
-        m.addObservador(v);
-        
-        
+        System.out.println("m.getValor(): "+m.getValorString());
+        System.out.println("m.getUsuario(): "+m.getUsuario());
+        System.out.println("m.getPreferencias(): "+m.getPreferencias());
     }
 }

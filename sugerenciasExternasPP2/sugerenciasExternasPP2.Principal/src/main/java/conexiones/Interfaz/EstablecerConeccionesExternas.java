@@ -1,4 +1,4 @@
-package conecciones;
+package conexiones.Interfaz;
 
 public class EstablecerConeccionesExternas {
 	

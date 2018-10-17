@@ -1,4 +1,4 @@
-package interfaces;
+package dao.Interfaz;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;

@@ -1,4 +1,4 @@
-package dao;
+package dao.filtrosDeUsuario;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Properties;
 
-import promosEnJson.PromoTwitter;
+import promo.Twitter.PromoTwitter;
 import properties.Constants;
 import sugerencias.ConvertirString_a_Sugerencia;
 import sugerencias.Sugerencias;

@@ -9,13 +9,17 @@ import static org.mockito.Mockito.when;
 
 
 
+
+
+
 import java.util.HashMap;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import dao.MyConstants;
+import conexiones.conexionTwitter.UsoTwitterDeUsuario;
+import dao.mongoDB.MyConstants;
 import properties.Constants;
 import properties.PropertiesPrincipal;
 

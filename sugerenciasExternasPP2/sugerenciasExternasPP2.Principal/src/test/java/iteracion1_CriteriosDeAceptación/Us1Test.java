@@ -8,11 +8,11 @@ import java.util.List;
 
 import org.junit.Test;
 
-import promosEnJson.PromoTwitter;
-import conecciones.ExcelParserJSON;
-import conecciones.LeerFicherosExcel;
-import conecciones.UsoTwitterDeUsuario;
-import dao.MyConstants;
+import promo.Twitter.PromoTwitter;
+import conexiones.conexionExel.ExcelParserJSON;
+import conexiones.conexionExel.LeerFicherosExcel;
+import conexiones.conexionTwitter.UsoTwitterDeUsuario;
+import dao.mongoDB.MyConstants;
 import sugerencias.ConvertirString_a_Sugerencia;
 import sugerencias.SugerenciaTwitter;
 import validaciones.ValidarTwitter;

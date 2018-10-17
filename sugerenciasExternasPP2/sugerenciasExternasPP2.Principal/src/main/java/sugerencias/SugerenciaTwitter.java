@@ -1,14 +1,13 @@
 package sugerencias;
 
-import interfaces.InterfacePromo;
-
 import java.io.IOException; 
 import java.util.HashMap;
 import java.util.List;
 
-import promosEnJson.PromoTwitter;
-import conecciones.ConectorTwitterJ;
-import conecciones.UsoTwitterDeUsuario;
+import promo.Interfaz.InterfacePromo;
+import promo.Twitter.PromoTwitter;
+import conexiones.conexionTwitter.ConectorTwitterJ;
+import conexiones.conexionTwitter.UsoTwitterDeUsuario;
 import twitter4j.TwitterException;
 import util.Date;
 

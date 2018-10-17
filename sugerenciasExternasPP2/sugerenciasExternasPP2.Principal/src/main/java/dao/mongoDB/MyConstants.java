@@ -1,4 +1,4 @@
-package dao;
+package dao.mongoDB;
 
 public class MyConstants {
 	  // This database may be not exist on your MongoDB.

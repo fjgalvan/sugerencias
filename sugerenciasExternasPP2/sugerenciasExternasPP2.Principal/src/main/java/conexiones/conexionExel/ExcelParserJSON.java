@@ -1,4 +1,4 @@
-package conecciones;
+package conexiones.conexionExel;
 
 
 import java.io.File; 
@@ -12,10 +12,12 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mongodb.DBCollection;
-import dao.MyConstants;
+
+import dao.mongoDB.MyConstants;
 
 public class  ExcelParserJSON{
 	static DBCollection collection;

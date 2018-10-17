@@ -1,12 +1,11 @@
-package promosEnJson;
-
-import interfaces.InterfacePromo;
+package promo.Twitter;
 
 import java.util.ArrayList; 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import promo.Interfaz.InterfacePromo;
 import sugerencias.Sugerencias;
 import sugerencias.SugerenciaTwitter;
 import twitter4j.ResponseList;
@@ -23,8 +22,8 @@ import com.mongodb.Mongo;
 import com.mongodb.MongoException;
 import com.mongodb.util.JSON;
 
-import conecciones.UsoTwitterDeUsuario;
-import dao.TaggearComidas;
+import conexiones.conexionTwitter.UsoTwitterDeUsuario;
+import dao.filtrosDeUsuario.TaggearComidas;
 
 public class PromoTwitter implements InterfacePromo{
 	List<String> listaTweets = new ArrayList<String>();

@@ -1,7 +1,5 @@
-package dao;
+package dao.mongoDB;
 
-
-import interfaces.InterfaceMongoAccess;  
 
 import java.net.UnknownHostException;
 import java.util.Set;
@@ -13,6 +11,8 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
+
+import dao.Interfaz.InterfaceMongoAccess;
 
 
 public abstract class MongoConcrete implements InterfaceMongoAccess {

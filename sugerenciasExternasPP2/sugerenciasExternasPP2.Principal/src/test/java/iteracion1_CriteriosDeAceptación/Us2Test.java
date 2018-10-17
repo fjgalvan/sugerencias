@@ -13,11 +13,11 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import promosEnJson.PromoTwitter;
+import promo.Twitter.PromoTwitter;
 
 import com.mongodb.DBCollection;
 
-import dao.MongoUtils;
+import dao.mongoDB.MongoUtils;
 import sugerencias.ConvertirString_a_Sugerencia;
 import sugerencias.SugerenciaTwitter;
 import sugerencias.Sugerencias;

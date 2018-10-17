@@ -1,4 +1,4 @@
-package interfaces;
+package conexiones.Interfaz;
 
 public interface InterfaceConexion {
 

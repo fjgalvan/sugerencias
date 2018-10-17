@@ -1,12 +1,11 @@
-package conecciones;
-
-import interfaces.InterfaceConexion; 
+package conexiones.conexionTwitter;
 
 import java.io.BufferedReader; 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
+import conexiones.Interfaz.InterfaceConexion;
 import properties.Constants;
 import properties.PropertiesPrincipal;
 import twitter4j.conf.ConfigurationBuilder;

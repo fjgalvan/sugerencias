@@ -1,4 +1,4 @@
-package promosEnJson;
+package promo.Excel;
 
 import com.fasterxml.jackson.core.JsonProcessingException;  
 
@@ -13,9 +13,9 @@ import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.mongodb.BasicDBObject;
 import com.mongodb.util.JSON;
 
-import interfaces.InterfacePromo;
-
 import java.util.HashMap;
+
+import promo.Interfaz.InterfacePromo;
 
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -28,8 +28,12 @@ import com.mongodb.MongoException;
 
 
 
-import conecciones.ExcelParserJSON;
-import dao.TaggearComidas;
+
+
+
+
+import conexiones.conexionExel.ExcelParserJSON;
+import dao.filtrosDeUsuario.TaggearComidas;
 
 @SuppressWarnings({ "unused", "deprecation" })
 public class PromoExcel implements InterfacePromo{

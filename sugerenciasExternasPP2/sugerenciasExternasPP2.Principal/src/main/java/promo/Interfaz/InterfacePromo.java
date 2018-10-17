@@ -1,4 +1,4 @@
-package interfaces;
+package promo.Interfaz;
 
 import com.mongodb.DBCollection;
 

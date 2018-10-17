@@ -10,7 +10,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import promosEnJson.PromoTwitter;
+import promo.Twitter.PromoTwitter;
 import sugerencias.ConvertirString_a_Sugerencia;
 import sugerencias.Sugerencias;
 import validaciones.ValidarFechaPromo;

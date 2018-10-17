@@ -1,4 +1,4 @@
-package dao;
+package dao.filtrosDeUsuario;
 
 import java.io.FileReader; 
 import java.io.IOException;

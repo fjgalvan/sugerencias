@@ -1,6 +1,4 @@
-package conecciones;
-
-import interfaces.InterfaceConexion; 
+package conexiones.conexionExel;
 
 import java.io.FileReader; 
 import java.io.IOException;
@@ -12,7 +10,8 @@ import twitter4j.TwitterException;
 
 import com.opencsv.CSVReader;
 
-import dao.MyConstants;
+import conexiones.Interfaz.InterfaceConexion;
+import dao.mongoDB.MyConstants;
 
 @SuppressWarnings("unused")
 public class LeerExcelCSV implements InterfaceConexion{

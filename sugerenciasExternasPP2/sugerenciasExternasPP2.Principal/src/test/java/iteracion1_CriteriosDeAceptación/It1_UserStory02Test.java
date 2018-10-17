@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.Test;
 import org.omg.CORBA.portable.UnknownException;
 
-import promosEnJson.PromoTwitter;
+import promo.Twitter.PromoTwitter;
 import sugerencias.ConvertirString_a_Sugerencia;
 import sugerencias.SugerenciaTwitter;
 import validaciones.ValidarTwitter;
@@ -23,9 +23,9 @@ import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.util.JSON;
 
-import conecciones.UsoTwitterDeUsuario;
-import dao.MongoUtils;
-import dao.MyConstants;
+import conexiones.conexionTwitter.UsoTwitterDeUsuario;
+import dao.mongoDB.MongoUtils;
+import dao.mongoDB.MyConstants;
 
 public class It1_UserStory02Test {
 	UsoTwitterDeUsuario t= new UsoTwitterDeUsuario();

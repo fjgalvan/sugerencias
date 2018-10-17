@@ -1,9 +1,8 @@
 package sugerencias;
 
-import interfaces.InterfacePromo;
-
 import java.util.HashMap;  
 
+import promo.Interfaz.InterfacePromo;
 import util.Date;
 
 public class Sugerencias {

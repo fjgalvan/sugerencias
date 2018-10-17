@@ -1,6 +1,4 @@
-package conecciones;
-
-import interfaces.InterfaceConexion;
+package conexiones.conexionExel;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,11 +10,13 @@ import java.util.Iterator;
 
 
 
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import conexiones.Interfaz.InterfaceConexion;
 import properties.Constants;
  
 public class LeerFicherosExcel implements InterfaceConexion{

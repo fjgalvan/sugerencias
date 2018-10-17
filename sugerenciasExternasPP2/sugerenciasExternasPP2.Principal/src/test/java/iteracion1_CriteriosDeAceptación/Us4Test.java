@@ -10,8 +10,8 @@ import java.util.Properties;
 import org.junit.Before;
 import org.junit.Test;
 
-import dao.FiltrosDeUsuarioAyB;
-import promosEnJson.PromoTwitter;
+import dao.filtrosDeUsuario.FiltrosDeUsuarioAyB;
+import promo.Twitter.PromoTwitter;
 import properties.Constants;
 
 public class Us4Test {
