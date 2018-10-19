@@ -3,10 +3,12 @@ package iteracion1_CriteriosDeAceptación;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,9 +19,16 @@ import validaciones.ValidarFechaPromo;
 import validaciones.ValidarTwitter;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import com.mongodb.MongoClient;
+import com.mongodb.ServerAddress;
+
+import dao.mongoDB.MyConstants;
+import de.bwaldvogel.mongo.MongoServer;
+import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
 
 public class Us3Test {
 
@@ -27,18 +36,40 @@ public class Us3Test {
 	PromoTwitter pt = null;
 	boolean res=false;
 	
+	private MongoClient client;
+    private MongoServer server;
+    private static DB db; 
+	private static DBCollection collection;
+
 	@Before
-	public void init(){
-		System.out.println("init");
-		mostrarListProdDeTwitter(sComidaValida);
-		cantidadColeecion(sComidaValida);
-	}
+    public void setUp() {
+        server = new MongoServer(new MemoryBackend());
+
+        // bind on a random local port
+        InetSocketAddress serverAddress = server.bind();
+
+        client = new MongoClient(new ServerAddress(serverAddress));
+        //collection = client.getDatabase("testdb").getCollection("testcollection");
+        db = client.getDB(MyConstants.DB_NAME);
+        collection= db.getCollection(MyConstants.DB_NAME);
+        
+        collection= mostrarListProdDeTwitter(sComidaValida);
+		System.out.println("cantCollection: "+cantidadColeccion());
+    }
+
+    @After
+    public void tearDown() {
+        client.close();
+        server.shutdown();
+    }
+	
 	
 	@Test
 	public void test1(){
 		System.out.println("test1!");
 		
 		res= buscarConFiltro("sanas", "ensalada");
+		System.out.println("res1:"+res);
 		assertTrue(res);
 		try {pt.getCollection().drop();
 		} catch (Exception e) { }
@@ -103,22 +134,15 @@ public DBCollection mostrarListProdDeTwitter(String s){
 			
 			//PARSEO A JSON y A BSON
 			pt= new PromoTwitter();
-			pt.parsear_a_JSON(l);
+			pt.parsear_a_JSON(l, collection);
 		}
 		return pt.getCollection();
 	}
 	
-	public long cantidadColeecion(String s){
-		
-		long rowCount = mostrarListProdDeTwitter(s).count();
-		System.out.println(" Document count: "+ rowCount);
-		// List of Collections
-		Set<String> collections = pt.getDb().getCollectionNames(); 
-	    for(String coll: collections)  {
-	        System.out.println("Collection: "+ coll);
-	    }
-	    return rowCount;
-	}
+	public long cantidadColeccion(){
+		long rowCount= collection.count();
+    return rowCount;
+}
 	
 	public boolean buscarConFiltro(String tipoComida, String producto){
 		System.out.println("buscarConFiltro()");

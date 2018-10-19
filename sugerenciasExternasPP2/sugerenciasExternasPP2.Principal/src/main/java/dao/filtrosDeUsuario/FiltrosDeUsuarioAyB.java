@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Properties;
 
+import org.bson.Document;
+
 import promo.Twitter.PromoTwitter;
 import properties.Constants;
 import sugerencias.ConvertirString_a_Sugerencia;
@@ -17,6 +19,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import com.mongodb.client.MongoCollection;
 
 public class FiltrosDeUsuarioAyB {
 	PromoTwitter pt = null;
@@ -74,7 +77,7 @@ public class FiltrosDeUsuarioAyB {
 			
 			//PARSEO A JSON y A BSON
 			pt= new PromoTwitter();
-			pt.parsear_a_JSON(l);
+			pt.parsear_a_JSON(l, pt.getCollection());
 		}
 		return pt.getCollection();
 	}

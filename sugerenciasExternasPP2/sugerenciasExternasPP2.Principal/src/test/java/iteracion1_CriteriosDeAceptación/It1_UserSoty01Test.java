@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.bson.Document;
 import org.junit.Test;
 
 import promo.Twitter.PromoTwitter;
@@ -22,6 +23,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 import com.mongodb.MongoException;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.util.JSON;
 
 import conexiones.conexionTwitter.UsoTwitterDeUsuario;
@@ -122,7 +124,7 @@ public class It1_UserSoty01Test {
 			
 			//PARSEO A JSON y A BSON
 			PromoTwitter pt= new PromoTwitter();
-			pt.parsear_a_JSON(l);
+			pt.parsear_a_JSON(l,  pt.getCollection());
 		}
 	}
 }

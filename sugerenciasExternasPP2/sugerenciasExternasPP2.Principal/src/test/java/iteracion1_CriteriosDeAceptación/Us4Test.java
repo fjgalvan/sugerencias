@@ -5,13 +5,24 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.util.Properties;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.MongoClient;
+import com.mongodb.ServerAddress;
+
 import dao.filtrosDeUsuario.FiltrosDeUsuarioAyB;
+import dao.mongoDB.MyConstants;
+import de.bwaldvogel.mongo.MongoServer;
+import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
 import promo.Twitter.PromoTwitter;
+import promo.Twitter.TwitterParsers;
 import properties.Constants;
 
 public class Us4Test {
@@ -21,11 +32,28 @@ public class Us4Test {
 	FiltrosDeUsuarioAyB f;
 	Properties p1;
 	Properties p2;
+	TwitterParsers tp;
 	
-	
+	private MongoClient client;
+    private MongoServer server;
+    private static DB db; 
+	private static DBCollection collection;
+
 	@Before
-	public void init(){
-		System.out.println("init");
+    public void setUp() {
+        server = new MongoServer(new MemoryBackend());
+
+        // bind on a random local port
+        InetSocketAddress serverAddress = server.bind();
+
+        client = new MongoClient(new ServerAddress(serverAddress));
+        //collection = client.getDatabase("testdb").getCollection("testcollection");
+        db = client.getDB(MyConstants.DB_NAME);
+        collection= db.getCollection(MyConstants.DB_NAME);
+        
+        tp= new TwitterParsers(collection);
+        
+        System.out.println("init");
 		f= new FiltrosDeUsuarioAyB();
 		f.mostrarListProdDeTwitter(s);
 		p1 = new Properties();
@@ -35,7 +63,15 @@ public class Us4Test {
 		p2 = new Properties();
 		try { p2.load(new FileReader(Constants.ROUTE_PREFERENCIAS_USUARIO_B));
 		} catch (IOException e) { e.printStackTrace();}
-	}
+		
+		collection= tp.mostrarListProdDeTwitter(s);
+    }
+
+    @After
+    public void tearDown() {
+        client.close();
+        server.shutdown();
+    }
 	
 	@Test
 	public void test1(){

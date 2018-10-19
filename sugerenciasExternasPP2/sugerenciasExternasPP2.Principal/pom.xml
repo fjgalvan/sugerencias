@@ -33,7 +33,11 @@
  		<artifactId>mockito-core</artifactId>
  		<version>1.10.19</version>
  	</dependency>	
-		
+	<dependency>
+    	<groupId>de.bwaldvogel</groupId>
+    	<artifactId>mongo-java-server</artifactId>
+    	<version>1.8.0</version>
+	</dependency>	
 	<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
 	<dependency>
         <groupId>org.slf4j</groupId>

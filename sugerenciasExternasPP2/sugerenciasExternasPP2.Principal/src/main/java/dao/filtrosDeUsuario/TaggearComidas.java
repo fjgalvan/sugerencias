@@ -33,7 +33,7 @@ public class TaggearComidas {
 		this.collection = collection;}
 	
 	//TAGGEAR COMIDAS 
-	public void taggearComidas(){
+	public DBCollection taggearComidas(){
 		Enumeration<Object> keys = p.keys();
 		BasicDBObject newDocument = new BasicDBObject();
 		
@@ -61,11 +61,11 @@ public class TaggearComidas {
 			   collection.update(searchQuery, newDocument);
 		   }
 		}
-		
+		return collection;
 		
 	}
 	
-	public void eliminarComidasSinTaggear(){
+	public DBCollection eliminarComidasSinTaggear(){
 		HashMap<String,Double> lComidas = new HashMap<String,Double>();
 //		BasicDBObject newDocument = new BasicDBObject();
 //		newDocument.append("$set", new BasicDBObject().append("lComidas", lComidas));
@@ -74,6 +74,7 @@ public class TaggearComidas {
 		//collection.find(searchQuery).remove();
 		
 		collection.remove(searchQuery);
+		return collection;
 	}
 	
 	

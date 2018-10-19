@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import org.bson.Document;
+
 import promo.Interfaz.InterfacePromo;
 import sugerencias.Sugerencias;
 import sugerencias.SugerenciaTwitter;
@@ -20,6 +22,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 import com.mongodb.MongoException;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.util.JSON;
 
 import conexiones.conexionTwitter.UsoTwitterDeUsuario;
@@ -60,43 +63,39 @@ public class PromoTwitter implements InterfacePromo{
 		
 	}
 	
-	public void parsear_a_JSON(ArrayList<Sugerencias> l) {
+	public void parsear_a_JSON(ArrayList<Sugerencias> l, DBCollection collection2) {
 		for(int i=0; i< l.size(); i++){
 			Gson gson = new Gson();
 	    	String representacionJSON = gson.toJson(l.get(i));
-	    	System.out.println("\n\n"+representacionJSON);
-	    	parsearBSON(representacionJSON);
+	    	System.out.println("\n\nJSON: "+representacionJSON);
+	    	parsearBSON(representacionJSON, collection2);
 		}
 		
 	}
-	public DBCollection parsearBSON(String s){
+	public DBCollection parsearBSON(String s, DBCollection collection2){
 		HashMap<String,Double> l= new HashMap<String,Double>();
 		//DBCollection collection = null;
-		try {
-
-			mongo = new Mongo("localhost", 27017);
-			db = mongo.getDB("yourdb12");
-			collection = db.getCollection("excelPromoJc1SON");
-			
+		try {			
 			// convert JSON to DBObject directly
-			DBObject dbObject = (DBObject) JSON
+			DBObject bson = ( DBObject ) JSON
 					.parse(s);
-
-			collection.insert(dbObject);
+			System.out.println("BasicDBObject bson= "+bson.toString());
+			collection2.insert(bson);
+			System.out.println("collection2 count: "+ collection2.count());
 			
 			//ACTUALIZO EL BSON
 			BasicDBObject newDocument = new BasicDBObject();
 			newDocument.append("$set", new BasicDBObject().append("listaProductosPrecios", null));//("listaProductosPrecios", l));
 			BasicDBObject searchQuery = new BasicDBObject().append("listaProductosPrecios", l);
-			collection.update(searchQuery, newDocument);
-			
+			collection2.update(searchQuery, newDocument);
+			System.out.println("collection2 update count: "+ collection2.count());
 			//TAGGEO PROMOS DE COMIDAS
-			TaggearComidas tc= new TaggearComidas(collection);
-			tc.taggearComidas();
-			
+			TaggearComidas tc= new TaggearComidas(collection2);
+			this.collection=tc.taggearComidas();
+			System.out.println("collection TAG count: "+ this.collection.count());
 			//ELIMINO PROMOS DE COMIDAS INCORRECTOS
-			tc.eliminarComidasSinTaggear();
-			
+			//this.collection=tc.eliminarComidasSinTaggear();
+			System.out.println("collection sinTAG count: "+ this.collection.count());
 			//IMPRIMO BSON
 			DBCursor cursorDoc3 = tc.getCollection().find();//collection.find();
 			while (cursorDoc3.hasNext()) {
@@ -105,9 +104,18 @@ public class PromoTwitter implements InterfacePromo{
 		} catch (MongoException e) {
 			e.printStackTrace();
 		}		
+		System.out.println("collectionFINAL 2count: "+ this.collection.count());
+		return  this.collection;
+	}
+	
+	public DBCollection conectarseAbaseMongoDB(String nombreBase, String nombreColeccion){
+		mongo = new Mongo("localhost", 27017);
+		db = mongo.getDB(nombreBase);
+		collection = db.getCollection(nombreColeccion);
+		
 		return collection;
 	}
-
+	
 	public Mongo getMongo() {
 		return mongo;
 	}
