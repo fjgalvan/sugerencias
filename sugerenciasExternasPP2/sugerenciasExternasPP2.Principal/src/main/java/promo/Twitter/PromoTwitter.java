@@ -64,6 +64,7 @@ public class PromoTwitter implements InterfacePromo{
 	}
 	
 	public void parsear_a_JSON(ArrayList<Sugerencias> l, DBCollection collection2) {
+		this.collection= collection2;
 		for(int i=0; i< l.size(); i++){
 			Gson gson = new Gson();
 	    	String representacionJSON = gson.toJson(l.get(i));
@@ -74,7 +75,6 @@ public class PromoTwitter implements InterfacePromo{
 	}
 	public DBCollection parsearBSON(String s, DBCollection collection2){
 		HashMap<String,Double> l= new HashMap<String,Double>();
-		//DBCollection collection = null;
 		try {			
 			// convert JSON to DBObject directly
 			DBObject bson = ( DBObject ) JSON
@@ -85,19 +85,37 @@ public class PromoTwitter implements InterfacePromo{
 			
 			//ACTUALIZO EL BSON
 			BasicDBObject newDocument = new BasicDBObject();
-			newDocument.append("$set", new BasicDBObject().append("listaProductosPrecios", null));//("listaProductosPrecios", l));
+			newDocument.append("$set", new BasicDBObject().append("listaProductosPrecios", null));
 			BasicDBObject searchQuery = new BasicDBObject().append("listaProductosPrecios", l);
 			collection2.update(searchQuery, newDocument);
 			System.out.println("collection2 update count: "+ collection2.count());
+			//TAGGEO INICIAL
+			this.collection=collection2;
+			TaggearComidas tcI= new TaggearComidas(collection2);
+			this.collection=tcI.taggeoInicial(collection2);
+			System.out.println("collection TAG count: "+ this.collection.count());
+			//IMPRIMO BSON
+			DBCursor cursorDoc5 = tcI.getCollection().find();
+			while (cursorDoc5.hasNext()) {
+				System.out.println(cursorDoc5.next());
+			}
+			
 			//TAGGEO PROMOS DE COMIDAS
+			this.collection=collection2;
 			TaggearComidas tc= new TaggearComidas(collection2);
 			this.collection=tc.taggearComidas();
 			System.out.println("collection TAG count: "+ this.collection.count());
+			//IMPRIMO BSON
+			DBCursor cursorDoc4 = tc.getCollection().find();
+			while (cursorDoc4.hasNext()) {
+				System.out.println(cursorDoc4.next());
+			}
 			//ELIMINO PROMOS DE COMIDAS INCORRECTOS
-			//this.collection=tc.eliminarComidasSinTaggear();
+			TaggearComidas tc2= new TaggearComidas(this.collection);
+			this.collection=tc2.eliminarComidasSinTaggear(this.collection);
 			System.out.println("collection sinTAG count: "+ this.collection.count());
 			//IMPRIMO BSON
-			DBCursor cursorDoc3 = tc.getCollection().find();//collection.find();
+			DBCursor cursorDoc3 = tc.getCollection().find();
 			while (cursorDoc3.hasNext()) {
 				System.out.println(cursorDoc3.next());
 			}
@@ -105,6 +123,7 @@ public class PromoTwitter implements InterfacePromo{
 			e.printStackTrace();
 		}		
 		System.out.println("collectionFINAL 2count: "+ this.collection.count());
+		this.collection=collection2;
 		return  this.collection;
 	}
 	

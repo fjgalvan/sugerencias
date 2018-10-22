@@ -1,33 +1,17 @@
 package iteracion1_CriteriosDeAceptación;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals; 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import java.net.InetSocketAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-
-import org.bson.Document;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import promo.Twitter.PromoTwitter;
-
-import com.mongodb.DB;
 import com.mongodb.DBCollection;
-import com.mongodb.MongoClient;
-import com.mongodb.ServerAddress;
-import com.mongodb.client.MongoCollection;
-
-import dao.mongoDB.MongoUtils;
-import dao.mongoDB.MyConstants;
-import de.bwaldvogel.mongo.MongoServer;
-import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
+import dao.mongoDB.MongoConcreteStub;
 import sugerencias.ConvertirString_a_Sugerencia;
 import sugerencias.SugerenciaTwitter;
 import sugerencias.Sugerencias;
@@ -36,36 +20,27 @@ import validaciones.ValidarTwitter;
 
 public class Us2Test {
 	List<String> listaTweets = new ArrayList<String>();
-	String sFechaValida= "#promo:mcDonalds_sanIsidro_lista(hamburguesa/50.0,helado/40.0)_20-10-2018";
+	String sFechaValida= "#promo:mcDonalds_sanIsidro_lista(hamburguesa/50.0,helado/40.0)_20-12-2018";
 	String sInvalid= "#promos:mcDonalds_sanIsidro_lista(hamburguesa/50.0,papas/40.0)_20-09-2018";
-	String sComidaInvalida= "#promo:mcDonalds_sanIsidro_lista(cerveza/40.0)_20-10-2018";
-	String sComidaValida= "#promo:mcDonalds_sanIsidro_lista(hamburguesa/40.0)_20-10-2018";
+	String sComidaInvalida= "#promo:mcDonalds_sanIsidro_lista(cerveza/40.0)_20-12-2018";
+	String sComidaValida= "#promo:mcDonalds_sanIsidro_lista(hamburguesa/40.0)_20-12-2018";
 	boolean res= false;
 	boolean resDate= false;
 	PromoTwitter pt = null;
-	
-	private MongoClient client;
-    private MongoServer server;
-    private static DB db; 
+
 	private static DBCollection collection;
+	
+	MongoConcreteStub ima;
 
 	@Before
     public void setUp() {
-        server = new MongoServer(new MemoryBackend());
-
-        // bind on a random local port
-        InetSocketAddress serverAddress = server.bind();
-
-        client = new MongoClient(new ServerAddress(serverAddress));
-        //collection = client.getDatabase("testdb").getCollection("testcollection");
-        db = client.getDB(MyConstants.DB_NAME);
-        collection= db.getCollection(MyConstants.DB_NAME);
+		ima= new MongoConcreteStub();
+		ima.init();
     }
 
     @After
     public void tearDown() {
-        client.close();
-        server.shutdown();
+    	ima.finish();
     }
 	
 	
@@ -81,9 +56,6 @@ public class Us2Test {
 		System.out.println("resDate: "+resDate);
 		
 		assertFalse(resDate);
-		
-		try {pt.getCollection().drop();
-		} catch (Exception e) { }
 	}
 	
 	@Test
@@ -98,30 +70,29 @@ public class Us2Test {
 		System.out.println("resDate: "+resDate);
 		
 		assertTrue(resDate);
-		try {pt.getCollection().drop();
-		} catch (Exception e) { }
 	}
 	
+	//Si se obtiene información de comida de cerveza, no se guarda esa promo debido a que no es un tipo de comida a considerar. 
+	//Estas son comidas: chatarras, sanas, pastas y postres
 	@Test
 	public void test3(){
 		System.out.println("test3!");
+		this.collection= ima.leerColeccion();
 		mostrarListProdDeTwitter(sComidaInvalida);
 		cantidadColeecion(sComidaInvalida);
 		
-		//assertEquals(0, cantidadColeecion(sComidaInvalida));
-		try {pt.getCollection().drop();
-		} catch (Exception e) { }
+		assertEquals(0, cantidadColeecion(sComidaInvalida));
 	}
 	
 	@Test
 	public void test4(){
 		System.out.println("test4!");
+		this.collection= ima.leerColeccion();
 		mostrarListProdDeTwitter(sComidaValida);
-//		cantidadColeecion(sComidaValida);
-//		
-//		assertEquals(1, cantidadColeecion(sComidaValida));
-//		try {pt.getCollection().drop();
-//		} catch (Exception e) { }
+		cantidadColeecion(sComidaValida);
+		
+		assertEquals(1, cantidadColeecion(sComidaValida));
+
 	}
 	
 	
@@ -129,9 +100,7 @@ public class Us2Test {
 
 /************AUX***************/	
 	@SuppressWarnings("unused")
-	public void mostrarTweetJSON(String t){
-		try {pt.getCollection().drop();
-		} catch (Exception e) { }
+	public void mostrarTweetJSON(String t){ 
 		ConvertirString_a_Sugerencia cs= new ConvertirString_a_Sugerencia(t);//s
 		cs.convertirLocal();
 		cs.convertirUbicacion();
@@ -147,8 +116,7 @@ public class Us2Test {
 	}
 	
 	public DBCollection mostrarListProdDeTwitter(String s){
-		try {pt.getCollection().drop();
-		} catch (Exception e) { }
+		
 		ArrayList<Sugerencias> l;
 		System.out.println("mostrarListProdDeTwitter !");
 		ValidarTwitter vt = new ValidarTwitter(s);

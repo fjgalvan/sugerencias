@@ -36,7 +36,6 @@ public class ConvertirString_a_Sugerencia {
 		for(int j=7; j<posicion; j++){
 			local= local + twitterString.charAt(j);
 		}
-		//System.out.println(local);
 		this.local= local;
 	}
 	
@@ -61,7 +60,6 @@ public class ConvertirString_a_Sugerencia {
 		for(int k=posicion+1; k<posicion2; k++){
 			ubicacion= ubicacion + twitterString.charAt(k);
 		}
-		//System.out.println(ubicacion);
 		this.ubicacion= ubicacion;
 	}
 	

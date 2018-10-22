@@ -79,7 +79,7 @@ public class PromoExcel implements InterfacePromo{
 			tc.taggearComidas();
 			
 			//ELIMINO PROMOS DE COMIDAS INCORRECTOS
-			tc.eliminarComidasSinTaggear();
+			tc.eliminarComidasSinTaggear(collection);
 			
 			//IMPRIMO BSON
 			DBCursor cursorDoc3 = tc.getCollection().find();//collection.find();

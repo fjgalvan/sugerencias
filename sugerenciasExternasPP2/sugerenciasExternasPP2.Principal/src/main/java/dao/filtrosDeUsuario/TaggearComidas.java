@@ -1,99 +1,136 @@
 package dao.filtrosDeUsuario;
 
-import java.io.FileReader; 
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 
 import properties.Constants;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.mongodb.Mongo;
-
 
 public class TaggearComidas {
 	DBCollection collection;
 	Properties p;
-	
-	
-	public TaggearComidas(DBCollection collection){
-		this.collection= collection;
-		this.p = new Properties();/** Creamos un Objeto de tipo Properties */
-		try { p.load(new FileReader(Constants.ROUTE_COMIDAS_PROPERTIES));
-		} catch (IOException e) { e.printStackTrace();}
+	HashMap<String, Double> lComidasVacia;
+
+	public TaggearComidas(DBCollection collection) {
+		this.collection = collection;
+		this.p = new Properties();
+		/** Creamos un Objeto de tipo Properties */
+		try {
+			p.load(new FileReader(Constants.ROUTE_COMIDAS_PROPERTIES));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	//GETs & SETs
+	// GETs & SETs
 	public DBCollection getCollection() {
-		return collection;}
+		return collection;
+	}
+
 	public void setCollection(DBCollection collection) {
-		this.collection = collection;}
-	
-	//TAGGEAR COMIDAS 
-	public DBCollection taggearComidas(){
+		this.collection = collection;
+	}
+
+	// TAGGEAR COMIDAS
+	public DBCollection taggearComidas() {
 		Enumeration<Object> keys = p.keys();
 		BasicDBObject newDocument = new BasicDBObject();
-		
-		while (keys.hasMoreElements()){
-		   Object key = keys.nextElement();
-		   //System.out.println(key + " = "+ p.get(key));
-		   if(p.get(key).equals("sanas")){//si encuebtro algun tipo de comida sana
-			   newDocument.append("$set", new BasicDBObject().append("lComidas", "sanas"));
-			   BasicDBObject searchQuery = new BasicDBObject().append("producto", key);
-			   collection.update(searchQuery, newDocument);
-		   }
-		   if(p.get(key).equals("chatarras")){//si encuebtro algun tipo de comida sana
-			   newDocument.append("$set", new BasicDBObject().append("lComidas", "chatarras"));
-			   BasicDBObject searchQuery = new BasicDBObject().append("producto", key);
-			   collection.update(searchQuery, newDocument);
-		   }
-		   if(p.get(key).equals("pastas")){//si encuebtro algun tipo de comida sana
-			   newDocument.append("$set", new BasicDBObject().append("lComidas", "pastas"));
-			   BasicDBObject searchQuery = new BasicDBObject().append("producto", key);
-			   collection.update(searchQuery, newDocument);
-		   }
-		   if(p.get(key).equals("postres")){//si encuebtro algun tipo de comida sana
-			   newDocument.append("$set", new BasicDBObject().append("lComidas", "postres"));
-			   BasicDBObject searchQuery = new BasicDBObject().append("producto", key);
-			   collection.update(searchQuery, newDocument);
-		   }
+
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			// System.out.println(key + " = "+ p.get(key));
+			if (p.get(key).equals("sanas")) {// si encuebtro algun tipo de
+												// comida sana
+				newDocument.append("$set",
+						new BasicDBObject().append("lComidas", "sanas"));
+				BasicDBObject searchQuery = new BasicDBObject().append(
+						"producto", key);
+				collection.update(searchQuery, newDocument);
+			}
+			if (p.get(key).equals("chatarras")) {// si encuebtro algun tipo de
+													// comida sana
+				newDocument.append("$set",
+						new BasicDBObject().append("lComidas", "chatarras"));
+				BasicDBObject searchQuery = new BasicDBObject().append(
+						"producto", key);
+				collection.update(searchQuery, newDocument);
+			}
+			if (p.get(key).equals("pastas")) {// si encuebtro algun tipo de
+												// comida sana
+				newDocument.append("$set",
+						new BasicDBObject().append("lComidas", "pastas"));
+				BasicDBObject searchQuery = new BasicDBObject().append(
+						"producto", key);
+				collection.update(searchQuery, newDocument);
+			}
+			if (p.get(key).equals("postres")) {// si encuebtro algun tipo de
+												// comida sana
+				newDocument.append("$set",
+						new BasicDBObject().append("lComidas", "postres"));
+				BasicDBObject searchQuery = new BasicDBObject().append(
+						"producto", key);
+				collection.update(searchQuery, newDocument);
+			}
 		}
 		return collection;
+
+	}
+
+	public DBCollection eliminarComidasSinTaggear(DBCollection collection3) {
+		lComidasVacia = new HashMap<String, Double>();
+		 
+		// IMPRIMO BSON
+		System.out.println("ANTES Imprimo BSON eliminarComidasSinTaggear()!");
+		DBCursor cursorDoc4 = collection3.find();
+		while (cursorDoc4.hasNext()) {
+			System.out.println(cursorDoc4.next());
+		}
 		
+		BasicDBObject searchQueryEliminar = new BasicDBObject().append("lComidas", "vacia");
+		collection3.remove(searchQueryEliminar);
+		
+		
+		// IMPRIMO BSON
+		System.out.println("DESPUES Imprimo BSON eliminarComidasSinTaggear()!");
+		DBCursor cursorDoc5 = collection3.find();
+		while (cursorDoc5.hasNext()) {
+			System.out.println(cursorDoc5.next());
+		}
+		this.collection= collection3;
+		return collection3;
 	}
 	
-	public DBCollection eliminarComidasSinTaggear(){
-		HashMap<String,Double> lComidas = new HashMap<String,Double>();
-//		BasicDBObject newDocument = new BasicDBObject();
-//		newDocument.append("$set", new BasicDBObject().append("lComidas", lComidas));
-		BasicDBObject searchQuery = new BasicDBObject().append("lComidas", lComidas);
+	public DBCollection taggeoInicial(DBCollection collection3){
+		System.out.println("taggeoInicial");
+		BasicDBObjectBuilder whereBuilder2 = BasicDBObjectBuilder.start();
+		whereBuilder2.append("local", "mcDonalds");
+		DBObject where2 = whereBuilder2.get();
+		BasicDBObject update2= new BasicDBObject();
+		update2.append("$set", new BasicDBObject().append("lComidas", "vacia"));
+		collection3.update(where2, update2);
+		this.collection= collection3;
+		return collection3;
 		
-		//collection.find(searchQuery).remove();
-		
-		collection.remove(searchQuery);
-		return collection;
 	}
-	
-	
-	
-	public void mostrarPropertiesDeTipoComidas(){
+	public void mostrarPropertiesDeTipoComidas() {
 		Enumeration<Object> keys = p.keys();
 
-		while (keys.hasMoreElements()){
-		   Object key = keys.nextElement();
-		   System.out.println(key + " = "+ p.get(key));
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			System.out.println(key + " = " + p.get(key));
 		}
 	}
-	
-//	public static void main(String[] args) {
-//		Mongo mongo = new Mongo("localhost", 27017);
-//		DB db = mongo.getDB("yourdb11");
-//		DBCollection collection = db.getCollection("excelPromoJc2SON");
-//		TaggearComidas tc= new TaggearComidas(collection);
-//		
-//		tc.mostrarPropertiesDeTipoComidas();
-//	}
+
 }

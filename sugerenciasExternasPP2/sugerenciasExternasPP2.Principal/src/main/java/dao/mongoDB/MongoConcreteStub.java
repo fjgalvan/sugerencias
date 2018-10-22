@@ -13,17 +13,20 @@ import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 
+import dao.Interfaz.InterfaceMongoAccess;
 import de.bwaldvogel.mongo.MongoServer;
 import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
 
-public class MongoConcreteStub {
+public class MongoConcreteStub implements InterfaceMongoAccess{
 	MongoServer server;
 	InetSocketAddress serverAddress;
 	MongoClient client;
 	DBCollection coll;
 	
+	public MongoConcreteStub(){
+	}
+	
 	@SuppressWarnings("deprecation")
-	@Before
 	public void init(){
 		server = new MongoServer(new MemoryBackend());
 		// bind on a random local port
@@ -35,7 +38,7 @@ public class MongoConcreteStub {
 		// creates the database and collection in memory and inserts the object
 	}
 	
-	@After
+	
 	public void finish(){
 		client.close();
 		server.shutdownNow();
@@ -49,5 +52,20 @@ public class MongoConcreteStub {
 		assertEquals("value", coll.findOne().get("key"));
 
 		
+	}
+
+	@Override
+	public DBCollection leerColeccion() {
+		return coll;
+	}
+
+	@Override
+	public void agregarDocumentoEnColeccion(BasicDBObject doc1) {
+		coll.insert(doc1);
+	}
+
+	@Override
+	public void borrarUnDocumentoDeUnaColeccion(BasicDBObject searchQuery) {
+		coll.remove(searchQuery);
 	}
 }

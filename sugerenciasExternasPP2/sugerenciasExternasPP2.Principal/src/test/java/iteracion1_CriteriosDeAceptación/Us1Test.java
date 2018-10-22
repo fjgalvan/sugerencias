@@ -33,8 +33,6 @@ public class Us1Test {
 		res= vt.twitterStringValido();
 		mostrarTweetJSON(s);
 		assertTrue(res);
-		try {pt.getCollection().drop();
-		} catch (Exception e) { }
 	}
 	
 	@Test
@@ -43,8 +41,6 @@ public class Us1Test {
 		String ej= ExcelParserJSON.ExcelJSONformat();
 		System.out.println(ej);
 		assertFalse(ej.isEmpty());
-		try {pt.getCollection().drop();
-		} catch (Exception e) { }
 	}
 	
 	@Test
@@ -56,8 +52,6 @@ public class Us1Test {
 		System.out.println(res);
 		if(res) mostrarTweetJSON(sInvalid);
 		assertFalse(res);
-		try {pt.getCollection().drop();
-		} catch (Exception e) { }
 	}
 	
 	@Test
@@ -66,8 +60,6 @@ public class Us1Test {
 		boolean l=LeerFicherosExcel.validarExcel(MyConstants.input_excel_invalido);
 		System.out.println(l);
 		assertFalse(l);
-		try {pt.getCollection().drop();
-		} catch (Exception e) { }
 	}
 	
 
