@@ -3,8 +3,7 @@ package modelo;
 import java.util.List;
 
 public class Preferencias { 
-	//Con abstract no se puede hacer un new, si lo hago dinámico no se usa abstract
-	//Se puede usar 2 properties (1_preferenciaComida) (2_codigo_descripciones)
+	//Preferecia 1: "chatarras", 2:"postres", 3:"sanas", 4:"pastas"
 	private Integer codigo;
 	private String descripcion;
 	private List<Producto> productos;

@@ -35,6 +35,7 @@ public class Recomendacion {
 
 	CustomerDto customer;
 	ArrayList<Promocion> lPromciones;
+	ArrayList<Promocion> lRecomendaciones;
 
 	// Recomendaciones para usuarios
 	public Recomendacion(CustomerDto customer) {
@@ -153,11 +154,14 @@ public class Recomendacion {
 				comida1= elemento.getProducto().getNombre();
 				System.out.println("Se encontró la preferencia 1 del usuario dentro de las promociones");
 				System.out.println("comida1: "+ elemento.getProducto().getNombre());
+				lRecomendaciones.add(elemento);
+				
 			}
 			if(elemento.getProducto().getDescripcion().equals(this.customer.getPreferencias2().getDescripcion())){
 				comida2= elemento.getProducto().getNombre();
 				System.out.println("Se encontró la preferencia 2 del usuario dentro de las promociones");
 				System.out.println("comida2: "+elemento.getProducto().getNombre());
+				lRecomendaciones.add(elemento);
 			}
 		}
 		BasicDBObject filtro2 = new BasicDBObject();
@@ -194,4 +198,9 @@ public class Recomendacion {
 		return fb;
 	}
 
+	public ArrayList<Promocion> getlRecomendaciones() {
+		return lRecomendaciones;
+	}
+	
+	
 }
