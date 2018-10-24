@@ -10,26 +10,30 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 
 import dao.Interfaz.InterfaceMongoAccess;
 
 
-public abstract class MongoConcrete implements InterfaceMongoAccess {
+public class MongoConcrete implements InterfaceMongoAccess {
 	
 	MongoClient myClient = null;
 	private static DB db; 
 	private static DBCollection promos;
 	
-	@SuppressWarnings("deprecation")
 	public MongoConcrete(){
+		
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public void conectarseMongoDB() {
 		try {myClient = MongoUtils.getMongoClient();
 		} catch (UnknownHostException e) { e.printStackTrace();}
 		db = myClient.getDB(MyConstants.DB_NAME);
 		promos= db.getCollection(MyConstants.DB_NAME);
 	}
-
-
 	@SuppressWarnings("unused")
 	@Override
 	public DBCollection leerColeccion(){
@@ -104,4 +108,16 @@ public abstract class MongoConcrete implements InterfaceMongoAccess {
 		update3.append("$set", new BasicDBObject().append(claveAagregar, valorAagregar));
 		promos.update(where3, update3);		
 	}
+	
+	public void eliminarTodaLaColeccion(){
+		promos.drop();
+	}
+	public static DBCollection getPromos() {
+		return promos;
+	}
+
+	public static void setPromos(DBCollection promos) {
+		MongoConcrete.promos = promos;
+	}
+	
 }

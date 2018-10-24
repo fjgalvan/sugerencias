@@ -4,7 +4,7 @@ public class MyConstants {
 	  // This database may be not exist on your MongoDB.
 	   /// But it will be automatically created.
 	   // (You do not need to change this field).
-	   public static final String DB_NAME ="PromoDB";  
+	   public static final String DB_NAME ="Promo_DB1";  
 	   public static final String DB_PROMO_COMIDA ="MyPromoComidaDB";
 	   public static final String DB_FOOD ="MyFoodDB";
 	   public static final String DB_FOOD2 ="MyFood2DB";

@@ -1,8 +1,10 @@
-package mvc_observer_controlador_vista;
+package mvc_modelo_observable;
 
 import java.awt.Dimension;   
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,6 +22,7 @@ import java.util.Observable;
 public class Vista extends JFrame implements Observer{
 
     private Modelo modelo= null;
+    private Observable o;
     
     private JButton botonFiltroA, botonFiltroB;  
     private JPanel panel;                   
@@ -41,28 +44,12 @@ public class Vista extends JFrame implements Observer{
         botonFiltroB.setForeground(Color.BLUE);
         botonFiltroB.setBounds(358, 177, 116, 23);
         botonFiltroB.setText("filtrar B");
-        botonFiltroB.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            	modelo.filtroB();
-            	//mostrarPantalla();
-            }
-        });
         
       //Creamos el boton suma
         botonFiltroA = new JButton();
         botonFiltroA.setForeground(Color.RED);
         botonFiltroA.setBounds(198, 177, 116, 23);
-        //Añadimos su texto correspondiente
         botonFiltroA.setText("filtrar A");
-        //Añadimos un listener para los eventos de raton.
-        botonFiltroA.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            	modelo.filtroA();
-            	//mostrarPantalla();
-            }
-        });
         
         lblPreferencias = new JLabel("Preferencias:");
         lblPreferencias.setBounds(10, 64, 103, 23);
@@ -116,9 +103,8 @@ public class Vista extends JFrame implements Observer{
         this.setVisible(true);
         
     }
-  
-    
-    public void update(Observable obs, Object obj) {
+
+	public void update(Observable obs, Object obj) {
     	System.out.println("update");
 		if( obs == this.modelo ){
 			textArea_Recomendaciones.setText(String.valueOf(this.modelo.getValorString()));
@@ -126,5 +112,24 @@ public class Vista extends JFrame implements Observer{
 			textArea_Usuario.setText(String.valueOf(this.modelo.getUsuario()));
 		}
 	}
+    
+    public void addFiltroListeners(ActionListener listenForCalcButton){
+    	botonFiltroA.addActionListener( listenForCalcButton);
+    	botonFiltroB.addActionListener( listenForCalcButton);
+    }
 
+	public JButton getBotonFiltroA() {
+		return botonFiltroA;
+	}
+	public void setBotonFiltroA(JButton botonFiltroA) {
+		this.botonFiltroA = botonFiltroA;
+	}
+	public JButton getBotonFiltroB() {
+		return botonFiltroB;
+	}
+	public void setBotonFiltroB(JButton botonFiltroB) {
+		this.botonFiltroB = botonFiltroB;
+	}
+    
+    
 }

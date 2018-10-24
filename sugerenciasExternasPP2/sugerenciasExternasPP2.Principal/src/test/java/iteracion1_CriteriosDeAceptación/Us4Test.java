@@ -55,7 +55,7 @@ public class Us4Test {
         
         System.out.println("init");
 		f= new FiltrosDeUsuarioAyB();
-		f.mostrarListProdDeTwitter(s);
+		f.mostrarListProdDeTwitter(s, collection);
 		p1 = new Properties();
 		try { p1.load(new FileReader(Constants.ROUTE_PREFERENCIAS_USUARIO_A));
 		} catch (IOException e) { e.printStackTrace();}

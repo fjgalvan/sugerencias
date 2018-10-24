@@ -4,12 +4,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
+import dao.Interfaz.InterfaceMongoAccess;
 import dao.filtrosDeUsuario.FiltrosDeUsuarioAyB;
+import dao.mongoDB.MongoConcrete;
 
 import java.util.Observable;
 
+import promo.Twitter.PromoTwitter;
 import properties.Constants;
 
 
@@ -26,6 +30,7 @@ public class Modelo extends Observable{
     String s= "#promo:mcDonalds_sanIsidro_lista(hamburguesa/50.0,helado/40.0,ensalada/20.0,fideos/30.0)_20-11-2018";
     Properties p1;
 	Properties p2;
+	MongoConcrete m;
     /**
      * Constructora del modelo. Crea un modelo, inicializa variables. Crea la lista de los observadores.
      */
@@ -36,10 +41,22 @@ public class Modelo extends Observable{
     	inicializar();
     }
     
+    public void ConectarMongoDB(){
+    	m= new MongoConcrete();
+    	m.conectarseMongoDB();
+    }
     public void inicializar(){
     	//Inicializamos atributos...
     	f= new FiltrosDeUsuarioAyB();
-    	f.mostrarListProdDeTwitter(s);
+    	//IMPRIMO BSON
+    	System.out.println("inicializar Modelo!");
+    	System.out.println("promos count:"+ m.getPromos().count());
+		DBCursor cursorDoc5 = m.getPromos().find();
+		while (cursorDoc5.hasNext()) {
+			System.out.println(cursorDoc5.next());
+		}
+		System.out.println("FIN inicializar Modelo!");
+    	f.mostrarListProdDeTwitter(s,m.getPromos());
     	p1 = new Properties();
 		try { p1.load(new FileReader(Constants.ROUTE_PREFERENCIAS_USUARIO_A));
 		} catch (IOException e) { e.printStackTrace();}

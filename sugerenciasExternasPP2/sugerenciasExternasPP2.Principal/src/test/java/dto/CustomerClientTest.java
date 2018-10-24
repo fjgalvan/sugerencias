@@ -26,37 +26,37 @@ public class CustomerClientTest {
    *
    * @param args program argument.
    */
-  @Test
-  public void mainTest() {
-    List<CustomerDto> customers = new ArrayList<>();
-    CustomerDto customerOne = new CustomerDto("1", "usuarioA", "chatarras", "postres");
-    CustomerDto customerTwo = new CustomerDto("2", "usuarioB", "sanas", "postres");
-    customers.add(customerOne);
-    customers.add(customerTwo);
-
-    CustomerResource customerResource = new CustomerResource(customers);
-
-    LOGGER.info("All customers:-");
-    List<CustomerDto> allCustomers = customerResource.getAllCustomers();
-    printCustomerDetails(allCustomers);
-
-    LOGGER.info("----------------------------------------------------------");
-
-    LOGGER.info("Deleting customer with id {1}");
-    customerResource.delete(customerOne.getId());
-    allCustomers = customerResource.getAllCustomers();
-    printCustomerDetails(allCustomers);
-
-    LOGGER.info("----------------------------------------------------------");
-
-    LOGGER.info("Adding customer three}");
-    CustomerDto customerThree = new CustomerDto("3", "UsuarioC", "pastas", "postres");
-    customerResource.save(customerThree);
-    allCustomers = customerResource.getAllCustomers();
-    printCustomerDetails(allCustomers);
-  }
-
-  private static void printCustomerDetails(List<CustomerDto> allCustomers) {
-    allCustomers.forEach(customer -> LOGGER.info(customer.getUserName()));
-  }
+//  @Test
+//  public void mainTest() {
+//    List<CustomerDto> customers = new ArrayList<>();
+//    CustomerDto customerOne = new CustomerDto("1", "usuarioA", "chatarras", "postres");
+//    CustomerDto customerTwo = new CustomerDto("2", "usuarioB", "sanas", "postres");
+//    customers.add(customerOne);
+//    customers.add(customerTwo);
+//
+//    CustomerResource customerResource = new CustomerResource(customers);
+//
+//    LOGGER.info("All customers:-");
+//    List<CustomerDto> allCustomers = customerResource.getAllCustomers();
+//    printCustomerDetails(allCustomers);
+//
+//    LOGGER.info("----------------------------------------------------------");
+//
+//    LOGGER.info("Deleting customer with id {1}");
+//    customerResource.delete(customerOne.getId());
+//    allCustomers = customerResource.getAllCustomers();
+//    printCustomerDetails(allCustomers);
+//
+//    LOGGER.info("----------------------------------------------------------");
+//
+//    LOGGER.info("Adding customer three}");
+//    CustomerDto customerThree = new CustomerDto("3", "UsuarioC", "pastas", "postres");
+//    customerResource.save(customerThree);
+//    allCustomers = customerResource.getAllCustomers();
+//    printCustomerDetails(allCustomers);
+//  }
+//
+//  private static void printCustomerDetails(List<CustomerDto> allCustomers) {
+//    allCustomers.forEach(customer -> LOGGER.info(customer.getUserName()));
+//  }
 }

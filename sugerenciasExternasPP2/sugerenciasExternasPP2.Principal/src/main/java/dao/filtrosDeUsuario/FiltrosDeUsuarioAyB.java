@@ -50,7 +50,7 @@ public class FiltrosDeUsuarioAyB {
 	}
 	
 	
-	public DBCollection mostrarListProdDeTwitter(String s){
+	public DBCollection mostrarListProdDeTwitter(String s, DBCollection coll){
 		
 		ArrayList<Sugerencias> l;
 		System.out.println("mostrarListProdDeTwitter !");
@@ -77,7 +77,7 @@ public class FiltrosDeUsuarioAyB {
 			
 			//PARSEO A JSON y A BSON
 			pt= new PromoTwitter();
-			pt.parsear_a_JSON(l, pt.getCollection());
+			pt.parsear_a_JSON(l, coll);//pt.getCollection());
 		}
 		return pt.getCollection();
 	}

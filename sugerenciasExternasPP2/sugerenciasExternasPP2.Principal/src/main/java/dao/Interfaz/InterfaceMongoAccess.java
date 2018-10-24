@@ -4,7 +4,8 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 
 public interface InterfaceMongoAccess {
-
+	public void conectarseMongoDB();
+	
 	public DBCollection leerColeccion();
 	
 	public void agregarDocumentoEnColeccion(BasicDBObject doc1);

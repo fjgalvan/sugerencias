@@ -32,7 +32,7 @@ import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
 
 public class Us3Test {
 
-	String sComidaValida= "#promo:mcDonalds_sanIsidro_lista(hamburguesa/40.0,ensalada/60.0,helado/30.0)_20-10-2018";
+	String sComidaValida= "#promo:mcDonalds_sanIsidro_lista(hamburguesa/40.0,ensalada/60.0,helado/30.0)_20-12-2018";
 	PromoTwitter pt = null;
 	boolean res=false;
 	

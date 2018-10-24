@@ -24,6 +24,7 @@ public class MongoConcreteStub implements InterfaceMongoAccess{
 	DBCollection coll;
 	
 	public MongoConcreteStub(){
+		
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -67,5 +68,11 @@ public class MongoConcreteStub implements InterfaceMongoAccess{
 	@Override
 	public void borrarUnDocumentoDeUnaColeccion(BasicDBObject searchQuery) {
 		coll.remove(searchQuery);
+	}
+
+	@Override
+	public void conectarseMongoDB() {
+		init();
+		
 	}
 }
