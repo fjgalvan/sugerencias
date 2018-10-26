@@ -175,23 +175,6 @@ public class Controlador {
 			if(!c && !po && !s && !pa){//16
 				t.setText("");
 			}
-			
-//			//solo seleciono chatarras
-//			if((v.getChckbx_filtrosChatarras().isSelected()) && (!v.getChckbx_filtrosPostres().isSelected())){
-//        		t.setText(m.getFiltroChatarras());
-//			}
-//			//solo selecciono postres
-//			if((!v.getChckbx_filtrosChatarras().isSelected()) && (v.getChckbx_filtrosPostres().isSelected())){
-//        		v.getTextArea_Recomendaciones().setText(m.getFiltroPostres());
-//			}
-//			//selcciono chatarras y postres
-//			if((v.getChckbx_filtrosChatarras().isSelected()) && (v.getChckbx_filtrosPostres().isSelected())){
-//        		v.getTextArea_Recomendaciones().setText(m.getFiltroChatarras()+"\n"+m.getFiltroPostres()+"\n");
-//			}
-//			//no selecciono ninguna
-//			if((!v.getChckbx_filtrosChatarras().isSelected()) && (!v.getChckbx_filtrosPostres().isSelected())){
-//        		v.getTextArea_Recomendaciones().setText(null);
-//			}
 		}
     	
     }
