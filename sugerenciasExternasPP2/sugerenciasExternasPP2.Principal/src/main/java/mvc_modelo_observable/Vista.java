@@ -1,11 +1,13 @@
 package mvc_modelo_observable;
 
 import java.awt.Dimension;   
+import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,6 +19,8 @@ import mvc_modelo_observable.Modelo;
 import java.awt.Color;
 import java.util.Observer;
 import java.util.Observable;
+
+import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
 public class Vista extends JFrame implements Observer{
@@ -104,9 +108,16 @@ public class Vista extends JFrame implements Observer{
         getContentPane().add(panel);
         
         JLabel lbl_imagen = new JLabel(" ");
-        lbl_imagen.setBounds(10, 164, 103, 56);
-        panel.add(lbl_imagen);
+//        lbl_imagen.setIcon(new ImageIcon("src\\main\\resources\\McDonalds.png"));
+        lbl_imagen.setBounds(10, 164, 103, 59);
         
+      
+        ImageIcon imagen= new ImageIcon("src\\main\\resources\\McDonalds.png");
+        Icon icono= new ImageIcon(imagen.getImage().getScaledInstance(lbl_imagen.getWidth(), lbl_imagen.getHeight(), Image.SCALE_DEFAULT));
+        lbl_imagen.setIcon(icono);
+        this.repaint();
+        
+        panel.add(lbl_imagen);
         
         //Hacemos visible nuestra ventana.
         this.setVisible(true);
