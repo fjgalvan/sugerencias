@@ -90,24 +90,8 @@ public class TaggearComidas {
 
 	public DBCollection eliminarComidasSinTaggear(DBCollection collection3) {
 		lComidasVacia = new HashMap<String, Double>();
-		 
-		// IMPRIMO BSON
-		System.out.println("ANTES Imprimo BSON eliminarComidasSinTaggear()!");
-		DBCursor cursorDoc4 = collection3.find();
-		while (cursorDoc4.hasNext()) {
-			System.out.println(cursorDoc4.next());
-		}
-		
 		BasicDBObject searchQueryEliminar = new BasicDBObject().append("lComidas", "vacia");
 		collection3.remove(searchQueryEliminar);
-		
-		
-		// IMPRIMO BSON
-		System.out.println("DESPUES Imprimo BSON eliminarComidasSinTaggear()!");
-		DBCursor cursorDoc5 = collection3.find();
-		while (cursorDoc5.hasNext()) {
-			System.out.println(cursorDoc5.next());
-		}
 		this.collection= collection3;
 		return collection3;
 	}

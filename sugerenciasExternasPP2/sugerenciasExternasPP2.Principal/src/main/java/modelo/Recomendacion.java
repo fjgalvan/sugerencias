@@ -95,8 +95,8 @@ public class Recomendacion {
 			Iterator<Sugerencias> nombreIterator = lSugerencias.iterator();
 			while (nombreIterator.hasNext()) {
 				Sugerencias elemento = nombreIterator.next();
-				System.out.print(elemento.getProducto() + " / "
-						+ elemento.getPrecio() + "\n");
+//				System.out.print(elemento.getProducto() + " / "
+//						+ elemento.getPrecio() + "\n");
 			}
 
 			// Declaramos el Iterador e imprimimos los Elementos del ArrayList
@@ -105,8 +105,8 @@ public class Recomendacion {
 			Iterator<Promocion> nIterator = lPromciones.iterator();
 			while (nIterator.hasNext()) {
 				Promocion elemento = nIterator.next();
-				System.out.print(elemento.getProducto().getNombre() + " / "
-						+ elemento.getPrecio() + "\n");
+//				System.out.print(elemento.getProducto().getNombre() + " / "
+//						+ elemento.getPrecio() + "\n");
 			}
 
 			// PARSEO A JSON y A BSON
@@ -143,6 +143,7 @@ public class Recomendacion {
 		f2 = null;
 		
 		f4 = null;
+		//System.out.println("pt.getCollection().count(): "+pt.getCollection().count());
 		DBCollection col = pt.getCollection();
 
 		// Declaramos el Iterador e imprimimos los Elementos del ArrayList

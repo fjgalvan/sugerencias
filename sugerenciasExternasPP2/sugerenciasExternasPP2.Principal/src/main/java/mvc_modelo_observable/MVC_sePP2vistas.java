@@ -20,8 +20,10 @@ public class MVC_sePP2vistas {
 
     @SuppressWarnings("unused")
 	public static void main(String args[]){
-    	InterfaceMongoAccess i= new MongoConcrete();
+    	MongoConcrete i= new MongoConcrete();
     	i.conectarseMongoDB();
+    	i.eliminarTodaLaColeccion();
+    	
         //Cargamos modelo
         Modelo m = new Modelo("recomendaciones","preferencias", "usuarios");
         

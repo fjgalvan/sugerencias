@@ -59,11 +59,9 @@ public class PromoTwitter implements InterfacePromo{
 public DBCollection mostrarListProdDeTwitter(String s,DBCollection coll){
 		this.collection=coll;
 		ArrayList<Sugerencias> l;
-		System.out.println("mostrarListProdDeTwitter !");
 		ValidarTwitter vt = new ValidarTwitter(s);
 		ValidarFechaPromo vf= new ValidarFechaPromo(s);
-		System.out.println("vt.twitterStringValido(): "+vt.twitterStringValido());
-		System.out.println("vf.VigenciaPromoValida(): "+vf.VigenciaPromoValida());
+		
 		if((vt.twitterStringValido()) && (vf.VigenciaPromoValida()) ){
 			ConvertirString_a_Sugerencia cs= new ConvertirString_a_Sugerencia(s);//s
 			cs.convertirLocal();
@@ -129,31 +127,18 @@ public DBCollection mostrarListProdDeTwitter(String s,DBCollection coll){
 			TaggearComidas tcI= new TaggearComidas(collection2);
 			this.collection=tcI.taggeoInicial(collection2);
 			System.out.println("collection TAG count: "+ this.collection.count());
-			//IMPRIMO BSON
-//			DBCursor cursorDoc5 = tcI.getCollection().find();
-//			while (cursorDoc5.hasNext()) {
-//				System.out.println(cursorDoc5.next());
-//			}
 			
 			//TAGGEO PROMOS DE COMIDAS
 			this.collection=collection2;
 			TaggearComidas tc= new TaggearComidas(collection2);
 			this.collection=tc.taggearComidas();
 			System.out.println("collection TAG count: "+ this.collection.count());
-			//IMPRIMO BSON
-//			DBCursor cursorDoc4 = tc.getCollection().find();
-//			while (cursorDoc4.hasNext()) {
-//				System.out.println(cursorDoc4.next());
-//			}
+			
 			//ELIMINO PROMOS DE COMIDAS INCORRECTOS
 			TaggearComidas tc2= new TaggearComidas(this.collection);
 			this.collection=tc2.eliminarComidasSinTaggear(this.collection);
 			System.out.println("collection sinTAG count: "+ this.collection.count());
-			//IMPRIMO BSON
-			DBCursor cursorDoc3 = tc.getCollection().find();
-			while (cursorDoc3.hasNext()) {
-				System.out.println(cursorDoc3.next());
-			}
+			
 		} catch (MongoException e) {
 			e.printStackTrace();
 		}		

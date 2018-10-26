@@ -38,11 +38,11 @@ public class MongoConcrete implements InterfaceMongoAccess {
 	@Override
 	public DBCollection leerColeccion(){
 		DBCursor cursor= promos.find();
-		while(cursor.hasNext()){
-			int i=1;
-			System.out.println(cursor.next());
-			i++;
-		}
+//		while(cursor.hasNext()){
+//			int i=1;
+//			System.out.println(cursor.next());
+//			i++;
+//		}
 		return promos;
 	}
 	@Override

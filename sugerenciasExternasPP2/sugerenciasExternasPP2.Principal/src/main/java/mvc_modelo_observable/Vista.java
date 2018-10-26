@@ -21,6 +21,7 @@ import java.util.Observer;
 import java.util.Observable;
 
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
 public class Vista extends JFrame implements Observer{
@@ -36,6 +37,11 @@ public class Vista extends JFrame implements Observer{
     private JTextArea textArea_Usuario;
     private JTextArea textArea_Preferencias;
     private JTextArea textArea_Recomendaciones;
+    private JCheckBox chckbx_filtrosChatarras;
+    private JCheckBox chckbx_filtrosPostres;
+    private JCheckBox chckbx_filtrosSanas;
+    private JCheckBox chckbx_filtrosPastas;
+    private JLabel lblElijaFiltros;
     
     /**
      * Crea la vista, se le asigna un controlador
@@ -70,7 +76,7 @@ public class Vista extends JFrame implements Observer{
         textArea_Usuario.setWrapStyleWord(true);
         
         lblRecomendaciones = new JLabel("Recomendaciones:");
-        lblRecomendaciones.setBounds(10, 122, 103, 23);
+        lblRecomendaciones.setBounds(10, 122, 116, 23);
         textArea_Recomendaciones = new JTextArea();
         textArea_Recomendaciones.setBounds(126, 121, 878, 145);
         textArea_Recomendaciones.setLineWrap(true);
@@ -108,7 +114,6 @@ public class Vista extends JFrame implements Observer{
         getContentPane().add(panel);
         
         JLabel lbl_imagen = new JLabel(" ");
-//        lbl_imagen.setIcon(new ImageIcon("src\\main\\resources\\McDonalds.png"));
         lbl_imagen.setBounds(10, 164, 103, 59);
         
       
@@ -118,6 +123,34 @@ public class Vista extends JFrame implements Observer{
         this.repaint();
         
         panel.add(lbl_imagen);
+        
+        chckbx_filtrosChatarras = new JCheckBox("1_ chatarras");
+        chckbx_filtrosChatarras.setBounds(508, 298, 116, 23);
+        panel.add(chckbx_filtrosChatarras);
+        
+        chckbx_filtrosPostres = new JCheckBox("2_ postres");
+        chckbx_filtrosPostres.setBounds(626, 298, 103, 23);
+        panel.add(chckbx_filtrosPostres);
+        
+        chckbx_filtrosSanas = new JCheckBox("3_ sanas");
+        chckbx_filtrosSanas.setBounds(748, 298, 97, 23);
+        panel.add(chckbx_filtrosSanas);
+        
+        
+        
+        chckbx_filtrosPastas = new JCheckBox("4_ pastas");
+        chckbx_filtrosPastas.setBounds(847, 298, 97, 23);
+        panel.add(chckbx_filtrosPastas);
+        
+        lblElijaFiltros = new JLabel("Elija Filtros:");
+        lblElijaFiltros.setBounds(10, 302, 116, 14);
+        panel.add(lblElijaFiltros);
+        
+//        setLayout(new GridLayout(3, 1));
+//        CheckboxGroup cbg = new CheckboxGroup();
+//        add(new Checkbox("one", cbg, true));
+//        add(new Checkbox("two", cbg, false));
+//        add(new Checkbox("three", cbg, false));
         
         //Hacemos visible nuestra ventana.
         this.setVisible(true);
@@ -136,6 +169,8 @@ public class Vista extends JFrame implements Observer{
     public void addFiltroListeners(ActionListener listenForCalcButton){
     	botonFiltroA.addActionListener( listenForCalcButton);
     	botonFiltroB.addActionListener( listenForCalcButton);
+    	//VER
+    	chckbx_filtrosChatarras.addActionListener(listenForCalcButton);
     }
 
 	public JButton getBotonFiltroA() {
@@ -150,4 +185,33 @@ public class Vista extends JFrame implements Observer{
 	public void setBotonFiltroB(JButton botonFiltroB) {
 		this.botonFiltroB = botonFiltroB;
 	}
+
+	public JCheckBox getChckbx_filtrosChatarras() {
+		return chckbx_filtrosChatarras;
+	}
+
+	public void setChckbx_filtrosChatarras(JCheckBox chckbx_filtrosChatarras) {
+		this.chckbx_filtrosChatarras = chckbx_filtrosChatarras;
+	}
+
+	public JCheckBox getChckbx_filtrosPostres() {
+		return chckbx_filtrosPostres;
+	}
+
+	public JTextArea getTextArea_Recomendaciones() {
+		return textArea_Recomendaciones;
+	}
+
+	public JCheckBox getChckbx_filtrosSanas() {
+		return chckbx_filtrosSanas;
+	}
+
+	public JCheckBox getChckbx_filtrosPastas() {
+		return chckbx_filtrosPastas;
+	}
+
+	public void setTextArea_Recomendaciones(JTextArea textArea_Recomendaciones) {
+		this.textArea_Recomendaciones = textArea_Recomendaciones;
+	}
+	
 }
