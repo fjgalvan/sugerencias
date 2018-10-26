@@ -59,6 +59,7 @@ public class Controlador {
 			 v.getBotonFiltroB().addMouseListener(new MouseAdapter() {
 		            @Override
 		            public void mouseClicked(MouseEvent e) {
+		            	v.getTextArea_Recomendaciones().setText("");
 		            	m.filtroB();
 		            }
 		        });
@@ -66,6 +67,7 @@ public class Controlador {
 			 v.getBotonFiltroA().addMouseListener(new MouseAdapter() {
 		            @Override
 		            public void mouseClicked(MouseEvent e) {
+		            	v.getTextArea_Recomendaciones().setText("");
 		            	m.filtroA();
 		            }
 		        });
