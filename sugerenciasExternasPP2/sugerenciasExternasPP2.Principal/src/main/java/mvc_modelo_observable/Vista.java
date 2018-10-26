@@ -58,7 +58,7 @@ public class Vista extends JFrame implements Observer{
         lblPreferencias = new JLabel("Preferencias:");
         lblPreferencias.setBounds(10, 64, 103, 23);
         textArea_Preferencias = new JTextArea();
-        textArea_Preferencias.setBounds(126, 63, 804, 22);
+        textArea_Preferencias.setBounds(126, 63, 878, 22);
         textArea_Preferencias.setLineWrap(true);
         textArea_Preferencias.setWrapStyleWord(true);
         
@@ -72,7 +72,7 @@ public class Vista extends JFrame implements Observer{
         lblRecomendaciones = new JLabel("Recomendaciones:");
         lblRecomendaciones.setBounds(10, 122, 103, 23);
         textArea_Recomendaciones = new JTextArea();
-        textArea_Recomendaciones.setBounds(126, 121, 804, 145);
+        textArea_Recomendaciones.setBounds(126, 121, 878, 145);
         textArea_Recomendaciones.setLineWrap(true);
         textArea_Recomendaciones.setWrapStyleWord(true);
         
@@ -85,7 +85,7 @@ public class Vista extends JFrame implements Observer{
         //Indicamos a la ventana que se pueda cerrar. (La acción de cerrar)
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Le damos un tamaño por defecto a la ventana.
-        this.setSize(956,409);
+        this.setSize(1030,409);
         //Indicamos su tamaño mínimo, y máximo, ya que no vamos a "bloquearla" y permitiremos que sea redimensionable.
         this.setMinimumSize(new Dimension(100,100));
         this.setMaximumSize(new Dimension(2000,2000));

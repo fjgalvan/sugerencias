@@ -30,9 +30,8 @@ public class Recomendacion {
 	Properties p1;
 	Properties p2;
 	Properties p3;
-	DBObject fa;
-	DBObject fb;
-
+	DBObject f2;
+	DBObject f4;
 	CustomerDto customer;
 	ArrayList<Promocion> lPromciones;
 	ArrayList<Promocion> lRecomendaciones;
@@ -40,6 +39,7 @@ public class Recomendacion {
 	// Recomendaciones para usuarios
 	public Recomendacion(CustomerDto customer) {
 		this.customer = customer;
+		this.lRecomendaciones= new ArrayList<Promocion>();
 	}
 
 	// Recomendaciones en general
@@ -139,30 +139,35 @@ public class Recomendacion {
 		String comida1="";
 		String comida2="";
 		System.out.println("buscarPreferenciasUsuarioConFiltro()");
-		fa = null;
-		DBObject f2 = null;
-		fb = null;
-		DBObject f4 = null;
+		
+		f2 = null;
+		
+		f4 = null;
 		DBCollection col = pt.getCollection();
 
 		// Declaramos el Iterador e imprimimos los Elementos del ArrayList
 		// de Promocion
 		Iterator<Promocion> nIterator = lPromciones.iterator();
+		
 		while (nIterator.hasNext()) {
 			Promocion elemento = nIterator.next();
 			if(elemento.getProducto().getDescripcion().equals(this.customer.getPreferencias().getDescripcion())){
 				comida1= elemento.getProducto().getNombre();
 				System.out.println("Se encontró la preferencia 1 del usuario dentro de las promociones");
 				System.out.println("comida1: "+ elemento.getProducto().getNombre());
-				lRecomendaciones.add(elemento);
+				//lRecomendaciones.add(elemento);
 				
 			}
 			if(elemento.getProducto().getDescripcion().equals(this.customer.getPreferencias2().getDescripcion())){
 				comida2= elemento.getProducto().getNombre();
 				System.out.println("Se encontró la preferencia 2 del usuario dentro de las promociones");
 				System.out.println("comida2: "+elemento.getProducto().getNombre());
-				lRecomendaciones.add(elemento);
+				//lRecomendaciones.add(elemento);
 			}
+			System.out.println("ELEMENTO PROMO: "+ elemento.getNombreLocal()+"-"+elemento.getUbicacion()+"-"+elemento.getProducto().getNombre()
+					+"-"+elemento.getPrecio()+"-"+elemento.getFechaVigencia().getDate());
+			Promocion promo= new Promocion(elemento.getNombreLocal(),elemento.getUbicacion(),elemento.getProducto(), elemento.getPrecio(), elemento.getFechaVigencia());
+			lRecomendaciones.add(promo);
 		}
 		BasicDBObject filtro2 = new BasicDBObject();
 		filtro2.put("producto", comida1);
@@ -190,12 +195,12 @@ public class Recomendacion {
 		return p2;
 	}
 
-	public DBObject getFa() {
-		return fa;
+	public DBObject getF2() {
+		return f2;
 	}
 
-	public DBObject getFb() {
-		return fb;
+	public DBObject getF4() {
+		return f4;
 	}
 
 	public ArrayList<Promocion> getlRecomendaciones() {
