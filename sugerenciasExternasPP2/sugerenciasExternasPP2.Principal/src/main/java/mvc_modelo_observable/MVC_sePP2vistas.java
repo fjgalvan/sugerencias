@@ -1,12 +1,7 @@
 package mvc_modelo_observable;
 
-import dao.Interfaz.InterfaceMongoAccess;
 import dao.mongoDB.MongoConcrete;
 import mvc_modelo_observable.Modelo;
-
-
-
-
 /**
  * Ejemplo patrones de diseño MVC y Observer
  * Realizado por Alfonso Soria Muñoz
@@ -25,17 +20,14 @@ public class MVC_sePP2vistas {
     	i.eliminarTodaLaColeccion();
     	
         //Cargamos modelo
-        Modelo m = new Modelo("recomendaciones","preferencias", "usuarios");
-        
-      
-        //Cargamos vista
-        Vista v = new Vista(m); 
-        
+        Modelo m = new Modelo("recomendaciones","preferencias", "usuarios");    
+//        //Cargamos vista
+//        Vista v = new Vista();        
+//        //Cargamos controlador y le asignamos qué modelo controlar
+//        Controlador c = new Controlador(m, v);     
+      //Cargamos vista
+        Vista2 v2 = new Vista2();        
         //Cargamos controlador y le asignamos qué modelo controlar
-        Controlador c = new Controlador(m, v);
-        
-        System.out.println("m.getValor(): "+m.getValorString());
-        System.out.println("m.getUsuario(): "+m.getUsuario());
-        System.out.println("m.getPreferencias(): "+m.getPreferencias());
+        Controlador c = new Controlador(m, v2);
     }
 }

@@ -15,11 +15,6 @@ public class CustomerDto {
   private final Preferencias preferencias;
   private final Preferencias preferencias2;
 
-  /**
-   * @param id        customer id
-   * @param firstName customer first name
-   * @param lastName  customer last name
-   */
   public CustomerDto(String id, Usuario userName, Preferencias preferencias,Preferencias preferencias2) {
     this.id = id;
     this.userName = userName;

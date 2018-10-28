@@ -18,13 +18,13 @@ import javax.swing.JTextArea;
  */
 public class Controlador {
     Modelo m; //Nuestra lógica del programa
-    Vista v;
+    Vista2 v;
     
     /**
      * Constructora del controlador. Creará un controlador, y se le asignará el modelo correspondiente.
      * @param m 
      */
-    public Controlador(Modelo m, Vista v){
+    public Controlador(Modelo m, Vista2 v){
         //Asignamos un modelo a nuestro controlador.
         this.m = m;
         this.v= v;
@@ -55,22 +55,31 @@ public class Controlador {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			 v.getBotonFiltroB().addMouseListener(new MouseAdapter() {
-		            @Override
-		            public void mouseClicked(MouseEvent e) {
-		            	v.getTextArea_Recomendaciones().setText("");
-		            	m.filtroB();
-		            }
-		        });
-			 
-			 v.getBotonFiltroA().addMouseListener(new MouseAdapter() {
-		            @Override
-		            public void mouseClicked(MouseEvent e) {
-		            	v.getTextArea_Recomendaciones().setText("");
+			v.getBtnFiltrarPreferencia().addMouseListener(new MouseAdapter() {
+				@Override
+	            public void mouseClicked(MouseEvent e) {
+					String Item="";
+					Item = v.getComboBox_eleccionDeUsuario().getSelectedItem().toString();
+					if(Item.equalsIgnoreCase("Usuario A")){
+						v.getTextArea_Recomendaciones().setText("");
 		            	m.filtroA();
-		            }
-		        });
+		            	
+		            	v.getChckbx_filtrosChatarras().setSelected(true);
+		            	v.getChckbx_filtrosPostres().setSelected(true);
+		            	v.getChckbx_filtrosSanas().setSelected(false);
+		            	v.getChckbx_filtrosPastas().setSelected(false);
+					}
+					if(Item.equalsIgnoreCase("Usuario B")){
+						v.getTextArea_Recomendaciones().setText("");
+		            	m.filtroB();
+		            	
+		            	v.getChckbx_filtrosSanas().setSelected(true);
+		            	v.getChckbx_filtrosPostres().setSelected(true);
+		            	v.getChckbx_filtrosChatarras().setSelected(false);
+		            	v.getChckbx_filtrosPastas().setSelected(false);
+					}
+				}
+			});
 			 v.getChckbx_filtrosChatarras().addMouseListener(new MouseAdapter() {
 		            @Override
 		            public void mouseClicked(MouseEvent e) {

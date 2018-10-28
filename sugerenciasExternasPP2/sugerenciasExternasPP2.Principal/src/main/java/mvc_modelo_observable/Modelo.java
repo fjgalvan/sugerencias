@@ -1,19 +1,13 @@
 package mvc_modelo_observable;
 
-import java.io.FileReader;
+import java.io.FileReader; 
 import java.io.IOException;
 import java.util.Properties;
-
 import bo.ProductosBo;
-
-import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
-
 import dao.mongoDB.MongoConcrete;
 import dto.CustomerDto;
-
 import java.util.Observable;
-
 import modelo.Preferencias;
 import modelo.Recomendacion;
 import modelo.Usuario;

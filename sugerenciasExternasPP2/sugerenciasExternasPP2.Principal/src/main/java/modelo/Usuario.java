@@ -1,9 +1,11 @@
 package modelo;
 
+import java.util.ArrayList;
+
 public class Usuario {
 	private String usuario;
 	private String eMail;
-	private String preferencias;
+	private ArrayList<Preferencias> preferencias= new ArrayList<Preferencias>();;
 	
 	public Usuario(String usuario, String eMail) {
 		super();
@@ -32,12 +34,12 @@ public class Usuario {
 	}
 
 
-	public String getPreferencias() {
+	public ArrayList<Preferencias> getPreferencias() {
 		return preferencias;
 	}
 
 
-	public void setPreferencias(String preferencias) {
+	public void setPreferencias(ArrayList<Preferencias> preferencias) {
 		this.preferencias = preferencias;
 	}
 

@@ -3,6 +3,7 @@ package properties;
 public class Constants {
 	public static final String ROUTE_PROPERTIES = "src/main/resources/twitterUserPass.properties";
 	public static final String ROUTE_PRODUCTOS = "src/main/resources/Productos.properties";
+	public static final String ROUTE_USUARIOS = "src/main/resources/Usuarios.properties";
 	public static final String ROUTE_TIPOS_COMIDAS = "src/main/resources/universoTiposDeComidas.properties";
 	public static final String ROUTE_COMIDAS_ACEPTADAS = "src/main/resources/universoComidasAceptadas.properties";
 	public static final String ROUTE_EXCEL_CSV = "src/main/resources/Sugerencias.csv";
