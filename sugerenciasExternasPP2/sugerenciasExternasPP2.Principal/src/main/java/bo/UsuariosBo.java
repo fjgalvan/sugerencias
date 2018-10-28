@@ -106,7 +106,7 @@ public class UsuariosBo {
 			FileOutputStream os = null;	   
 		    
 			try {
-			  os=new FileOutputStream("fichero.prop");	
+			  os=new FileOutputStream(Constants.ROUTE_USUARIOS);//("fichero.prop");	
 			  usuariosProperties.store(os, "Fichero de Propiedades de la Web");
 			} catch(IOException ioe) {ioe.printStackTrace();}
 		}
