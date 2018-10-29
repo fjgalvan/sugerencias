@@ -26,6 +26,8 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class Vista2 extends JFrame implements Observer {
@@ -42,7 +44,13 @@ public class Vista2 extends JFrame implements Observer {
 	private JComboBox comboBox_eleccionDeUsuario;
 	private JLabel label_lineaHorizontal;
 	private JButton btnFiltrarPreferencia;
-
+	private JButton btn_refrescar;
+	private JTextArea textArea_ValidezUsuario;
+	private JTextArea textArea_validezEmail;
+	private JTextField textField_usuario;
+	private JTextField textField_Email;
+	private JButton btnRegistrarse;
+	private JTextArea textArea_registroNuevoUsuario;
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Vista2() {
 
@@ -121,34 +129,30 @@ public class Vista2 extends JFrame implements Observer {
 		lbl_registrarEmail.setBounds(10, 36, 62, 14);
 		panel.add(lbl_registrarEmail);
 		
-		JButton btnRegistrarse = new JButton("Registrarse");
+		btnRegistrarse = new JButton("Registrarse");
 		btnRegistrarse.setForeground(new Color(0, 128, 0));
 		btnRegistrarse.setBounds(123, 67, 116, 23);
 		panel.add(btnRegistrarse);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(123, 6, 344, 22);
-		panel.add(textArea);
-		
-		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setBounds(123, 31, 344, 22);
-		panel.add(textArea_1);
-		
-		JTextArea textArea_ValidezUsuario = new JTextArea();
-		textArea_ValidezUsuario.setBounds(696, 6, 126, 22);
+		textArea_ValidezUsuario = new JTextArea();
+		textArea_ValidezUsuario.setForeground(new Color(0, 128, 0));
+		textArea_ValidezUsuario.setBounds(725, 6, 126, 22);
 		panel.add(textArea_ValidezUsuario);
 		
-		JLabel lbl_ValidezUsuario = new JLabel("Validez Nombre de Usuario:");
-		lbl_ValidezUsuario.setBounds(516, 11, 175, 14);
+		textArea_validezEmail = new JTextArea();
+		textArea_validezEmail.setForeground(new Color(0, 128, 0));
+		textArea_validezEmail.setBounds(725, 31, 126, 22);
+		panel.add(textArea_validezEmail);
+		
+		JLabel lbl_ValidezUsuario = new JLabel("Validez de Formato de  Usuario:");
+		lbl_ValidezUsuario.setBounds(516, 11, 199, 14);
 		panel.add(lbl_ValidezUsuario);
 		
-		JLabel lbl_ValidezEmail = new JLabel("Validez Email de Usuario: ");
-		lbl_ValidezEmail.setBounds(516, 31, 175, 14);
+		JLabel lbl_ValidezEmail = new JLabel("Validez de Formato de Email: ");
+		lbl_ValidezEmail.setBounds(516, 31, 199, 14);
 		panel.add(lbl_ValidezEmail);
 		
-		JTextArea textArea_validezEmail = new JTextArea();
-		textArea_validezEmail.setBounds(696, 31, 126, 22);
-		panel.add(textArea_validezEmail);
+		
 		
 		Component verticalStrut = Box.createVerticalStrut(20);
 		verticalStrut.setBounds(505, 5, -33, 103);
@@ -172,6 +176,25 @@ public class Vista2 extends JFrame implements Observer {
 		btnFiltrarPreferencia.setForeground(new Color(0, 0, 255));
 		btnFiltrarPreferencia.setBounds(517, 127, 156, 23);
 		panel.add(btnFiltrarPreferencia);
+		
+		btn_refrescar = new JButton("Refrescar Filtros");
+		btn_refrescar.setForeground(Color.BLUE);
+		btn_refrescar.setBounds(706, 127, 156, 23);
+		panel.add(btn_refrescar);
+		
+		textField_usuario = new JTextField();
+		textField_usuario.setBounds(123, 8, 344, 20);
+		panel.add(textField_usuario);
+		textField_usuario.setColumns(10);
+		
+		textField_Email = new JTextField();
+		textField_Email.setBounds(123, 33, 344, 20);
+		panel.add(textField_Email);
+		textField_Email.setColumns(10);
+		
+		textArea_registroNuevoUsuario = new JTextArea();
+		textArea_registroNuevoUsuario.setBounds(266, 66, 199, 22);
+		panel.add(textArea_registroNuevoUsuario);
 
 		// Hacemos visible nuestra ventana.
 		this.setVisible(true);
@@ -186,13 +209,24 @@ public class Vista2 extends JFrame implements Observer {
 
 	}
 
-	public void addFiltroListeners(ActionListener listenForCalcButton) {
-		chckbx_filtrosChatarras.addActionListener(listenForCalcButton);
-		btnFiltrarPreferencia.addActionListener(listenForCalcButton);
+	public void addFiltroListeners(ActionListener listen) {
+		chckbx_filtrosChatarras.addActionListener(listen);
+		chckbx_filtrosPostres.addActionListener(listen);
+		chckbx_filtrosSanas.addActionListener(listen);
+		chckbx_filtrosPastas.addActionListener(listen);
+		btnFiltrarPreferencia.addActionListener(listen);
 	}
-
 	
-
+	public void addRegistroListener(ActionListener listen) {
+		textField_usuario.addActionListener(listen);
+		textField_Email.addActionListener(listen);
+		
+	}
+	
+	public void addRegistroNuevoUsuarioListener(ActionListener listen) {
+		btnRegistrarse.addActionListener(listen);
+	}
+	
 	public JCheckBox getChckbx_filtrosChatarras() {
 		return chckbx_filtrosChatarras;
 	}
@@ -228,6 +262,48 @@ public class Vista2 extends JFrame implements Observer {
 	@SuppressWarnings("rawtypes")
 	public JComboBox getComboBox_eleccionDeUsuario() {
 		return comboBox_eleccionDeUsuario;
+	}
+
+	public JButton getBtn_refrescar() {
+		return btn_refrescar;
+	}
+
+
+	public JTextArea getTextArea_ValidezUsuario() {
+		return textArea_ValidezUsuario;
+	}
+
+	public void setTextArea_ValidezUsuario(JTextArea textArea_ValidezUsuario) {
+		this.textArea_ValidezUsuario = textArea_ValidezUsuario;
+	}
+
+	public JTextArea getTextArea_validezEmail() {
+		return textArea_validezEmail;
+	}
+
+	public void setTextArea_validezEmail(JTextArea textArea_validezEmail) {
+		this.textArea_validezEmail = textArea_validezEmail;
+	}
+
+	public JTextField getTextField_usuario() {
+		return textField_usuario;
+	}
+	
+	public JTextField getTextField_Email() {
+		return textField_Email;
+	}
+
+	public JButton getBtnRegistrarse() {
+		return btnRegistrarse;
+	}
+
+	public void setTextArea_registroNuevoUsuario(
+			JTextArea textArea_registroNuevoUsuario) {
+		this.textArea_registroNuevoUsuario = textArea_registroNuevoUsuario;
+	}
+
+	public JTextArea getTextArea_registroNuevoUsuario() {
+		return textArea_registroNuevoUsuario;
 	}
 	
 }

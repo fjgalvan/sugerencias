@@ -20,12 +20,8 @@ public class MVC_sePP2vistas {
     	i.eliminarTodaLaColeccion();
     	
         //Cargamos modelo
-        Modelo m = new Modelo("recomendaciones","usuario", "email");    
-//        //Cargamos vista
-//        Vista v = new Vista();        
-//        //Cargamos controlador y le asignamos qué modelo controlar
-//        Controlador c = new Controlador(m, v);     
-      //Cargamos vista
+        Modelo m = new Modelo("recomendaciones","usuario", "email");   
+        //Cargamos vista
         Vista2 v2 = new Vista2();        
         //Cargamos controlador y le asignamos qué modelo controlar
         Controlador c = new Controlador(m, v2);

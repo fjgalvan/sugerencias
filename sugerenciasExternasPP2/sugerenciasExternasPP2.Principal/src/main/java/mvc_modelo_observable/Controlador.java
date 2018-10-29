@@ -3,12 +3,18 @@ package mvc_modelo_observable;
 
 import mvc_modelo_observable.Modelo;
 
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.awt.event.ActionEvent; 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import javax.swing.JTextArea;
+
+import bo.UsuariosBo;
 
 
 /**
@@ -19,6 +25,10 @@ import javax.swing.JTextArea;
 public class Controlador {
     Modelo m; //Nuestra lógica del programa
     Vista2 v;
+    boolean c;
+    boolean po;
+    boolean s;
+    boolean pa;
     
     /**
      * Constructora del controlador. Creará un controlador, y se le asignará el modelo correspondiente.
@@ -31,6 +41,9 @@ public class Controlador {
         
         m.addObserver(v);
         v.addFiltroListeners(new FiltroListener());
+        v.addRegistroListener(new RegistroNombreUsuarioListener());
+        v.addRegistroListener(new RegistroEmailUsuarioListener());
+        v.addRegistroNuevoUsuarioListener(new RegistroNuevoUsuarioListener());
     }
     
     /**
@@ -68,6 +81,7 @@ public class Controlador {
 		            	v.getChckbx_filtrosPostres().setSelected(true);
 		            	v.getChckbx_filtrosSanas().setSelected(false);
 		            	v.getChckbx_filtrosPastas().setSelected(false);
+		            	
 					}
 					if(Item.equalsIgnoreCase("Usuario B")){
 						v.getTextArea_Recomendaciones().setText("");
@@ -77,9 +91,22 @@ public class Controlador {
 		            	v.getChckbx_filtrosPostres().setSelected(true);
 		            	v.getChckbx_filtrosChatarras().setSelected(false);
 		            	v.getChckbx_filtrosPastas().setSelected(false);
+		            	
 					}
+					
 				}
 			});
+			v.getBtn_refrescar().addMouseListener(new MouseAdapter() {
+				@Override
+	            public void mouseClicked(MouseEvent e) {
+					v.getChckbx_filtrosSanas().setSelected(false);
+	            	v.getChckbx_filtrosPostres().setSelected(false);
+	            	v.getChckbx_filtrosChatarras().setSelected(false);
+	            	v.getChckbx_filtrosPastas().setSelected(false);
+	            	controladorDeCheckbox();
+				}
+			});
+			
 			 v.getChckbx_filtrosChatarras().addMouseListener(new MouseAdapter() {
 		            @Override
 		            public void mouseClicked(MouseEvent e) {
@@ -131,15 +158,15 @@ public class Controlador {
 		            	controladorDeCheckbox();
 		            }
 		        });
+
+			 }
 		}
-		
-		
-		
+    
 		public void controladorDeCheckbox(){
-			boolean c= v.getChckbx_filtrosChatarras().isSelected();
-			boolean po= v.getChckbx_filtrosPostres().isSelected();
-			boolean s= v.getChckbx_filtrosSanas().isSelected();
-			boolean pa= v.getChckbx_filtrosPastas().isSelected(); 
+			c= v.getChckbx_filtrosChatarras().isSelected();
+			po= v.getChckbx_filtrosPostres().isSelected();
+			s= v.getChckbx_filtrosSanas().isSelected();
+			pa= v.getChckbx_filtrosPastas().isSelected(); 
 			JTextArea t= v.getTextArea_Recomendaciones();
 			if(c && po && s && pa){//1
 				t.setText(m.getFiltroChatarras() +"\n"+m.getFiltroPostres()+"\n"+m.getFiltroSanas()+"\n"+m.getFiltroPastas() );
@@ -190,8 +217,62 @@ public class Controlador {
 				t.setText("");
 			}
 		}
-    	
-    }
+		class RegistroNombreUsuarioListener implements ActionListener{
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			String s1= v.getTextField_usuario().getText();
+   			 	System.out.println("v.getTextField_usuario(): "+s1);
+   			 
+   			 	UsuariosBo uBo= new UsuariosBo();
+   			 	if(uBo.caracteresValidosUsuario(s1)){
+   			 		v.getTextArea_ValidezUsuario().setText("Formato OK");
+   			 	}else{
+   			 		v.getTextArea_ValidezUsuario().setText("Formato Incorrecto");
+   			 	}
+
+    		}
+		}
+		
+		class RegistroEmailUsuarioListener implements ActionListener{
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			String s1= v.getTextField_Email().getText();
+   			 	System.out.println("v.getTextField_Email(): "+s1);
+   			 
+   			 	UsuariosBo uBo= new UsuariosBo();
+   			 	if(uBo.validarEmail(s1)){
+   			 		v.getTextArea_validezEmail().setText("Formato OK");
+   			 	}else{
+   			 		v.getTextArea_validezEmail().setText("Formato Incorrecto");
+   			 	}
+
+    		}
+		}
+		
+		class RegistroNuevoUsuarioListener implements ActionListener{
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			v.getBtnRegistrarse().addMouseListener(new MouseAdapter() {
+    				boolean registro= false;
+    				@Override
+    	            public void mouseClicked(MouseEvent e) {
+    					UsuariosBo uBo= new UsuariosBo();
+    					try {
+    						registro=uBo.agregarNuevoUsuario(v.getTextField_usuario().getText(), v.getTextField_Email().getText());
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+    					if(registro){
+    						v.getTextArea_registroNuevoUsuario().setText("Registro OK");
+    					}else{
+    						v.getTextArea_registroNuevoUsuario().setText("El Usuario Ya Existe!!");
+    					}
+    				}
+    			});
+    		}
+		}
+		
+   }
 
    
-}
+

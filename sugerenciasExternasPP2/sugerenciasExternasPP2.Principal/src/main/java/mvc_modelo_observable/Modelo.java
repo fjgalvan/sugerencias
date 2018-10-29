@@ -152,14 +152,7 @@ public class Modelo extends Observable {
 				+ " | " + parts2[3] + " , " + parts2[4] + " , " + parts2[5]
 				+ " | " + parts2[7] + " | " + parts2[8];
 
-		String preferencias2 = c1.getPreferencias().getDescripcion().toString()
-				+ " - " + c1.getPreferencias2().getDescripcion().toString();
-		String usuario2 = "A";
-
-		setModeloFiltros(valor2String, preferencias2, usuario2);
-		System.out.println("valor2String: " + valor2String);
-		System.out.println("preferencias2: " + preferencias2);
-		System.out.println("usuario2: " + usuario2);
+		setModeloFiltros(valor2String, usuario, email);
 	}
 
 	public void filtroB() {
@@ -175,14 +168,7 @@ public class Modelo extends Observable {
 				+ " | " + parts2[3] + " , " + parts2[4] + " , " + parts2[5]
 				+ " | " + parts2[7] + " | " + parts2[8];
 
-		String preferencias2 = c2.getPreferencias().getDescripcion().toString()
-				+ " - " + c2.getPreferencias2().getDescripcion().toString();
-		String usuario2 = "B";
-
-		setModeloFiltros(valor2String, preferencias2, usuario2);
-		System.out.println("valor2String: " + valor2String);
-		System.out.println("preferencias2: " + preferencias2);
-		System.out.println("usuario2: " + usuario2);
+		setModeloFiltros(valor2String, usuario, email);
 	}
 
 	public void filtroChatarras() {
@@ -193,12 +179,7 @@ public class Modelo extends Observable {
 		filtroChatarras = parts[1] + " | " + parts[2] + " | " + parts[3]
 				+ " , " + parts[4] + " , " + parts[5] + " | " + parts[7]
 				+ " | " + parts[8];
-		preferenciasChatarras = c3.getPreferencias().getDescripcion().toString();
-		String usuario2 = "u1";
-		setModeloFiltros(filtroChatarras, preferenciasChatarras, usuario2);
-		System.out.println("valor2String: " + filtroChatarras);
-		System.out.println("preferencias2: " + preferenciasChatarras);
-		System.out.println("usuario2: " + usuario2);
+		setModeloFiltros(filtroChatarras, usuario, email);
 	}
 	
 	public void filtroPostres() {
@@ -208,12 +189,7 @@ public class Modelo extends Observable {
 		filtroPostres = parts[1] + " | " + parts[2] + " | " + parts[3]
 				+ " , " + parts[4] + " , " + parts[5] + " | " + parts[7]
 				+ " | " + parts[8];
-		preferenciasPostres = c4.getPreferencias().getDescripcion().toString();
-		String usuario2 = "u1";
-		setModeloFiltros(filtroPostres, preferenciasPostres, usuario2);
-		System.out.println("valor2String: " + filtroPostres);
-		System.out.println("preferencias2: " + preferenciasPostres);
-		System.out.println("usuario2: " + usuario2);
+		setModeloFiltros(filtroChatarras, usuario, email);
 	}
 	public void filtroSanas() {
 		r5.buscarPreferenciasUsuarioConFiltro();
@@ -222,15 +198,8 @@ public class Modelo extends Observable {
 		filtroSanas = parts[1] + " | " + parts[2] + " | " + parts[3]
 				+ " , " + parts[4] + " , " + parts[5] + " | " + parts[7]
 				+ " | " + parts[8];
-		preferenciasSanas = c5.getPreferencias().getDescripcion().toString();
-		String usuario2 = "us5";
-		setModeloFiltros(filtroSanas, preferenciasSanas, usuario2);
-		System.out.println("valor2String: " + filtroSanas);
-		System.out.println("preferencias2: " + preferenciasSanas);
-		System.out.println("usuario2: " + usuario2);
+		setModeloFiltros(filtroChatarras, usuario, email);
 	}
-
-	
 
 	public void filtroPastas() {
 		r6.buscarPreferenciasUsuarioConFiltro();
@@ -239,12 +208,7 @@ public class Modelo extends Observable {
 		filtroPastas = parts[1] + " | " + parts[2] + " | " + parts[3]
 				+ " , " + parts[4] + " , " + parts[5] + " | " + parts[7]
 				+ " | " + parts[8];
-		preferenciasPastas = c6.getPreferencias().getDescripcion().toString();
-		String usuario2 = "us6";
-		setModeloFiltros(filtroPastas, preferenciasPastas, usuario2);
-		System.out.println("valor2String: " + filtroPastas);
-		System.out.println("preferencias2: " + preferenciasPastas);
-		System.out.println("usuario2: " + usuario2);
+		setModeloFiltros(filtroChatarras, usuario, email);
 	}
 
 	public void setModeloFiltros(String valorString, String u, String e) {
@@ -259,8 +223,6 @@ public class Modelo extends Observable {
 	public String getValorString() {
 		return valorString;
 	}
-
-	
 
 	public String getEmail() {
 		return email;
@@ -297,7 +259,4 @@ public class Modelo extends Observable {
 	public String getFiltroPastas() {
 		return filtroPastas;
 	}
-	
-	
-	
 }

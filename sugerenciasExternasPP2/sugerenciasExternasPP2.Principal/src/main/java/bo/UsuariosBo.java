@@ -98,7 +98,7 @@ public class UsuariosBo {
 		return res;
 	}
 
-	public void agregarNuevoUsuario(String nombreUsuario, String email) throws IOException{
+	public boolean agregarNuevoUsuario(String nombreUsuario, String email) throws IOException{
 		if((!elUsuarioYaExiste(nombreUsuario, email)) 
 			&& (caracteresValidosUsuario(nombreUsuario))
 			&& (validarEmail(email))){
@@ -106,10 +106,12 @@ public class UsuariosBo {
 			FileOutputStream os = null;	   
 		    
 			try {
-			  os=new FileOutputStream(Constants.ROUTE_USUARIOS);//("fichero.prop");	
+			  os=new FileOutputStream(Constants.ROUTE_USUARIOS);
 			  usuariosProperties.store(os, "Fichero de Propiedades de Usuarios!");
-			} catch(IOException ioe) {ioe.printStackTrace();}
+			  return true;
+			} catch(IOException ioe) {ioe.printStackTrace(); return false;}
 		}
+		return false;
 	}
 
 	public Properties getUsuariosProperties() {
