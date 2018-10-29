@@ -31,10 +31,6 @@ import javax.swing.DefaultComboBoxModel;
 public class Vista2 extends JFrame implements Observer {
 	private JPanel panel;
 	private JLabel lblRecomendaciones;
-	private JLabel lblPreferencias;
-	private JLabel lblUsuario;
-	private JTextArea textArea_Usuario;
-	private JTextArea textArea_Preferencias;
 	private JTextArea textArea_Recomendaciones;
 	private JCheckBox chckbx_filtrosChatarras;
 	private JCheckBox chckbx_filtrosPostres;
@@ -50,24 +46,10 @@ public class Vista2 extends JFrame implements Observer {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Vista2() {
 
-		lblPreferencias = new JLabel("Preferencias:");
-		lblPreferencias.setBounds(10, 268, 103, 23);
-		textArea_Preferencias = new JTextArea();
-		textArea_Preferencias.setBounds(123, 267, 878, 22);
-		textArea_Preferencias.setLineWrap(true);
-		textArea_Preferencias.setWrapStyleWord(true);
-
-		lblUsuario = new JLabel("Usuario: ");
-		lblUsuario.setBounds(10, 234, 62, 22);
-		textArea_Usuario = new JTextArea();
-		textArea_Usuario.setBounds(123, 233, 144, 22);
-		textArea_Usuario.setLineWrap(true);
-		textArea_Usuario.setWrapStyleWord(true);
-
 		lblRecomendaciones = new JLabel("Recomendaciones:");
-		lblRecomendaciones.setBounds(10, 341, 116, 23);
+		lblRecomendaciones.setBounds(10, 258, 116, 23);
 		textArea_Recomendaciones = new JTextArea();
-		textArea_Recomendaciones.setBounds(126, 327, 878, 145);
+		textArea_Recomendaciones.setBounds(126, 258, 878, 214);
 		textArea_Recomendaciones.setLineWrap(true);
 		textArea_Recomendaciones.setWrapStyleWord(true);
 
@@ -90,11 +72,6 @@ public class Vista2 extends JFrame implements Observer {
 		panel.setLayout(null);
 
 		panel.add(lblRecomendaciones);
-		panel.add(lblPreferencias);
-		panel.add(lblUsuario);
-
-		panel.add(textArea_Usuario);
-		panel.add(textArea_Preferencias);
 		panel.add(textArea_Recomendaciones);
 
 		// Añadimos el panel a nuestra ventana.
@@ -114,26 +91,26 @@ public class Vista2 extends JFrame implements Observer {
 
 		chckbx_filtrosChatarras = new JCheckBox("1_ chatarras");
 		chckbx_filtrosChatarras.setForeground(new Color(0, 0, 255));
-		chckbx_filtrosChatarras.setBounds(123, 203, 116, 23);
+		chckbx_filtrosChatarras.setBounds(219, 203, 116, 23);
 		panel.add(chckbx_filtrosChatarras);
 
 		chckbx_filtrosPostres = new JCheckBox("2_ postres");
 		chckbx_filtrosPostres.setForeground(new Color(0, 0, 255));
-		chckbx_filtrosPostres.setBounds(280, 203, 103, 23);
+		chckbx_filtrosPostres.setBounds(380, 203, 103, 23);
 		panel.add(chckbx_filtrosPostres);
 
 		chckbx_filtrosSanas = new JCheckBox("3_ sanas");
 		chckbx_filtrosSanas.setForeground(new Color(0, 0, 255));
-		chckbx_filtrosSanas.setBounds(430, 203, 97, 23);
+		chckbx_filtrosSanas.setBounds(528, 203, 97, 23);
 		panel.add(chckbx_filtrosSanas);
 
 		chckbx_filtrosPastas = new JCheckBox("4_ pastas");
 		chckbx_filtrosPastas.setForeground(new Color(0, 0, 255));
-		chckbx_filtrosPastas.setBounds(590, 203, 97, 23);
+		chckbx_filtrosPastas.setBounds(686, 203, 97, 23);
 		panel.add(chckbx_filtrosPastas);
 
-		lblElijaFiltros = new JLabel("Elija Filtros:");
-		lblElijaFiltros.setBounds(10, 207, 116, 14);
+		lblElijaFiltros = new JLabel("Elija Filtros de Preferencias:");
+		lblElijaFiltros.setBounds(10, 207, 186, 14);
 		panel.add(lblElijaFiltros);
 		
 		JLabel lbl_registrarUsuario = new JLabel("Usuario:");
@@ -206,9 +183,6 @@ public class Vista2 extends JFrame implements Observer {
 
 		textArea_Recomendaciones.setText(String.valueOf(((Modelo) obs)
 				.getValorString()));
-		textArea_Preferencias.setText(String.valueOf(((Modelo) obs)
-				.getPreferencias()));
-		textArea_Usuario.setText(String.valueOf(((Modelo) obs).getUsuario()));
 
 	}
 

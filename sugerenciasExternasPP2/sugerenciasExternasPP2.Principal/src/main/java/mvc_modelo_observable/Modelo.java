@@ -23,7 +23,7 @@ import properties.Constants;
 public class Modelo extends Observable {
 	private String valorString;// PARECE QUE SOLO ACEPTA PRIMITIVOS Y NO
 								// DBObject!!
-	private String preferencias;
+	private String email;
 	private String usuario;
 	private CustomerDto c1;
 	private CustomerDto c2;
@@ -55,10 +55,10 @@ public class Modelo extends Observable {
 	 * Constructora del modelo. Crea un modelo, inicializa variables. Crea la
 	 * lista de los observadores.
 	 */
-	public Modelo(String valor, String preferencias, String usuario) {
+	public Modelo(String valor, String nombreUsuario, String emailUsuario) {
 		this.valorString = valor;
-		this.preferencias = preferencias;
-		this.usuario = usuario;
+		this.email = emailUsuario;
+		this.usuario = nombreUsuario;
 		inicializar();
 	}
 
@@ -247,10 +247,10 @@ public class Modelo extends Observable {
 		System.out.println("usuario2: " + usuario2);
 	}
 
-	public void setModeloFiltros(String valorString, String p, String u) {
+	public void setModeloFiltros(String valorString, String u, String e) {
 		this.valorString = valorString;
-		this.preferencias = p;
 		this.usuario = u;
+		this.email = e;
 
 		setChanged();
 		notifyObservers();
@@ -260,8 +260,10 @@ public class Modelo extends Observable {
 		return valorString;
 	}
 
-	public String getPreferencias() {
-		return preferencias;
+	
+
+	public String getEmail() {
+		return email;
 	}
 
 	public String getUsuario() {

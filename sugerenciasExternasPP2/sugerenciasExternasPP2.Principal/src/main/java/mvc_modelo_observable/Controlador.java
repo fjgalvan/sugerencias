@@ -47,9 +47,9 @@ public class Controlador {
         m.filtroB();
     }
     
-    public void filtroU1(){
-        m.filtroChatarras();
-    }
+//    public void filtroU1(){
+//        m.filtroChatarras();
+//    }
     
     class FiltroListener implements ActionListener{
 
@@ -132,6 +132,9 @@ public class Controlador {
 		            }
 		        });
 		}
+		
+		
+		
 		public void controladorDeCheckbox(){
 			boolean c= v.getChckbx_filtrosChatarras().isSelected();
 			boolean po= v.getChckbx_filtrosPostres().isSelected();

@@ -107,7 +107,7 @@ public class UsuariosBo {
 		    
 			try {
 			  os=new FileOutputStream(Constants.ROUTE_USUARIOS);//("fichero.prop");	
-			  usuariosProperties.store(os, "Fichero de Propiedades de la Web");
+			  usuariosProperties.store(os, "Fichero de Propiedades de Usuarios!");
 			} catch(IOException ioe) {ioe.printStackTrace();}
 		}
 	}
@@ -123,8 +123,7 @@ public class UsuariosBo {
 	public static void main(String[] args) throws IOException {
 		UsuariosBo user = new UsuariosBo();
 		
-		 user.getListaDeUsuarios();
-		 user.agregarNuevoUsuario("usuario","usuario@yahoo.com.ar");
+		 user.agregarNuevoUsuario("pablo","pablo@yahoo.com.ar");
 		 user.getListaDeUsuarios();
 	}
 }
