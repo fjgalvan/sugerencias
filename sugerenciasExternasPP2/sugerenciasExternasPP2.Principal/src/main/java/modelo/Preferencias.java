@@ -46,12 +46,4 @@ public class Preferencias {
 		return false;
 
 	}
-	public static void main(String args[]){
-//		String string = "004-034556-123";
-//		String[] parts = string.split("-");
-//		for(int i=0; i<parts.length; i++){
-//			System.out.println(parts[i]);
-//		}
-//		
-	}
 }

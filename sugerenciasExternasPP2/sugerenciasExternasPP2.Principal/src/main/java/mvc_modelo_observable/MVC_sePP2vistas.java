@@ -3,15 +3,7 @@ package mvc_modelo_observable;
 import dao.mongoDB.MongoConcrete; 
 //import dao.mongoDB.MongoConcreteStub;
 import mvc_modelo_observable.Modelo;
-/**
- * Ejemplo patrones de diseño MVC y Observer
- * Realizado por Alfonso Soria Muñoz
- * Para el canal de experimentando y aprendiendo.
- */
-/**
- * Clase Main, desde aqui cargaremos el modelo, la vista y el controlador, y añadiremos observadores sobre el modelo.
- * @author fon
- */
+
 public class MVC_sePP2vistas {
 
     @SuppressWarnings("unused")

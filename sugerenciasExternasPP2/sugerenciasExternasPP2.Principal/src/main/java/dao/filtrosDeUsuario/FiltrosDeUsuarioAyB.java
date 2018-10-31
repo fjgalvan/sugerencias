@@ -39,25 +39,18 @@ public class FiltrosDeUsuarioAyB {
 		p1 = new Properties();
 		try { p1.load(new FileReader(Constants.ROUTE_PREFERENCIAS_USUARIO_A));
 		} catch (IOException e) { e.printStackTrace();}
-		System.out.println("uno="+p1.getProperty("comida1"));
-		System.out.println("uno="+p1.getProperty("comida2"));
 		
 		p2 = new Properties();
 		try { p2.load(new FileReader(Constants.ROUTE_PREFERENCIAS_USUARIO_B));
 		} catch (IOException e) { e.printStackTrace();}
-		System.out.println("dos="+p2.getProperty("comida1"));
-		System.out.println("uno="+p2.getProperty("comida2"));
 	}
 	
 	
 	public DBCollection mostrarListProdDeTwitter(String s, DBCollection coll){
 		
 		ArrayList<Sugerencias> l;
-		System.out.println("mostrarListProdDeTwitter !");
 		ValidarTwitter vt = new ValidarTwitter(s);
 		ValidarFechaPromo vf= new ValidarFechaPromo(s);
-		System.out.println("vt.twitterStringValido(): "+vt.twitterStringValido());
-		System.out.println("vf.VigenciaPromoValida(): "+vf.VigenciaPromoValida());
 		if((vt.twitterStringValido()) && (vf.VigenciaPromoValida()) ){
 			ConvertirString_a_Sugerencia cs= new ConvertirString_a_Sugerencia(s);//s
 			cs.convertirLocal();
@@ -72,18 +65,16 @@ public class FiltrosDeUsuarioAyB {
 			Iterator<Sugerencias> nombreIterator = l.iterator();
 			while(nombreIterator.hasNext()){
 				Sugerencias elemento = nombreIterator.next();
-				System.out.print(elemento.getProducto()+" / "+elemento.getPrecio()+"\n");
 			}
 			
 			//PARSEO A JSON y A BSON
 			pt= new PromoTwitter();
-			pt.parsear_a_JSON(l, coll);//pt.getCollection());
+			pt.parsear_a_JSON(l, coll);
 		}
 		return pt.getCollection();
 	}
 	
 	public boolean buscarPreferenciasUsuarioConFiltro(Properties p, String tipoComida1, String tipoComida2,String comida1, String comida2 ){
-		System.out.println("buscarPreferenciasUsuarioConFiltro()");
 		fa=null;
 		DBObject f2=null;
 		fb=null;

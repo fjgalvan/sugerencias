@@ -38,11 +38,6 @@ public class MongoConcrete implements InterfaceMongoAccess {
 	@Override
 	public DBCollection leerColeccion(){
 		DBCursor cursor= promos.find();
-//		while(cursor.hasNext()){
-//			int i=1;
-//			System.out.println(cursor.next());
-//			i++;
-//		}
 		return promos;
 	}
 	@Override
@@ -53,17 +48,15 @@ public class MongoConcrete implements InterfaceMongoAccess {
 	}
 	@Override
 	public void borrarUnDocumentoDeUnaColeccion(BasicDBObject searchQuery){
-//		BasicDBObject searchQuery = new BasicDBObject().append("lComidas", lComidas);
 		promos.remove(searchQuery);
 	}
 	
 	public void cantidadColeccion(){
 		long rowCount = promos.count();
-		System.out.println(" Document count: "+ rowCount);
 		// List of Collections
 		Set<String> collections = db.getCollectionNames(); 
 	    for(String coll: collections)  {
-	        System.out.println("Collection: "+ coll);
+	        //System.out.println("Collection: "+ coll);
 	    }
 	}
 	

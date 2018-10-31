@@ -50,7 +50,6 @@ public class TaggearComidas {
 
 		while (keys.hasMoreElements()) {
 			Object key = keys.nextElement();
-			// System.out.println(key + " = "+ p.get(key));
 			if (p.get(key).equals("sanas")) {// si encuebtro algun tipo de
 												// comida sana
 				newDocument.append("$set",
@@ -113,7 +112,7 @@ public class TaggearComidas {
 
 		while (keys.hasMoreElements()) {
 			Object key = keys.nextElement();
-			System.out.println(key + " = " + p.get(key));
+			//System.out.println(key + " = " + p.get(key));
 		}
 	}
 

@@ -52,11 +52,6 @@ public static JsonObject getExcelDataAsJsonObject(File excelFile) throws Invalid
     catch(IOException e){
     	
     }
-//    catch (InvalidFormatException | IOException e) {
-//        TestLogUtils.logErrorMessage(
-//                "ExcelUtils -> getExcelDataAsJsonObject() :: Exception thrown constructing XSSFWorkbook from provided excel file.  InvalidFormatException | IOException => "
-//                        + TestLogUtils.convertStackTraceToString(e));
-//    }
 
     for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
 

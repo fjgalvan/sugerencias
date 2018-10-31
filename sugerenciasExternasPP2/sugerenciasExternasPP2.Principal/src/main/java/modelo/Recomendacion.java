@@ -59,12 +59,10 @@ public class Recomendacion {
 
 		ArrayList<Sugerencias> lSugerencias;
 		// Valido formato del Tweet y Fecha de Vencimiento de la promo del Tweet
-		System.out.println("Valido formato del Tweet y Fecha de Vencimiento de la promo del Tweet");
 		ValidarTwitter vt = new ValidarTwitter(s);
 		ValidarFechaPromo vf = new ValidarFechaPromo(s);
 		if ((vt.twitterStringValido()) && (vf.VigenciaPromoValida())) {
 			// Parseo el Tweet a Sugerencia
-			System.out.println("Parseo el Tweet a Sugerencia");
 			ConvertirString_a_Sugerencia cs = new ConvertirString_a_Sugerencia(
 					s);
 			cs.convertirLocal();
@@ -72,12 +70,10 @@ public class Recomendacion {
 			cs.convertirLista();
 			cs.convertirFecha();
 			// Obtengo una lista de Sugerencias
-			System.out.println("Obtengo una lista de Sugerencias");
 			lSugerencias = new ArrayList<Sugerencias>();
 			lSugerencias = cs.getListSugerenciaTwitter();
 
 			// Obtengo una lista de Promociones
-			System.out.println("Obtengo una lista de Promociones");
 			lPromciones = new ArrayList<Promocion>();
 			for (Sugerencias sug : lSugerencias) {
 				System.out.println("entro al for!");
@@ -91,7 +87,6 @@ public class Recomendacion {
 
 			// Declaramos el Iterador e imprimimos los Elementos del ArrayList
 			// de Sugerencias
-			System.out.println("Declaramos el Iterador e imprimimos los Elementos del ArrayList de Sugerencias");
 			Iterator<Sugerencias> nombreIterator = lSugerencias.iterator();
 			while (nombreIterator.hasNext()) {
 				Sugerencias elemento = nombreIterator.next();
@@ -99,14 +94,10 @@ public class Recomendacion {
 //						+ elemento.getPrecio() + "\n");
 			}
 
-			// Declaramos el Iterador e imprimimos los Elementos del ArrayList
-			// de Promocion
-			System.out.println("Declaramos el Iterador e imprimimos los Elementos del ArrayList de Promocion");
+			// Declaramos el Iterador e imprimimos los Elementos del ArrayList de Promocion
 			Iterator<Promocion> nIterator = lPromciones.iterator();
 			while (nIterator.hasNext()) {
 				Promocion elemento = nIterator.next();
-//				System.out.print(elemento.getProducto().getNombre() + " / "
-//						+ elemento.getPrecio() + "\n");
 			}
 
 			// PARSEO A JSON y A BSON
@@ -138,16 +129,11 @@ public class Recomendacion {
 	public boolean buscarPreferenciasUsuarioConFiltro() {
 		String comida1="";
 		String comida2="";
-		System.out.println("buscarPreferenciasUsuarioConFiltro()");
-		
 		f2 = null;
-		
 		f4 = null;
-		//System.out.println("pt.getCollection().count(): "+pt.getCollection().count());
 		DBCollection col = pt.getCollection();
 
-		// Declaramos el Iterador e imprimimos los Elementos del ArrayList
-		// de Promocion
+		// Declaramos el Iterador e imprimimos los Elementos del ArrayList de Promocion
 		Iterator<Promocion> nIterator = lPromciones.iterator();
 		
 		while (nIterator.hasNext()) {

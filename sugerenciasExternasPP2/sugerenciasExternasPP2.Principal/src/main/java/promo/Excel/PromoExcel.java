@@ -99,7 +99,6 @@ public class PromoExcel implements InterfacePromo{
 
 	@Override
 	public DBCollection getPromo() {
-		// TODO Auto-generated method stub
 		return getCollection();
 	}
 
