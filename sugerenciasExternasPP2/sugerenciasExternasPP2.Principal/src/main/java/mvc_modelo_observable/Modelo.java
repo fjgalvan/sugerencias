@@ -38,8 +38,6 @@ public class Modelo extends Observable {
 	Recomendacion r5;
 	Recomendacion r6;
 	String s = "#promo:mcDonalds_sanIsidro_lista(hamburguesa/50.0,helado/40.0,ensalada/20.0,fideos/30.0)_20-11-2018";
-	Properties p1;
-	Properties p2;
 	MongoConcrete m;
 	String filtroEspecial="";
 	String filtroChatarras="";
@@ -69,9 +67,6 @@ public class Modelo extends Observable {
 		pBo.mostrarListaDeProductos();
 		m = new MongoConcrete();
 		m.conectarseMongoDB();
-		// Leo la coleccion de documentos de MongoDB
-		// m.leerColeccion();
-		// m.buscarYmostrarTodosLosDocumentos();
 		System.out.println("Elimino la coleccion!");
 		m.eliminarTodaLaColeccion();
 	}

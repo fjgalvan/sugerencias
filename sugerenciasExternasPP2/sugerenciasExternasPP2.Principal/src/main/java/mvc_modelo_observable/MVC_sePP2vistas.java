@@ -1,6 +1,7 @@
 package mvc_modelo_observable;
 
-import dao.mongoDB.MongoConcrete;
+import dao.mongoDB.MongoConcrete; 
+//import dao.mongoDB.MongoConcreteStub;
 import mvc_modelo_observable.Modelo;
 /**
  * Ejemplo patrones de diseño MVC y Observer
@@ -16,6 +17,7 @@ public class MVC_sePP2vistas {
     @SuppressWarnings("unused")
 	public static void main(String args[]){
     	MongoConcrete i= new MongoConcrete();
+    	//MongoConcreteStub i= new MongoConcreteStub();//error en m.getCollection() del modelo proveniente del MongoConcrete()
     	i.conectarseMongoDB();
     	i.eliminarTodaLaColeccion();
     	

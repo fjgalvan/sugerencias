@@ -20,12 +20,15 @@ import modelo.Usuario;
 public class UsuariosBo {
 	private List<Usuario> listaUsuarios;
 	private Properties usuariosProperties;
+	private Properties usuariosPreferenciasProperties;
 
 	public UsuariosBo() {
 		listaUsuarios = new ArrayList<Usuario>();
 		usuariosProperties = new Properties();
+		usuariosPreferenciasProperties= new Properties();
 		try {
 			usuariosProperties.load(new FileReader(Constants.ROUTE_USUARIOS));
+			usuariosPreferenciasProperties.load(new FileReader(Constants.ROUTE_USUARIOS_PREFERENCIAS));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -103,19 +106,28 @@ public class UsuariosBo {
 			&& (caracteresValidosUsuario(nombreUsuario))
 			&& (validarEmail(email))){
 			usuariosProperties.setProperty(nombreUsuario, email);
+			usuariosPreferenciasProperties.setProperty(nombreUsuario, ",");
 			FileOutputStream os = null;	   
 		    
 			try {
 			  os=new FileOutputStream(Constants.ROUTE_USUARIOS);
 			  usuariosProperties.store(os, "Fichero de Propiedades de Usuarios!");
+			  os=new FileOutputStream(Constants.ROUTE_USUARIOS_PREFERENCIAS);
+			  usuariosPreferenciasProperties.store(os, "Fichero de Preferencias de Usuarios!");
 			  return true;
 			} catch(IOException ioe) {ioe.printStackTrace(); return false;}
+			
+			
 		}
 		return false;
 	}
 
 	public Properties getUsuariosProperties() {
 		return usuariosProperties;
+	}
+	
+	public Properties getUsuariosPreferenciasProperties() {
+		return usuariosPreferenciasProperties;
 	}
 
 	public List<Usuario> getListaUsuarios() {

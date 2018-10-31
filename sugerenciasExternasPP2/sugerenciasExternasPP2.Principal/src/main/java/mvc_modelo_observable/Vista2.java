@@ -51,13 +51,22 @@ public class Vista2 extends JFrame implements Observer {
 	private JTextField textField_Email;
 	private JButton btnRegistrarse;
 	private JTextArea textArea_registroNuevoUsuario;
+	private JLabel lbl_registrarUsuario;
+	private JLabel lbl_registrarEmail;
+	private JLabel lbl_ValidezUsuario;
+	private JLabel lbl_ValidezEmail;
+	private JLabel lblElijaIdioma;
+	private JComboBox comboBox_Idioma;
+	private JButton btnCambiarIdioma;
+	private JButton btn_GuardarPreferencia;
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Vista2() {
 
 		lblRecomendaciones = new JLabel("Recomendaciones:");
-		lblRecomendaciones.setBounds(10, 258, 116, 23);
+		lblRecomendaciones.setBounds(10, 297, 116, 23);
 		textArea_Recomendaciones = new JTextArea();
-		textArea_Recomendaciones.setBounds(126, 258, 878, 214);
+		textArea_Recomendaciones.setBounds(126, 296, 878, 176);
 		textArea_Recomendaciones.setLineWrap(true);
 		textArea_Recomendaciones.setWrapStyleWord(true);
 
@@ -71,7 +80,7 @@ public class Vista2 extends JFrame implements Observer {
 		// Indicamos a la ventana que se pueda cerrar. (La acción de cerrar)
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Le damos un tamaño por defecto a la ventana.
-		this.setSize(1030, 550);
+		this.setSize(1030, 606);
 		// Indicamos su tamaño mínimo, y máximo, ya que no vamos a "bloquearla"
 		// y permitiremos que sea redimensionable.
 		this.setMinimumSize(new Dimension(100, 100));
@@ -99,33 +108,33 @@ public class Vista2 extends JFrame implements Observer {
 
 		chckbx_filtrosChatarras = new JCheckBox("1_ chatarras");
 		chckbx_filtrosChatarras.setForeground(new Color(0, 0, 255));
-		chckbx_filtrosChatarras.setBounds(219, 203, 116, 23);
+		chckbx_filtrosChatarras.setBounds(220, 263, 116, 23);
 		panel.add(chckbx_filtrosChatarras);
 
 		chckbx_filtrosPostres = new JCheckBox("2_ postres");
 		chckbx_filtrosPostres.setForeground(new Color(0, 0, 255));
-		chckbx_filtrosPostres.setBounds(380, 203, 103, 23);
+		chckbx_filtrosPostres.setBounds(383, 263, 103, 23);
 		panel.add(chckbx_filtrosPostres);
 
 		chckbx_filtrosSanas = new JCheckBox("3_ sanas");
 		chckbx_filtrosSanas.setForeground(new Color(0, 0, 255));
-		chckbx_filtrosSanas.setBounds(528, 203, 97, 23);
+		chckbx_filtrosSanas.setBounds(527, 263, 97, 23);
 		panel.add(chckbx_filtrosSanas);
 
 		chckbx_filtrosPastas = new JCheckBox("4_ pastas");
 		chckbx_filtrosPastas.setForeground(new Color(0, 0, 255));
-		chckbx_filtrosPastas.setBounds(686, 203, 97, 23);
+		chckbx_filtrosPastas.setBounds(683, 263, 97, 23);
 		panel.add(chckbx_filtrosPastas);
 
 		lblElijaFiltros = new JLabel("Elija Filtros de Preferencias:");
-		lblElijaFiltros.setBounds(10, 207, 186, 14);
+		lblElijaFiltros.setBounds(10, 272, 186, 14);
 		panel.add(lblElijaFiltros);
 		
-		JLabel lbl_registrarUsuario = new JLabel("Usuario:");
+		lbl_registrarUsuario = new JLabel("Usuario:");
 		lbl_registrarUsuario.setBounds(10, 11, 78, 14);
 		panel.add(lbl_registrarUsuario);
 		
-		JLabel lbl_registrarEmail = new JLabel("Email:");
+		lbl_registrarEmail = new JLabel("Email:");
 		lbl_registrarEmail.setBounds(10, 36, 62, 14);
 		panel.add(lbl_registrarEmail);
 		
@@ -144,11 +153,11 @@ public class Vista2 extends JFrame implements Observer {
 		textArea_validezEmail.setBounds(725, 31, 126, 22);
 		panel.add(textArea_validezEmail);
 		
-		JLabel lbl_ValidezUsuario = new JLabel("Validez de Formato de  Usuario:");
+		lbl_ValidezUsuario = new JLabel("Formato Usuario:");
 		lbl_ValidezUsuario.setBounds(516, 11, 199, 14);
 		panel.add(lbl_ValidezUsuario);
 		
-		JLabel lbl_ValidezEmail = new JLabel("Validez de Formato de Email: ");
+		lbl_ValidezEmail = new JLabel("Formato Email: ");
 		lbl_ValidezEmail.setBounds(516, 31, 199, 14);
 		panel.add(lbl_ValidezEmail);
 		
@@ -159,12 +168,12 @@ public class Vista2 extends JFrame implements Observer {
 		panel.add(verticalStrut);
 		
 		lbl_ElijaUsuario = new JLabel("Elija Usuario con Preferencias: ");
-		lbl_ElijaUsuario.setBounds(10, 131, 186, 14);
+		lbl_ElijaUsuario.setBounds(10, 212, 186, 14);
 		panel.add(lbl_ElijaUsuario);
 		
 		comboBox_eleccionDeUsuario = new JComboBox();
 		comboBox_eleccionDeUsuario.setModel(new DefaultComboBoxModel(new String[] {"Usuario A", "Usuario B"}));
-		comboBox_eleccionDeUsuario.setBounds(236, 128, 241, 20);
+		comboBox_eleccionDeUsuario.setBounds(245, 206, 241, 20);
 		panel.add(comboBox_eleccionDeUsuario);
 		
 		label_lineaHorizontal = new JLabel("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
@@ -174,12 +183,12 @@ public class Vista2 extends JFrame implements Observer {
 		btnFiltrarPreferencia = new JButton("Filtrar Preferencia!");
 		
 		btnFiltrarPreferencia.setForeground(new Color(0, 0, 255));
-		btnFiltrarPreferencia.setBounds(517, 127, 156, 23);
+		btnFiltrarPreferencia.setBounds(516, 203, 156, 23);
 		panel.add(btnFiltrarPreferencia);
 		
 		btn_refrescar = new JButton("Refrescar Filtros");
 		btn_refrescar.setForeground(Color.BLUE);
-		btn_refrescar.setBounds(706, 127, 156, 23);
+		btn_refrescar.setBounds(707, 203, 156, 23);
 		panel.add(btn_refrescar);
 		
 		textField_usuario = new JTextField();
@@ -195,6 +204,29 @@ public class Vista2 extends JFrame implements Observer {
 		textArea_registroNuevoUsuario = new JTextArea();
 		textArea_registroNuevoUsuario.setBounds(266, 66, 199, 22);
 		panel.add(textArea_registroNuevoUsuario);
+		
+		JLabel label_lineaHorizontal2 = new JLabel("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+		label_lineaHorizontal2.setBounds(10, 168, 991, 14);
+		panel.add(label_lineaHorizontal2);
+		
+		lblElijaIdioma = new JLabel("Elija idioma:");
+		lblElijaIdioma.setBounds(10, 124, 103, 14);
+		panel.add(lblElijaIdioma);
+		
+		comboBox_Idioma = new JComboBox();
+		comboBox_Idioma.setModel(new DefaultComboBoxModel(new String[] {"Espanol", "Ingles"}));
+		comboBox_Idioma.setBounds(126, 121, 175, 20);
+		panel.add(comboBox_Idioma);
+		
+		btnCambiarIdioma = new JButton("Cambiar Idioma");
+		btnCambiarIdioma.setForeground(new Color(153, 51, 0));
+		btnCambiarIdioma.setBounds(319, 120, 148, 23);
+		panel.add(btnCambiarIdioma);
+		
+		btn_GuardarPreferencia = new JButton("Guardar Preferencia");
+		btn_GuardarPreferencia.setForeground(new Color(0, 0, 255));
+		btn_GuardarPreferencia.setBounds(791, 485, 213, 23);
+		panel.add(btn_GuardarPreferencia);
 
 		// Hacemos visible nuestra ventana.
 		this.setVisible(true);
@@ -227,6 +259,18 @@ public class Vista2 extends JFrame implements Observer {
 		btnRegistrarse.addActionListener(listen);
 	}
 	
+	public void addCambiarIdiomaListener(ActionListener listen) {
+		btnCambiarIdioma.addActionListener(listen);
+	}
+	
+	public void addGuardarPreferenciasListener(ActionListener listen) {
+		btn_GuardarPreferencia.addActionListener(listen);
+	}
+	
+	public JButton getBtnCambiarIdioma() {
+		return btnCambiarIdioma;
+	}
+
 	public JCheckBox getChckbx_filtrosChatarras() {
 		return chckbx_filtrosChatarras;
 	}
@@ -305,5 +349,46 @@ public class Vista2 extends JFrame implements Observer {
 	public JTextArea getTextArea_registroNuevoUsuario() {
 		return textArea_registroNuevoUsuario;
 	}
+
+	public JLabel getLblRecomendaciones() {
+		return lblRecomendaciones;
+	}
+
+	public JLabel getLblElijaFiltros() {
+		return lblElijaFiltros;
+	}
+
+	public JLabel getLbl_ElijaUsuario() {
+		return lbl_ElijaUsuario;
+	}
+
+	public JLabel getLbl_registrarUsuario() {
+		return lbl_registrarUsuario;
+	}
+
+	public JLabel getLbl_registrarEmail() {
+		return lbl_registrarEmail;
+	}
+
+	public JLabel getLbl_ValidezUsuario() {
+		return lbl_ValidezUsuario;
+	}
+
+	public JLabel getLbl_ValidezEmail() {
+		return lbl_ValidezEmail;
+	}
+
+	public JLabel getLblElijaIdioma() {
+		return lblElijaIdioma;
+	}
+
+	public JComboBox getComboBox_Idioma() {
+		return comboBox_Idioma;
+	}
+
+	public JButton getBtn_GuardarPreferencia() {
+		return btn_GuardarPreferencia;
+	}
+	
 	
 }

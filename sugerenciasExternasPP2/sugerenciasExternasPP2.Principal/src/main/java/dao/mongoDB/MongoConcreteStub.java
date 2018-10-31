@@ -75,4 +75,7 @@ public class MongoConcreteStub implements InterfaceMongoAccess{
 		init();
 		
 	}
+	public void eliminarTodaLaColeccion(){
+		coll.drop();
+	}
 }

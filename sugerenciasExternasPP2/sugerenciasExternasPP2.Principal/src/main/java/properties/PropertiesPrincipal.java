@@ -18,7 +18,7 @@ private Properties propiedades;
 	}
 	
 	public String leerValorDeUnaClave(String clave){
-		System.out.println("valor= "+propiedades.getProperty(clave));
+		//System.out.println("valor= "+propiedades.getProperty(clave));
 		return propiedades.getProperty(clave);
 	}
 	public void leerTodas(){
