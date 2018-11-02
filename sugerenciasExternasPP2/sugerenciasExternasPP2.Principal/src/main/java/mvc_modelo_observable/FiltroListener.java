@@ -132,13 +132,9 @@ public class FiltroListener implements ActionListener{
 
 		 }
 	public void cargarUsuarios() throws FileNotFoundException, IOException{
-		
-		for(int i=2; i<v.getComboBox_eleccionDeUsuario().getItemCount();i++){
-			v.getComboBox_eleccionDeUsuario().removeItemAt(i);
-			System.out.println("v.getComboBox_eleccionDeUsuario().getItemCount(): "+v.getComboBox_eleccionDeUsuario().getItemCount());
-		}
+
 		String aux=""; 
-		
+		v.getComboBox_eleccionDeUsuario().removeAllItems();//VER
 		Properties propiedades = new Properties();
 		propiedades.load(new FileReader(Constants.ROUTE_USUARIOS));
 		Enumeration<Object> keys = propiedades.keys();

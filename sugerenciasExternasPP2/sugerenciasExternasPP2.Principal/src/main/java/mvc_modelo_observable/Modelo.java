@@ -37,7 +37,7 @@ public class Modelo extends Observable {
 	Recomendacion r4;
 	Recomendacion r5;
 	Recomendacion r6;
-	String s = "#promo:mcDonalds_sanIsidro_lista(hamburguesa/50.0,helado/40.0,ensalada/20.0,fideos/30.0)_20-11-2018";
+	String s = "#promo:mcDonalds_sanIsidro_lista(hamburguesa/50.0,helado/40.0,ensalada/20.0,fideos/30.0)_20-12-2018";
 	MongoConcrete m;
 	String filtroEspecial="";
 	String filtroChatarras="";
