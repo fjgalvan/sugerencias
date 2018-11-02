@@ -3,11 +3,17 @@ package mvc_modelo_observable;
 import java.io.FileReader; 
 import java.io.IOException;
 import java.util.Properties;
+
 import bo.ProductosBo;
+
 import com.mongodb.DBObject;
+
 import dao.mongoDB.MongoConcrete;
+import dao.mongoDB.MongoConcreteStub;
 import dto.CustomerDto;
+
 import java.util.Observable;
+
 import modelo.Preferencias;
 import modelo.Recomendacion;
 import modelo.Usuario;
@@ -38,7 +44,8 @@ public class Modelo extends Observable {
 	Recomendacion r5;
 	Recomendacion r6;
 	String s = "#promo:mcDonalds_sanIsidro_lista(hamburguesa/50.0,helado/40.0,ensalada/20.0,fideos/30.0)_20-12-2018";
-	MongoConcrete m;
+	//MongoConcrete m;
+	MongoConcreteStub m;
 	String filtroEspecial="";
 	String filtroChatarras="";
 	String filtroPostres="";
@@ -57,20 +64,28 @@ public class Modelo extends Observable {
 		this.valorString = valor;
 		this.email = emailUsuario;
 		this.usuario = nombreUsuario;
+		ConectarMongoDBStub();
 		inicializar();
 	}
 
-	public void ConectarMongoDB() {
+//	public void ConectarMongoDB() {
+//		// Leo todos los Productos que tengo en ProductosBo
+//		ProductosBo pBo = new ProductosBo();
+//		pBo.getListaDeProductos();
+//		pBo.mostrarListaDeProductos();
+//		m = new MongoConcrete();
+//		m.conectarseMongoDB();
+//		System.out.println("Elimino la coleccion!");
+//		m.eliminarTodaLaColeccion();
+//	}
+	public void ConectarMongoDBStub() {
 		// Leo todos los Productos que tengo en ProductosBo
 		ProductosBo pBo = new ProductosBo();
 		pBo.getListaDeProductos();
 		pBo.mostrarListaDeProductos();
-		m = new MongoConcrete();
+		m = new MongoConcreteStub();
 		m.conectarseMongoDB();
-		System.out.println("Elimino la coleccion!");
-		m.eliminarTodaLaColeccion();
 	}
-
 	@SuppressWarnings("static-access")
 	public void inicializar() {
 		Usuario u = new Usuario("javier", "javier@yahoo.com.ar");
