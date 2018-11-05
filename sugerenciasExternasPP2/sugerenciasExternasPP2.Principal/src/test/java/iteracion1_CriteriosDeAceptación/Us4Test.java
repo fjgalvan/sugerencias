@@ -73,6 +73,8 @@ public class Us4Test {
         server.shutdown();
     }
 	
+    //Si se busca preferencias de usuario A en A9, debe devolver verdadero la elección de comidas “chatarras”
+    //y “postres” y los productos "hamburguesa" y "helado" . 
 	@Test
 	public void test1(){
 		System.out.println("test1!");
@@ -81,7 +83,8 @@ public class Us4Test {
 		assertTrue(res);
 		
 	}
-	
+	//Si se busca preferencias de usuario B en A9, debe devolver verdadero la elección de comidas
+	//“sanas” y “postres” y los productos "ensalada" y "helado"
 	@Test
 	public void test2(){
 		System.out.println("test2!");
@@ -90,7 +93,8 @@ public class Us4Test {
 		assertTrue(res);
 		
 	}
-	
+	//Si se busca comida de tipo pastas para el usuario A, debe devolver vacío
+	//debido a que no es una preferencia de ninguno de los usuarios.
 	@Test
 	public void test3(){
 		System.out.println("test3!");
@@ -98,7 +102,8 @@ public class Us4Test {
 		res= f.buscarPreferenciasUsuarioConFiltro2(p1, "pastas", "fideos");
 		assertFalse(res);
 	}
-	
+	//Si se busca comida de tipo pastas para el usuario B, debe devolver 
+	//vacío debido a que no es una preferencia de ninguno de los usuarios.
 	@Test
 	public void test4(){
 		System.out.println("test4!");

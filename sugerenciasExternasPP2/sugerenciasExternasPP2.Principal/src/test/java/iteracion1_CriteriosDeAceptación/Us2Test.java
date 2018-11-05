@@ -148,14 +148,6 @@ public class Us2Test {
 	}
 	
 	public long cantidadColeecion(String s){
-		
-//		long rowCount = mostrarListProdDeTwitter(s).count();
-//		System.out.println(" Document count: "+ rowCount);
-//		// List of Collections
-//		Set<String> collections = pt.getDb().getCollectionNames(); 
-//	    for(String coll: collections)  {
-//	        System.out.println("Collection: "+ coll);
-//	    }
 		long rowCount= collection.count();
 	    return rowCount;
 	}

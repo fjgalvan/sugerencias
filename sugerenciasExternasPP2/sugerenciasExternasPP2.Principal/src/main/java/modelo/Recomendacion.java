@@ -27,9 +27,6 @@ import dto.CustomerDto;
 
 public class Recomendacion {
 	PromoTwitter pt = null;
-	Properties p1;
-	Properties p2;
-	Properties p3;
 	DBObject f2;
 	DBObject f4;
 	CustomerDto customer;
@@ -81,7 +78,6 @@ public class Recomendacion {
 				Promocion pro = new Promocion(sug.getLocal(),
 						sug.getUbicacion(), producto, sug.getPrecio(),
 						sug.getFechaDeVigencia());
-				//pro.mostrarPromo();
 				lPromciones.add(pro);
 			}
 
@@ -90,8 +86,6 @@ public class Recomendacion {
 			Iterator<Sugerencias> nombreIterator = lSugerencias.iterator();
 			while (nombreIterator.hasNext()) {
 				Sugerencias elemento = nombreIterator.next();
-//				System.out.print(elemento.getProducto() + " / "
-//						+ elemento.getPrecio() + "\n");
 			}
 
 			// Declaramos el Iterador e imprimimos los Elementos del ArrayList de Promocion
@@ -110,7 +104,6 @@ public class Recomendacion {
 
 	// Busco en el listado de todos los productos que menejo
 	private Producto buscarObjetoProducto(String producto) {
-		//System.out.println("buscarObjetoProducto ->"+producto);
 		Producto ObjProducto = null;
 		// Busco el codigo y la descripcion del producto
 		// Leo todos los Productos que tengo en ProductosBo
@@ -142,14 +135,11 @@ public class Recomendacion {
 				comida1= elemento.getProducto().getNombre();
 				System.out.println("Se encontró la preferencia 1 del usuario dentro de las promociones");
 				System.out.println("comida1: "+ elemento.getProducto().getNombre());
-				//lRecomendaciones.add(elemento);
-				
 			}
 			if(elemento.getProducto().getDescripcion().equals(this.customer.getPreferencias2().getDescripcion())){
 				comida2= elemento.getProducto().getNombre();
 				System.out.println("Se encontró la preferencia 2 del usuario dentro de las promociones");
 				System.out.println("comida2: "+elemento.getProducto().getNombre());
-				//lRecomendaciones.add(elemento);
 			}
 			System.out.println("ELEMENTO PROMO: "+ elemento.getNombreLocal()+"-"+elemento.getUbicacion()+"-"+elemento.getProducto().getNombre()
 					+"-"+elemento.getPrecio()+"-"+elemento.getFechaVigencia().getDate());
@@ -172,14 +162,6 @@ public class Recomendacion {
 			return true;
 		}
 		return false;
-	}
-
-	public Properties getP1() {
-		return p1;
-	}
-
-	public Properties getP2() {
-		return p2;
 	}
 
 	public DBObject getF2() {

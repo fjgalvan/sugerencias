@@ -13,12 +13,9 @@ public class FechaActual {
 	}
 	
 	public static void FechaActualMostrar(){
-		System.out.println (date);
-		
 		String dia = Integer.toString(c.get(Calendar.DATE));
 		String mes = Integer.toString(c.get(Calendar.MONTH));
 		String annio = Integer.toString(c.get(Calendar.YEAR));
-		
 		System.out.println(dia +"-"+ mes +"-"+ annio);
 	}
 	
@@ -32,10 +29,5 @@ public class FechaActual {
 	
 	public Integer getAnnioActual(){
 		return c.get(Calendar.YEAR);
-	}
-	
-	public static void main(String[] args) {
-		FechaActual f= new FechaActual();
-		System.out.println(f.getDiaActual() +"-"+ f.getMesActual() +"-"+ f.getAnnioActual());
 	}
 }

@@ -17,8 +17,6 @@ public class ValidarFechaPromo {
 		ConvertirString_a_Sugerencia c= new ConvertirString_a_Sugerencia(this.ts);
 		c.convertirFecha();
 		c.getDate();
-		System.out.println("Fecha promo: "+c.getDate().getDd()+"-"+c.getDate().getMm()+"-"+c.getDate().getAaaa());
-		System.out.println("Fecha actual: "+this.f.getDiaActual()+"-"+this.f.getMesActual()+"-"+this.f.getAnnioActual());
 		
 		if(c.getDate().getAaaa()<this.f.getAnnioActual()){//SI EL AÑO DE LA PROMO ES MENOR AL AÑO ACTUAL
 			System.out.println("promo vencida");
@@ -26,9 +24,7 @@ public class ValidarFechaPromo {
 		}
 		
 		if(c.getDate().getAaaa().equals(this.f.getAnnioActual())){//SI EL AÑO DE LA PROMO ES IGUAL AÑO ACTUAL
-			System.out.println("igual año");
 			if(c.getDate().getMm().equals(this.f.getMesActual())){//SI EL MES DE LA PROMO ES IGUAL AL DEL MES ACTUAL
-				System.out.println("igual mes");
 				if(c.getDate().getDd()>=this.f.getDiaActual()){//SI EL DIA DE LA PROMO ES MAYOY O IGUAL AL DIA ACTUAL
 					System.out.println("promo vigente");
 					vigencia= true;
