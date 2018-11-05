@@ -1,9 +1,6 @@
 package dao.mongoDB;
 
-import static org.junit.Assert.assertEquals; 
-
 import java.net.InetSocketAddress;
-
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -44,11 +41,6 @@ public class MongoConcreteStub implements InterfaceMongoAccess{
 	
 	public void insert(){
 		coll.insert(new BasicDBObject("key", "value"));
-
-		assertEquals(1, coll.count());
-		assertEquals("value", coll.findOne().get("key"));
-
-		
 	}
 
 	@Override
