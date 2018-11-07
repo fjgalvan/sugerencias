@@ -15,4 +15,6 @@ public class MyConstants {
 	   public static final String AccessToken ="AccessToken";
 	   public static final String AccessTokenSecret ="AccessTokenSecret";
 	   public static final String excelRuta ="excelRuta";
+	   public static final String HOST ="localhost";
+	   public static final int PORT =27017;
 }
