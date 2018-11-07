@@ -24,7 +24,7 @@ import properties.Constants;
 import properties.PropertiesPrincipal;
 
 
-public class ConectorTwitterTest {
+public class ConectorTwitterStubTest {
 	PropertiesPrincipal pp= new PropertiesPrincipal(Constants.ROUTE_PROPERTIES);
 	HashMap<String, String> map= new HashMap<String, String>();
 	@Before
