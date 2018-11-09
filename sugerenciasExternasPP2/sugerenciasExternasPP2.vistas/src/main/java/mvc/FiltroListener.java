@@ -1,4 +1,4 @@
-package mvc_modelo_observable;
+package mvc;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import mvc_modelo_observable.Modelo;
 import properties.Constants;
 
 

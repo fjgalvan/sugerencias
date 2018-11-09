@@ -1,4 +1,4 @@
-package mvc_modelo_observable;
+package mvc;
 
 
 import java.awt.Dimension;
