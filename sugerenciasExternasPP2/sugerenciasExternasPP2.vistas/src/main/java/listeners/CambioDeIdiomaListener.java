@@ -1,10 +1,11 @@
-package mvc;
+package listeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import mvc.Vista2;
 import mvc_modelo_observable.Modelo;
 import properties.Constants;
 import properties.PropertiesPrincipal;

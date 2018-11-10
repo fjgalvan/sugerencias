@@ -1,8 +1,9 @@
-package mvc;
+package listeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import mvc.Vista2;
 import bo.UsuariosBo;
 
 public class RegistroEmailUsuarioListener implements ActionListener{

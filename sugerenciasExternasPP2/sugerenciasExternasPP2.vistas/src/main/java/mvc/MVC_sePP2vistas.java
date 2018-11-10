@@ -2,11 +2,7 @@ package mvc;
 
 import dao.mongoDB.MongoConcreteStub;
 import mvc_modelo_observable.Modelo;
-//
-//import dao.mongoDB.MongoConcrete;  
-//import dao.mongoDB.MongoConcreteStub;
-////import dao.mongoDB.MongoConcreteStub;
-//import mvc_modelo_observable.Modelo;
+
 
 public class MVC_sePP2vistas {
 
