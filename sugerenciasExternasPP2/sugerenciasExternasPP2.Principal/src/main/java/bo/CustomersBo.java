@@ -14,7 +14,7 @@ import properties.Constants;
 
 public class CustomersBo {
 	private Properties customersProperties;
-	private List<Customer> listaCustomers;
+	private ArrayList<Customer> listaCustomers;
 	
 	public CustomersBo() {
 		listaCustomers= new ArrayList<Customer>();
@@ -25,7 +25,7 @@ public class CustomersBo {
 			e.printStackTrace();
 		}
 	}
-	public List<Customer> getListaDeCustomers(){
+	public ArrayList<Customer> getListaDeCustomers(){
 		ArrayList<Preferencias> listaPreferencias;
 		Enumeration<Object> keys = customersProperties.keys();
 
@@ -68,6 +68,8 @@ public class CustomersBo {
 	}
 	
 	public void mostrarListaDeCustomers() {
+		System.out.println("------------------------INICIO-----------------------");
+		System.out.println("\nmostrarListaDeCustomers()");
 		for (Customer user : listaCustomers) {
 			System.out.println(user.getId());
 			System.out.println(user.getUserName().getUsuario()); 
@@ -75,5 +77,6 @@ public class CustomersBo {
 			System.out.println(user.getListaPreferencias().get(0).getDescripcion());
 
 		}
+		System.out.println("------------------------FIN-------------------------");
 	}
 }

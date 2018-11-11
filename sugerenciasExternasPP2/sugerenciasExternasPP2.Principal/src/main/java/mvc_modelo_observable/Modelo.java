@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -36,12 +37,12 @@ public class Modelo extends Observable {
 	private Customer c6;
 	private List<Customer> listaCustomers;
 	private CustomersBo cBo; 
-	Recomendacion r;
-	Recomendacion r2;
-	Recomendacion r3;
-	Recomendacion r4;
-	Recomendacion r5;
-	Recomendacion r6;
+	private Recomendacion r;
+	private Recomendacion r2;
+	private Recomendacion r3;
+	private Recomendacion r4;
+	private Recomendacion r5;
+	private Recomendacion r6;
 	String s = "#promo:mcDonalds_sanIsidro_lista(hamburguesa/50.0,helado/40.0,ensalada/20.0,fideos/30.0)_20-12-2018";
 	// MongoConcrete m;
 	MongoConcreteStub m;
@@ -239,16 +240,27 @@ public class Modelo extends Observable {
 	}
 
 	public void cargarRecomendaciones() {//Ahora cargo las recomendaciones para todos los cBo
+		System.out.println("\n##########"+cBo.getListaDeCustomers().size());
+		
 		int contador=1;
+//		Iterator<Customer> nombreIterator = cBo.getListaDeCustomers().iterator();
+//		while(nombreIterator.hasNext()){
+//			Customer user = nombreIterator.next();
+//			
+//		}
 		for (Customer user : cBo.getListaDeCustomers()) {
-			if(contador==1){ r= new Recomendacion(user);cargarUnaRecomendacion(r, user);}
-			if(contador==2){ cargarUnaRecomendacion(r2, user); }
-			if(contador==3){ cargarUnaRecomendacion(r3, user); }
-			if(contador==4){ cargarUnaRecomendacion(r4, user); }
-			if(contador==5){ cargarUnaRecomendacion(r5, user); }
-			if(contador==6){ cargarUnaRecomendacion(r6, user); }
+			if(contador==6){ r= new Recomendacion(user);cargarUnaRecomendacion(r, user);}
+			if(contador==5){ r2= new Recomendacion(user);cargarUnaRecomendacion(r2, user); }
+			if(contador==4){ r3= new Recomendacion(user);cargarUnaRecomendacion(r3, user);}
+			if(contador==3){ r4= new Recomendacion(user);cargarUnaRecomendacion(r4, user);}
+			if(contador==2){ r5= new Recomendacion(user);cargarUnaRecomendacion(r5, user);}
+			if(contador==1){ r6= new Recomendacion(user);cargarUnaRecomendacion(r6, user);}
+			System.out.println(cBo.getListaDeCustomers().get(contador).getId());
 			contador++;
+
 		}
+
+		System.out.println("\n");
 	}
 	
 	public void cargarUnaRecomendacion(Recomendacion reco, Customer user){

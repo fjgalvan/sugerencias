@@ -131,36 +131,27 @@ public class Recomendacion {
 		f2 = null;
 		f4 = null;
 		DBCollection col = pt.getCollection();
+		ArrayList<String> comidas = new ArrayList<String>();
 
 		// Declaramos el Iterador e imprimimos los Elementos del ArrayList de
 		// Promocion
 		Iterator<Promocion> nIterator = lPromciones.iterator();
-
+		
+		System.out.println("c_p1: "+this.customer.getListaPreferencias().get(0).getDescripcion());
+		System.out.println("c_p1: "+this.customer.getListaPreferencias().get(1).getDescripcion());
+		
 		while (nIterator.hasNext()) {
 			Promocion elemento = nIterator.next();
-			// if(elemento.getProducto().getDescripcion().equals(this.customer.getListaPreferencias().get(0).getDescripcion())){
-			// comida1= elemento.getProducto().getNombre();
-			// System.out.println("Se encontró la preferencia 1 del usuario dentro de las promociones");
-			// System.out.println("comida1: "+
-			// elemento.getProducto().getNombre());
-			// }
-			// if(elemento.getProducto().getDescripcion().equals(this.customer.getListaPreferencias().get(1).getDescripcion())){
-			// comida2= elemento.getProducto().getNombre();
-			// System.out.println("Se encontró la preferencia 2 del usuario dentro de las promociones");
-			// System.out.println("comida2: "+elemento.getProducto().getNombre());
-			// }
+			
 			for (int i = 0; i < this.customer.getListaPreferencias().size(); i++) {
-				if (elemento
-						.getProducto()
-						.getDescripcion()
-						.equals(this.customer.getListaPreferencias().get(i)
-								.getDescripcion())) {
-					comida1 = elemento.getProducto().getNombre();
+				if (elemento.getProducto().getDescripcion().equals(this.customer.getListaPreferencias().get(i).getDescripcion())) {
+					comidas.add(elemento.getProducto().getNombre());
 					System.out.println("Se encontró la preferencia nº: " + i);
 					System.out.println("comida: "
 							+ elemento.getProducto().getNombre());
 				}
 			}
+			
 			System.out.println("ELEMENTO PROMO: " + elemento.getNombreLocal()
 					+ "-" + elemento.getUbicacion() + "-"
 					+ elemento.getProducto().getNombre() + "-"
@@ -171,6 +162,10 @@ public class Recomendacion {
 					elemento.getPrecio(), elemento.getFechaVigencia());
 			lRecomendaciones.add(promo);
 		}
+		comida1= comidas.get(0);
+		comida2= comidas.get(1);
+		
+		
 		BasicDBObject filtro2 = new BasicDBObject();
 		filtro2.put("producto", comida1);
 		DBCursor cur2 = col.find(filtro2);
