@@ -66,9 +66,9 @@ public class Modelo extends Observable {
 		this.email = emailUsuario;
 		this.usuario = nombreUsuario;
 		listaPreferencias = new ArrayList<Preferencias>();
+		listaCustomers = new ArrayList<Customer>();
 		ConectarMongoDBStub();
 		inicializar();
-		listaCustomers = new ArrayList<Customer>();
 	}
 
 	// public void ConectarMongoDB() {
@@ -239,11 +239,21 @@ public class Modelo extends Observable {
 	}
 
 	public void cargarRecomendaciones() {//Ahora cargo las recomendaciones para todos los cBo
+		int contador=1;
 		for (Customer user : cBo.getListaDeCustomers()) {
-			Recomendacion reco= new Recomendacion(user);
-			reco.leerPreferencias();
-			reco.mostrarListProdDeTwitter(s, m.getPromos());
-
+			if(contador==1){ cargarUnaRecomendacion(r, user); }
+			if(contador==2){ cargarUnaRecomendacion(r2, user); }
+			if(contador==3){ cargarUnaRecomendacion(r3, user); }
+			if(contador==4){ cargarUnaRecomendacion(r4, user); }
+			if(contador==5){ cargarUnaRecomendacion(r5, user); }
+			if(contador==6){ cargarUnaRecomendacion(r6, user); }
+			contador++;
 		}
+	}
+	
+	public void cargarUnaRecomendacion(Recomendacion r, Customer user){
+		r=new Recomendacion(user);
+		r.leerPreferencias();
+		r.mostrarListProdDeTwitter(s, m.getPromos());
 	}
 }
