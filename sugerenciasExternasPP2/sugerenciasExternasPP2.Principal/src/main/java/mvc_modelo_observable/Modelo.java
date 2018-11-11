@@ -241,7 +241,7 @@ public class Modelo extends Observable {
 	public void cargarRecomendaciones() {//Ahora cargo las recomendaciones para todos los cBo
 		int contador=1;
 		for (Customer user : cBo.getListaDeCustomers()) {
-			if(contador==1){ cargarUnaRecomendacion(r, user); }
+			if(contador==1){ r= new Recomendacion(user);cargarUnaRecomendacion(r, user);}
 			if(contador==2){ cargarUnaRecomendacion(r2, user); }
 			if(contador==3){ cargarUnaRecomendacion(r3, user); }
 			if(contador==4){ cargarUnaRecomendacion(r4, user); }
@@ -251,9 +251,8 @@ public class Modelo extends Observable {
 		}
 	}
 	
-	public void cargarUnaRecomendacion(Recomendacion r, Customer user){
-		r=new Recomendacion(user);
-		r.leerPreferencias();
-		r.mostrarListProdDeTwitter(s, m.getPromos());
+	public void cargarUnaRecomendacion(Recomendacion reco, Customer user){
+		reco.leerPreferencias();
+		reco.mostrarListProdDeTwitter(s, m.getPromos());
 	}
 }
