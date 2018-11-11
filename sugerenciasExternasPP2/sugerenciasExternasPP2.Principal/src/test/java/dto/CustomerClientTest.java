@@ -3,6 +3,8 @@ package dto;
 import java.util.ArrayList; 
 import java.util.List;
 
+import modelo.Customer;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +17,7 @@ import org.slf4j.LoggerFactory;
  * customer details to server.
  * <p>
  * CustomerResource ({@link CustomerResource}) act as server to serve customer information.
- * And The CustomerDto ({@link CustomerDto} is data transfer object to share customer information.
+ * And The CustomerDto ({@link Customer} is data transfer object to share customer information.
  */
 public class CustomerClientTest {
 

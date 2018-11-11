@@ -23,20 +23,18 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.client.MongoCollection;
 
-import dto.CustomerDto;
-
 public class Recomendacion {
 	PromoTwitter pt = null;
 	DBObject f2;
 	DBObject f4;
-	CustomerDto customer;
+	Customer customer;
 	ArrayList<Promocion> lPromciones;
 	ArrayList<Promocion> lRecomendaciones;
 
 	// Recomendaciones para usuarios
-	public Recomendacion(CustomerDto customer) {
+	public Recomendacion(Customer customer) {
 		this.customer = customer;
-		this.lRecomendaciones= new ArrayList<Promocion>();
+		this.lRecomendaciones = new ArrayList<Promocion>();
 	}
 
 	// Recomendaciones en general
@@ -45,13 +43,19 @@ public class Recomendacion {
 	}
 
 	public void leerPreferencias() {// Cada usuario tiene 2 preferencias
-		System.out.println("Preferencia1: "
-				+ this.customer.getPreferencias().getCodigo()+"--desc: "+this.customer.getPreferencias().getDescripcion());
-		System.out.println("Preferencia2: "
-				+ this.customer.getPreferencias2().getCodigo()+"--desc: "+this.customer.getPreferencias2().getDescripcion());
+		
+		// Declaramos el Iterador e imprimimos los Elementos del ArrayList
+		Iterator<Preferencias> nombreIterator = this.customer.getListaPreferencias().iterator();
+		while(nombreIterator.hasNext()){
+			Preferencias elemento = nombreIterator.next();
+			System.out.println("Preferencia: "
+					+ elemento.getCodigo()
+					+ "--desc: "
+					+ elemento.getDescripcion());
+		}
 	}
 
-//	// Guardo las promos de Twitter
+	// // Guardo las promos de Twitter
 	public DBCollection mostrarListProdDeTwitter(String s, DBCollection coll) {
 
 		ArrayList<Sugerencias> lSugerencias;
@@ -88,7 +92,8 @@ public class Recomendacion {
 				Sugerencias elemento = nombreIterator.next();
 			}
 
-			// Declaramos el Iterador e imprimimos los Elementos del ArrayList de Promocion
+			// Declaramos el Iterador e imprimimos los Elementos del ArrayList
+			// de Promocion
 			Iterator<Promocion> nIterator = lPromciones.iterator();
 			while (nIterator.hasNext()) {
 				Promocion elemento = nIterator.next();
@@ -109,10 +114,11 @@ public class Recomendacion {
 		// Leo todos los Productos que tengo en ProductosBo
 		ProductosBo pBo = new ProductosBo();
 		pBo.getListaDeProductos();
-		
-		for (Producto prod: pBo.getListaDeProductos()) {
-		    if (prod.getNombre().equals(producto)) {
-				ObjProducto = new Producto(prod.getCodigo(), prod.getNombre(),prod.getDescripcion());
+
+		for (Producto prod : pBo.getListaDeProductos()) {
+			if (prod.getNombre().equals(producto)) {
+				ObjProducto = new Producto(prod.getCodigo(), prod.getNombre(),
+						prod.getDescripcion());
 			}
 		}
 		ObjProducto.mostrarProducto();
@@ -120,30 +126,49 @@ public class Recomendacion {
 	}
 
 	public boolean buscarPreferenciasUsuarioConFiltro() {
-		String comida1="";
-		String comida2="";
+		String comida1 = "";
+		String comida2 = "";
 		f2 = null;
 		f4 = null;
 		DBCollection col = pt.getCollection();
 
-		// Declaramos el Iterador e imprimimos los Elementos del ArrayList de Promocion
+		// Declaramos el Iterador e imprimimos los Elementos del ArrayList de
+		// Promocion
 		Iterator<Promocion> nIterator = lPromciones.iterator();
-		
+
 		while (nIterator.hasNext()) {
 			Promocion elemento = nIterator.next();
-			if(elemento.getProducto().getDescripcion().equals(this.customer.getPreferencias().getDescripcion())){
-				comida1= elemento.getProducto().getNombre();
-				System.out.println("Se encontró la preferencia 1 del usuario dentro de las promociones");
-				System.out.println("comida1: "+ elemento.getProducto().getNombre());
+			// if(elemento.getProducto().getDescripcion().equals(this.customer.getListaPreferencias().get(0).getDescripcion())){
+			// comida1= elemento.getProducto().getNombre();
+			// System.out.println("Se encontró la preferencia 1 del usuario dentro de las promociones");
+			// System.out.println("comida1: "+
+			// elemento.getProducto().getNombre());
+			// }
+			// if(elemento.getProducto().getDescripcion().equals(this.customer.getListaPreferencias().get(1).getDescripcion())){
+			// comida2= elemento.getProducto().getNombre();
+			// System.out.println("Se encontró la preferencia 2 del usuario dentro de las promociones");
+			// System.out.println("comida2: "+elemento.getProducto().getNombre());
+			// }
+			for (int i = 0; i < this.customer.getListaPreferencias().size(); i++) {
+				if (elemento
+						.getProducto()
+						.getDescripcion()
+						.equals(this.customer.getListaPreferencias().get(i)
+								.getDescripcion())) {
+					comida1 = elemento.getProducto().getNombre();
+					System.out.println("Se encontró la preferencia nº: " + i);
+					System.out.println("comida: "
+							+ elemento.getProducto().getNombre());
+				}
 			}
-			if(elemento.getProducto().getDescripcion().equals(this.customer.getPreferencias2().getDescripcion())){
-				comida2= elemento.getProducto().getNombre();
-				System.out.println("Se encontró la preferencia 2 del usuario dentro de las promociones");
-				System.out.println("comida2: "+elemento.getProducto().getNombre());
-			}
-			System.out.println("ELEMENTO PROMO: "+ elemento.getNombreLocal()+"-"+elemento.getUbicacion()+"-"+elemento.getProducto().getNombre()
-					+"-"+elemento.getPrecio()+"-"+elemento.getFechaVigencia().getDate());
-			Promocion promo= new Promocion(elemento.getNombreLocal(),elemento.getUbicacion(),elemento.getProducto(), elemento.getPrecio(), elemento.getFechaVigencia());
+			System.out.println("ELEMENTO PROMO: " + elemento.getNombreLocal()
+					+ "-" + elemento.getUbicacion() + "-"
+					+ elemento.getProducto().getNombre() + "-"
+					+ elemento.getPrecio() + "-"
+					+ elemento.getFechaVigencia().getDate());
+			Promocion promo = new Promocion(elemento.getNombreLocal(),
+					elemento.getUbicacion(), elemento.getProducto(),
+					elemento.getPrecio(), elemento.getFechaVigencia());
 			lRecomendaciones.add(promo);
 		}
 		BasicDBObject filtro2 = new BasicDBObject();
@@ -158,7 +183,7 @@ public class Recomendacion {
 		while (cur4.hasNext()) {
 			f4 = cur4.next();
 		}
-		if((f2!=null) || (f4!=null)){
+		if ((f2 != null) || (f4 != null)) {
 			return true;
 		}
 		return false;
@@ -175,6 +200,5 @@ public class Recomendacion {
 	public ArrayList<Promocion> getlRecomendaciones() {
 		return lRecomendaciones;
 	}
-	
-	
+
 }
