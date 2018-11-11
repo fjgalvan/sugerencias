@@ -41,11 +41,8 @@ public class TwitterParsers {
 		try {pt.getCollection().drop();
 		} catch (Exception e) { }
 		ArrayList<Sugerencias> l;
-		System.out.println("mostrarListProdDeTwitter !");
 		ValidarTwitter vt = new ValidarTwitter(s);
 		ValidarFechaPromo vf= new ValidarFechaPromo(s);
-		System.out.println("vt.twitterStringValido(): "+vt.twitterStringValido());
-		System.out.println("vf.VigenciaPromoValida(): "+vf.VigenciaPromoValida());
 		if((vt.twitterStringValido()) && (vf.VigenciaPromoValida()) ){
 			ConvertirString_a_Sugerencia cs= new ConvertirString_a_Sugerencia(s);//s
 			cs.convertirLocal();
@@ -60,7 +57,6 @@ public class TwitterParsers {
 			Iterator<Sugerencias> nombreIterator = l.iterator();
 			while(nombreIterator.hasNext()){
 				Sugerencias elemento = nombreIterator.next();
-				System.out.print(elemento.getProducto()+" / "+elemento.getPrecio()+"\n");
 			}
 			
 			//PARSEO A JSON y A BSON
@@ -71,14 +67,7 @@ public class TwitterParsers {
 	}
 	
 	public long cantidadColeecion(String s){
-		
-//		long rowCount = mostrarListProdDeTwitter(s).count();
-//		System.out.println(" Document count: "+ rowCount);
-//		// List of Collections
-//		Set<String> collections = pt.getDb().getCollectionNames(); 
-//	    for(String coll: collections)  {
-//	        System.out.println("Collection: "+ coll);
-//	    }
+
 		long rowCount= collection.count();
 	    return rowCount;
 	}

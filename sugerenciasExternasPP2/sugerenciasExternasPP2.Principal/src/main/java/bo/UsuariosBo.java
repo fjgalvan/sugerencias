@@ -62,7 +62,7 @@ public class UsuariosBo {
 
 		while (keys.hasMoreElements()) {
 			Object key = keys.nextElement();
-			System.out.println(key + " = " + usuariosProperties.get(key));
+			//System.out.println(key + " = " + usuariosProperties.get(key));
 		}
 
 	}

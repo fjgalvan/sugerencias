@@ -131,14 +131,15 @@ public class Recomendacion {
 		f2 = null;
 		f4 = null;
 		DBCollection col = pt.getCollection();
+		System.out.println("collection.size: "+ col.count());
 		ArrayList<String> comidas = new ArrayList<String>();
 
 		// Declaramos el Iterador e imprimimos los Elementos del ArrayList de
 		// Promocion
 		Iterator<Promocion> nIterator = lPromciones.iterator();
 		
-		System.out.println("c_p1: "+this.customer.getListaPreferencias().get(0).getDescripcion());
-		System.out.println("c_p1: "+this.customer.getListaPreferencias().get(1).getDescripcion());
+//		System.out.println("c_p1: "+this.customer.getListaPreferencias().get(0).getDescripcion());
+//		System.out.println("c_p1: "+this.customer.getListaPreferencias().get(1).getDescripcion());
 		
 		while (nIterator.hasNext()) {
 			Promocion elemento = nIterator.next();
@@ -162,8 +163,11 @@ public class Recomendacion {
 					elemento.getPrecio(), elemento.getFechaVigencia());
 			lRecomendaciones.add(promo);
 		}
-		comida1= comidas.get(0);
-		comida2= comidas.get(1);
+		try{
+			comida1= comidas.get(0);
+			comida2= comidas.get(1);
+		}catch (Exception e) {	}
+		
 		
 		
 		BasicDBObject filtro2 = new BasicDBObject();

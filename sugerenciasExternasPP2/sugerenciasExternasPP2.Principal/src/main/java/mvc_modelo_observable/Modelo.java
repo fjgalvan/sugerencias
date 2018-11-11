@@ -69,6 +69,8 @@ public class Modelo extends Observable {
 		listaPreferencias = new ArrayList<Preferencias>();
 		listaCustomers = new ArrayList<Customer>();
 		ConectarMongoDBStub();
+		cargarCustomers();
+		cargarRecomendaciones();
 		inicializar();
 	}
 
@@ -93,8 +95,7 @@ public class Modelo extends Observable {
 
 	@SuppressWarnings("static-access")
 	public void inicializar() {
-		cargarCustomers();
-		cargarRecomendaciones();
+		
 
 		Properties prop1 = new Properties();
 		try {
@@ -161,7 +162,7 @@ public class Modelo extends Observable {
 		filtroPostres = parts[1] + " | " + parts[2] + " | " + parts[3] + " , "
 				+ parts[4] + " , " + parts[5] + " | " + parts[7] + " | "
 				+ parts[8];
-		setModeloFiltros(filtroChatarras, usuario, email);
+		setModeloFiltros(filtroPostres, usuario, email);
 	}
 
 	public void filtroSanas() {
@@ -171,7 +172,7 @@ public class Modelo extends Observable {
 		filtroSanas = parts[1] + " | " + parts[2] + " | " + parts[3] + " , "
 				+ parts[4] + " , " + parts[5] + " | " + parts[7] + " | "
 				+ parts[8];
-		setModeloFiltros(filtroChatarras, usuario, email);
+		setModeloFiltros(filtroSanas, usuario, email);
 	}
 
 	public void filtroPastas() {
@@ -181,7 +182,7 @@ public class Modelo extends Observable {
 		filtroPastas = parts[1] + " | " + parts[2] + " | " + parts[3] + " , "
 				+ parts[4] + " , " + parts[5] + " | " + parts[7] + " | "
 				+ parts[8];
-		setModeloFiltros(filtroChatarras, usuario, email);
+		setModeloFiltros(filtroPastas, usuario, email);
 	}
 
 	public void setModeloFiltros(String valorString, String u, String e) {
@@ -235,35 +236,34 @@ public class Modelo extends Observable {
 
 	public void cargarCustomers() {
 		cBo = new CustomersBo();
-		cBo.getListaDeCustomers();
+		listaCustomers=cBo.getListaDeCustomers();
 		cBo.mostrarListaDeCustomers();
 	}
 
 	public void cargarRecomendaciones() {//Ahora cargo las recomendaciones para todos los cBo
-		System.out.println("\n##########"+cBo.getListaDeCustomers().size());
-		
-		int contador=1;
-//		Iterator<Customer> nombreIterator = cBo.getListaDeCustomers().iterator();
-//		while(nombreIterator.hasNext()){
-//			Customer user = nombreIterator.next();
-//			
-//		}
-		for (Customer user : cBo.getListaDeCustomers()) {
-			if(contador==6){ r= new Recomendacion(user);cargarUnaRecomendacion(r, user);}
-			if(contador==5){ r2= new Recomendacion(user);cargarUnaRecomendacion(r2, user); }
-			if(contador==4){ r3= new Recomendacion(user);cargarUnaRecomendacion(r3, user);}
-			if(contador==3){ r4= new Recomendacion(user);cargarUnaRecomendacion(r4, user);}
-			if(contador==2){ r5= new Recomendacion(user);cargarUnaRecomendacion(r5, user);}
-			if(contador==1){ r6= new Recomendacion(user);cargarUnaRecomendacion(r6, user);}
-			System.out.println(cBo.getListaDeCustomers().get(contador).getId());
-			contador++;
 
-		}
-
-		System.out.println("\n");
+			r= new Recomendacion(cBo.getListaCustomers().get(5));
+			cargarUnaRecomendacion(r, cBo.getListaCustomers().get(5));
+			
+			r2= new Recomendacion(cBo.getListaCustomers().get(4));
+			cargarUnaRecomendacion(r2, cBo.getListaCustomers().get(4));
+			
+			r3= new Recomendacion(cBo.getListaCustomers().get(3));
+			cargarUnaRecomendacion(r3, cBo.getListaCustomers().get(3));
+			
+			r4= new Recomendacion(cBo.getListaCustomers().get(2));
+			cargarUnaRecomendacion(r4, cBo.getListaCustomers().get(2));
+			
+			r5= new Recomendacion(cBo.getListaCustomers().get(1));
+			cargarUnaRecomendacion(r5, cBo.getListaCustomers().get(1));
+			
+			r6= new Recomendacion(cBo.getListaCustomers().get(0));
+			cargarUnaRecomendacion(r6, cBo.getListaCustomers().get(0));
+			
 	}
 	
 	public void cargarUnaRecomendacion(Recomendacion reco, Customer user){
+		System.out.println("\ncustomer recomendacion: "+ user.getUserName().getUsuario());
 		reco.leerPreferencias();
 		reco.mostrarListProdDeTwitter(s, m.getPromos());
 	}

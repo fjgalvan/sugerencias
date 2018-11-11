@@ -83,7 +83,6 @@ public class PromoTwitter implements InterfacePromo {
 			Iterator<Sugerencias> nombreIterator = l.iterator();
 			while (nombreIterator.hasNext()) {
 				Sugerencias elemento = nombreIterator.next();
-				// System.out.print(elemento.getProducto()+" / "+elemento.getPrecio()+"\n");
 			}
 
 			// PARSEO A JSON y A BSON
@@ -99,7 +98,7 @@ public class PromoTwitter implements InterfacePromo {
 			Gson gson = new Gson();
 			String representacionJSON = gson.toJson(listaTweets_promoComida
 					.get(i));
-			System.out.println("\n\n" + representacionJSON);
+			//System.out.println("\n\n" + representacionJSON);
 		}
 
 	}

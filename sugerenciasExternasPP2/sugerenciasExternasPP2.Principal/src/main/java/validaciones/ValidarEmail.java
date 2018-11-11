@@ -17,7 +17,7 @@ public class ValidarEmail {
 				.compile("^([0-9a-zA-Z]([_.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+([a-zA-Z]{2,9}.)+[a-zA-Z]{2,3})$");
 		mat = pat.matcher(correo);
 		if (mat.find()) {
-			System.out.println("[" + mat.group() + "]");
+			//System.out.println("[" + mat.group() + "]");
 			return true;
 		} else {
 			return false;
@@ -27,9 +27,9 @@ public class ValidarEmail {
 	public void validator() {
 		String correo = "javier@gmail.com";
 		if (isEmail(correo)) {
-			System.out.println("Mail correcto");
+			//System.out.println("Mail correcto");
 		} else {
-			System.out.println("Mail incorrecto");
+			//System.out.println("Mail incorrecto");
 		}
 	}
 
