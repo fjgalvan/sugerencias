@@ -17,4 +17,5 @@ public class Constants {
 	public static final String ROUTE_PREFERENCIAS_USUARIO_B = "src/main/resources/preferenciasUsuarioB.properties";
 	public static final String ROUTE_ESPANOL = "src/main/resources/espanol.properties";
 	public static final String ROUTE_INGLES = "src/main/resources/ingles.properties";
+	public static final String ROUTE_PROPConexion = "src/main/resources/conexionExterna.properties";
 }

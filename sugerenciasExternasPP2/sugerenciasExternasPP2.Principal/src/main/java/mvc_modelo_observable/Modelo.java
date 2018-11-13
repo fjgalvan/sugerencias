@@ -1,19 +1,14 @@
 package mvc_modelo_observable;
 
-import java.io.FileReader;
+import java.io.FileReader; 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Properties;
 
 import bo.CustomersBo;
 import bo.ProductosBo;
 
 import com.mongodb.DBObject;
-
-import dao.mongoDB.MongoConcrete;
 import dao.mongoDB.MongoConcreteStub;
 
 import java.util.Observable;
@@ -21,7 +16,6 @@ import java.util.Observable;
 import modelo.Customer;
 import modelo.Preferencias;
 import modelo.Recomendacion;
-import modelo.Usuario;
 import properties.Constants;
 
 
@@ -29,13 +23,6 @@ public class Modelo extends Observable {
 	private String valorString;
 	private String email;
 	private String usuario;
-	private Customer c1;
-	private Customer c2;
-	private Customer c3;
-	private Customer c4;
-	private Customer c5;
-	private Customer c6;
-	private List<Customer> listaCustomers;
 	private CustomersBo cBo; 
 	private Recomendacion r;
 	private Recomendacion r2;
@@ -67,7 +54,6 @@ public class Modelo extends Observable {
 		this.email = emailUsuario;
 		this.usuario = nombreUsuario;
 		listaPreferencias = new ArrayList<Preferencias>();
-		listaCustomers = new ArrayList<Customer>();
 		ConectarMongoDBStub();
 		cargarCustomers();
 		cargarRecomendaciones();
@@ -93,7 +79,6 @@ public class Modelo extends Observable {
 		m.conectarseMongoDB();
 	}
 
-	@SuppressWarnings("static-access")
 	public void inicializar() {
 		
 
@@ -236,7 +221,7 @@ public class Modelo extends Observable {
 
 	public void cargarCustomers() {
 		cBo = new CustomersBo();
-		listaCustomers=cBo.getListaDeCustomers();
+		cBo.getListaDeCustomers();
 		cBo.mostrarListaDeCustomers();
 	}
 

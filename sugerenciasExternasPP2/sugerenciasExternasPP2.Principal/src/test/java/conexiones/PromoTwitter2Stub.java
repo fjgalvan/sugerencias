@@ -1,22 +1,25 @@
-package promo.Twitter;
+package conexiones;
 
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Iterator;
+
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
+
 import dao.mongoDB.MyConstants;
 import de.bwaldvogel.mongo.MongoServer;
 import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
 import promo.Interfaz.InterfacePromo;
+import promo.Twitter.PromoTwitter;
 import sugerencias.ConvertirString_a_Sugerencia;
 import sugerencias.Sugerencias;
 import validaciones.ValidarFechaPromo;
 import validaciones.ValidarTwitter;
 
-public class PromoTwitterStub implements InterfacePromo{
+public class PromoTwitter2Stub implements InterfacePromo{
 
 	String s= "#promo:mcDonalds_sanIsidro_lista(hamburguesa/50.0,helado/40.0,ensalada/20.0,fideos/30.0)_20-12-2018";
 	PromoTwitter pt = null;
@@ -33,7 +36,7 @@ public class PromoTwitterStub implements InterfacePromo{
 		// TODO Auto-generated method stub
 		return collection;
 	}
-	public DBCollection conectarseMongoDBstub(String nombreBase, String nombreColeccion) {
+	public DBCollection conectarseMongoDBstub() {//(String nombreBase, String nombreColeccion)
 		return setUp();
 	}
 	

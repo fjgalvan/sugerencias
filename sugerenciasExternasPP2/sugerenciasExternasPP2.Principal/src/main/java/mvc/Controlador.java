@@ -37,7 +37,7 @@ public class Controlador {
 		this.m = m;
 		this.v = v;
 
-		m.addObserver(v);
+		//m.addObserver(v);
 		v.addFiltroListeners(new FiltroListener(v, m));
 		v.addRegistroListener(new RegistroNombreUsuarioListener(v));
 		v.addRegistroListener(new RegistroEmailUsuarioListener(v));

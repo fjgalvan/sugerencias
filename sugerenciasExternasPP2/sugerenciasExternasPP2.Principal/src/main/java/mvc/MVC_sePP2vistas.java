@@ -16,8 +16,8 @@ public class MVC_sePP2vistas {
         //Cargamos modelo
         Modelo m = new Modelo("recomendaciones","usuario", "email");   
         //Cargamos vista
-        Vista2 v2 = new Vista2();        
-        //Cargamos controlador y le asignamos qué modelo controlar
-        Controlador c = new Controlador(m, v2);
+        Vista2 v2 = new Vista2(m);
+        m.addObserver(v2);
+       
     }
 }

@@ -2,15 +2,20 @@ package principalMain;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import com.mongodb.BasicDBObject;
 
+import conexiones.PromoTwitterStub;
+import conexiones.Interfaz.ConexionDinamica;
+import conexiones.conexionTwitter.UsoTwitterDeUsuario;
 import bo.CustomersBo;
 import bo.ProductosBo;
 import promo.Twitter.PromoTwitter;
 import properties.Constants;
+import twitter4j.TwitterException;
 import dao.mongoDB.MongoConcrete;
 import modelo.Customer;
 import modelo.Preferencias;
@@ -20,7 +25,7 @@ import modelo.Usuario;
 public class MainPrincipal {
 
 	@SuppressWarnings("unused")
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException {
 		ArrayList<Preferencias> listaPreferencias = new ArrayList<Preferencias>();
 
 		// Usuario u= new Usuario("javier", "javier@yahoo.com.ar");
@@ -59,15 +64,20 @@ public class MainPrincipal {
 		pBo.getListaDeProductos();
 		pBo.mostrarListaDeProductos();
 
-		// Me conecto a la base de datos real de MongoDB
-		MongoConcrete mongoReal = new MongoConcrete();
-		mongoReal.conectarseMongoDB();
+		//Plugin
+		ConexionDinamica c = new ConexionDinamica();
+
+		// Escriba-cast y acceda a los datos de la clase Base.
+		MongoConcrete conexionMongoReal = (MongoConcrete) c.conexionExternaDinamica("mongoDB");
+//		// Me conecto a la base de datos real de MongoDB
+//		MongoConcrete mongoReal = new MongoConcrete();
+		conexionMongoReal.conectarseMongoDB();
 
 		// Leo la coleccion de documentos de MongoDB
-		mongoReal.leerColeccion();
-		mongoReal.buscarYmostrarTodosLosDocumentos();
+		conexionMongoReal.leerColeccion();
+		conexionMongoReal.buscarYmostrarTodosLosDocumentos();
 		System.out.println("Elimino la coleccion!");
-		mongoReal.eliminarTodaLaColeccion();
+		conexionMongoReal.eliminarTodaLaColeccion();
 
 		String sComidaValida = "#promo:mcDonalds_sanIsidro_lista(hamburguesa/40.0,ensalada/60.0,helado/30.0)_20-12-2018";
 
@@ -76,7 +86,7 @@ public class MainPrincipal {
 		recomendacion.leerPreferencias();
 		System.out.println("Fin, Leo preferencias del customer");
 		recomendacion.mostrarListProdDeTwitter(sComidaValida,
-				mongoReal.leerColeccion());
+				conexionMongoReal.leerColeccion());
 		System.out.println("Recomendacion: "
 				+ recomendacion.buscarPreferenciasUsuarioConFiltro());// boolean
 
@@ -84,7 +94,14 @@ public class MainPrincipal {
 		CustomersBo cBo = new CustomersBo();
 		cBo.getListaDeCustomers();
 		cBo.mostrarListaDeCustomers();
-
+		
+		//-----------------------------------------------
+//		ConexionDinamica c = new ConexionDinamica();
+//
+//		// Escriba-cast y acceda a los datos de la clase Base.
+//		PromoTwitterStub conexion = (PromoTwitterStub) c.conexionExternaDinamica("twitterStub");
+//		conexion.conectarseMongoDBstub();
+//		conexion.mostrarListProdDeTwitter(sComidaValida);
 	}
 
 }

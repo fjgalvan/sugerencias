@@ -1,6 +1,6 @@
 package mvc;
 
-
+import java.awt.Button;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionListener;
@@ -26,7 +26,9 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+
 import java.awt.event.ActionEvent;
+
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
@@ -59,9 +61,10 @@ public class Vista2 extends JFrame implements Observer {
 	private JComboBox comboBox_Idioma;
 	private JButton btnCambiarIdioma;
 	private JButton btn_GuardarPreferencia;
-	
+	private Button button;
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Vista2() {
+	public Vista2(Modelo modelo) {
 
 		lblRecomendaciones = new JLabel("Recomendaciones:");
 		lblRecomendaciones.setBounds(10, 297, 116, 23);
@@ -129,107 +132,114 @@ public class Vista2 extends JFrame implements Observer {
 		lblElijaFiltros = new JLabel("Elija Filtros de Preferencias:");
 		lblElijaFiltros.setBounds(10, 272, 186, 14);
 		panel.add(lblElijaFiltros);
-		
+
 		lbl_registrarUsuario = new JLabel("Usuario:");
 		lbl_registrarUsuario.setBounds(10, 11, 78, 14);
 		panel.add(lbl_registrarUsuario);
-		
+
 		lbl_registrarEmail = new JLabel("Email:");
 		lbl_registrarEmail.setBounds(10, 36, 62, 14);
 		panel.add(lbl_registrarEmail);
-		
+
 		btnRegistrarse = new JButton("Registrarse");
 		btnRegistrarse.setForeground(new Color(0, 128, 0));
 		btnRegistrarse.setBounds(123, 67, 116, 23);
 		panel.add(btnRegistrarse);
-		
+
 		textArea_ValidezUsuario = new JTextArea();
 		textArea_ValidezUsuario.setForeground(new Color(0, 128, 0));
 		textArea_ValidezUsuario.setBounds(725, 6, 126, 22);
 		panel.add(textArea_ValidezUsuario);
-		
+
 		textArea_validezEmail = new JTextArea();
 		textArea_validezEmail.setForeground(new Color(0, 128, 0));
 		textArea_validezEmail.setBounds(725, 31, 126, 22);
 		panel.add(textArea_validezEmail);
-		
+
 		lbl_ValidezUsuario = new JLabel("Formato Usuario:");
 		lbl_ValidezUsuario.setBounds(516, 11, 199, 14);
 		panel.add(lbl_ValidezUsuario);
-		
+
 		lbl_ValidezEmail = new JLabel("Formato Email: ");
 		lbl_ValidezEmail.setBounds(516, 31, 199, 14);
 		panel.add(lbl_ValidezEmail);
-		
-		
-		
+
 		Component verticalStrut = Box.createVerticalStrut(20);
 		verticalStrut.setBounds(505, 5, -33, 103);
 		panel.add(verticalStrut);
-		
+
 		lbl_ElijaUsuario = new JLabel("Elija Usuario con Preferencias: ");
 		lbl_ElijaUsuario.setBounds(10, 212, 186, 14);
 		panel.add(lbl_ElijaUsuario);
-		
+
 		comboBox_eleccionDeUsuario = new JComboBox();
-		comboBox_eleccionDeUsuario.setModel(new DefaultComboBoxModel(new String[] {"Usuario A", "Usuario B"}));
+		comboBox_eleccionDeUsuario.setModel(new DefaultComboBoxModel(
+				new String[] { "Usuario A", "Usuario B" }));
 		comboBox_eleccionDeUsuario.setBounds(245, 206, 241, 20);
 		panel.add(comboBox_eleccionDeUsuario);
-		
-		label_lineaHorizontal = new JLabel("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+		label_lineaHorizontal = new JLabel(
+				"-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		label_lineaHorizontal.setBounds(10, 99, 991, 14);
 		panel.add(label_lineaHorizontal);
-		
+
 		btnFiltrarPreferencia = new JButton("Filtrar Preferencia!");
-		
+
 		btnFiltrarPreferencia.setForeground(new Color(0, 0, 255));
 		btnFiltrarPreferencia.setBounds(516, 203, 156, 23);
 		panel.add(btnFiltrarPreferencia);
-		
+
 		btn_refrescar = new JButton("Refrescar Filtros");
 		btn_refrescar.setForeground(Color.BLUE);
 		btn_refrescar.setBounds(707, 203, 156, 23);
 		panel.add(btn_refrescar);
-		
+
 		textField_usuario = new JTextField();
 		textField_usuario.setBounds(123, 8, 344, 20);
 		panel.add(textField_usuario);
 		textField_usuario.setColumns(10);
-		
+
 		textField_Email = new JTextField();
 		textField_Email.setBounds(123, 33, 344, 20);
 		panel.add(textField_Email);
 		textField_Email.setColumns(10);
-		
+
 		textArea_registroNuevoUsuario = new JTextArea();
 		textArea_registroNuevoUsuario.setBounds(266, 66, 199, 22);
 		panel.add(textArea_registroNuevoUsuario);
-		
-		JLabel label_lineaHorizontal2 = new JLabel("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+		JLabel label_lineaHorizontal2 = new JLabel(
+				"-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		label_lineaHorizontal2.setBounds(10, 168, 991, 14);
 		panel.add(label_lineaHorizontal2);
-		
+
 		lblElijaIdioma = new JLabel("Elija idioma:");
 		lblElijaIdioma.setBounds(10, 124, 103, 14);
 		panel.add(lblElijaIdioma);
-		
+
 		comboBox_Idioma = new JComboBox();
-		comboBox_Idioma.setModel(new DefaultComboBoxModel(new String[] {"Espanol", "Ingles"}));
+		comboBox_Idioma.setModel(new DefaultComboBoxModel(new String[] {
+				"Espanol", "Ingles" }));
 		comboBox_Idioma.setBounds(126, 121, 175, 20);
 		panel.add(comboBox_Idioma);
-		
+
 		btnCambiarIdioma = new JButton("Cambiar Idioma");
 		btnCambiarIdioma.setForeground(new Color(153, 51, 0));
 		btnCambiarIdioma.setBounds(319, 120, 148, 23);
 		panel.add(btnCambiarIdioma);
-		
+
 		btn_GuardarPreferencia = new JButton("Guardar Preferencia");
 		btn_GuardarPreferencia.setForeground(new Color(0, 0, 255));
 		btn_GuardarPreferencia.setBounds(791, 485, 213, 23);
 		panel.add(btn_GuardarPreferencia);
 
+		button = new Button("PressMe");
+		panel.add(button);
+
 		// Hacemos visible nuestra ventana.
 		this.setVisible(true);
+		// Cargamos controlador y le asignamos qué modelo controlar
+		Controlador c = new Controlador(modelo, this);
 
 	}
 
@@ -248,25 +258,29 @@ public class Vista2 extends JFrame implements Observer {
 		chckbx_filtrosPastas.addActionListener(listen);
 		btnFiltrarPreferencia.addActionListener(listen);
 	}
-	
+
 	public void addRegistroListener(ActionListener listen) {
 		textField_usuario.addActionListener(listen);
 		textField_Email.addActionListener(listen);
-		
+
 	}
-	
+
 	public void addRegistroNuevoUsuarioListener(ActionListener listen) {
 		btnRegistrarse.addActionListener(listen);
 	}
-	
+
 	public void addCambiarIdiomaListener(ActionListener listen) {
 		btnCambiarIdioma.addActionListener(listen);
 	}
-	
+
 	public void addGuardarPreferenciasListener(ActionListener listen) {
 		btn_GuardarPreferencia.addActionListener(listen);
 	}
-	
+
+	public void addController(ActionListener controller) {
+		button.addActionListener(controller);
+	} // addController()
+
 	public JButton getBtnCambiarIdioma() {
 		return btnCambiarIdioma;
 	}
@@ -312,7 +326,6 @@ public class Vista2 extends JFrame implements Observer {
 		return btn_refrescar;
 	}
 
-
 	public JTextArea getTextArea_ValidezUsuario() {
 		return textArea_ValidezUsuario;
 	}
@@ -332,7 +345,7 @@ public class Vista2 extends JFrame implements Observer {
 	public JTextField getTextField_usuario() {
 		return textField_usuario;
 	}
-	
+
 	public JTextField getTextField_Email() {
 		return textField_Email;
 	}
@@ -389,6 +402,5 @@ public class Vista2 extends JFrame implements Observer {
 	public JButton getBtn_GuardarPreferencia() {
 		return btn_GuardarPreferencia;
 	}
-	
-	
+
 }
