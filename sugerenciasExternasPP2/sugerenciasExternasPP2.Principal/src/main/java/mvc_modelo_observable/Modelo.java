@@ -5,20 +5,14 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Properties;
-
 import bo.CustomersBo;
 import bo.ProductosBo;
-
-import com.mongodb.DBObject;
-
+import com.mongodb.DBCollection;
 import conexiones.Interfaz.RecolectorPromos;
 import dao.mongoDB.MongoConcreteStub;
-
 import java.util.Observable;
-
 import modelo.Customer;
 import modelo.Preferencias;
-import modelo.Producto;
 import modelo.Promocion;
 import modelo.Recomendacion;
 import properties.Constants;
@@ -271,4 +265,12 @@ public class Modelo extends Observable {
 		this.mongo = mongo;
 	}
 	
+	public DBCollection cargarTodasLasPromos() throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException{
+		RecolectorPromos c = new RecolectorPromos();
+
+		c.cargarListaConectores();
+		c.buscarPromociones();
+		System.out.println("c.getMongoDB().getPromos().count(): "+c.getMongoDB().getPromos().count());
+		return c.getMongoDB().leerColeccion();
+	}
 }

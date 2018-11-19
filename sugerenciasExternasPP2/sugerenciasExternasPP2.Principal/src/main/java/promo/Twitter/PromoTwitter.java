@@ -30,7 +30,7 @@ import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.util.JSON;
 
-import conexiones.conexionTwitter.UsoTwitterDeUsuario;
+import conexiones.conexionTwitter.ConectorTwitter;
 import dao.filtrosDeUsuario.TaggearComidas;
 import dao.mongoDB.MongoConcreteStub;
 
@@ -48,7 +48,7 @@ public class PromoTwitter implements InterfacePromo {
 	// Leo y guardo todos los tweets en tipo lista de String
 	public List<String> getListTweets() {
 		ResponseList<Status> rl = null;
-		UsoTwitterDeUsuario ut = new UsoTwitterDeUsuario();
+		ConectorTwitter ut = new ConectorTwitter();
 		try {
 			ut.conexionConTwitterDeUsuario();
 		} catch (TwitterException e) {
@@ -135,8 +135,11 @@ public class PromoTwitter implements InterfacePromo {
 			this.collection.update(searchQuery, newDocument);
 			// TAGGEO INICIAL
 			//this.collection = collection2;
-//			TaggearComidas tcI = new TaggearComidas(this.collection);
-//			this.collection = tcI.taggeoInicial(this.collection);
+			if(this.collection.count() == 1){
+				TaggearComidas tcI = new TaggearComidas(this.collection);
+				this.collection = tcI.taggeoInicial(this.collection);
+			}
+			
 
 			// TAGGEO PROMOS DE COMIDAS
 			//this.collection = collection2;

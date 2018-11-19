@@ -1,34 +1,25 @@
 package mvc;
 
-import java.awt.Button;
+import java.awt.Button; 
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionListener;
-
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
 import mvc_modelo_observable.Modelo;
-
 import java.awt.Color;
 import java.util.Observer;
 import java.util.Observable;
-
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
-
 import java.awt.Component;
-
 import javax.swing.Box;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-
-import java.awt.event.ActionEvent;
-
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
@@ -58,11 +49,16 @@ public class Vista2 extends JFrame implements Observer {
 	private JLabel lbl_ValidezUsuario;
 	private JLabel lbl_ValidezEmail;
 	private JLabel lblElijaIdioma;
+	@SuppressWarnings("rawtypes")
 	private JComboBox comboBox_Idioma;
 	private JButton btnCambiarIdioma;
 	private JButton btn_GuardarPreferencia;
 	private Button button;
 	private JButton btn_actualizarPromos;
+	private JTextArea textArea_masCara;
+	private JTextArea textArea_masEconomico;
+	private JButton btnEstadisticasPrecios;
+	private JLabel label;
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Vista2(Modelo modelo) {
@@ -84,7 +80,7 @@ public class Vista2 extends JFrame implements Observer {
 		// Indicamos a la ventana que se pueda cerrar. (La acción de cerrar)
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Le damos un tamaño por defecto a la ventana.
-		this.setSize(1030, 606);
+		this.setSize(1030, 698);
 		// Indicamos su tamaño mínimo, y máximo, ya que no vamos a "bloquearla"
 		// y permitiremos que sea redimensionable.
 		this.setMinimumSize(new Dimension(100, 100));
@@ -241,10 +237,36 @@ public class Vista2 extends JFrame implements Observer {
 		btn_actualizarPromos.setForeground(Color.RED);
 		btn_actualizarPromos.setBounds(823, 204, 156, 22);
 		panel.add(btn_actualizarPromos);
+		
+		JLabel lbl_PromoMasCara = new JLabel("Promo mas cara: ");
+		lbl_PromoMasCara.setBounds(10, 553, 144, 14);
+		panel.add(lbl_PromoMasCara);
+		
+		JLabel lbl_PromoMasEconomica = new JLabel("Promo mas economica:");
+		lbl_PromoMasEconomica.setBounds(10, 594, 144, 14);
+		panel.add(lbl_PromoMasEconomica);
+		
+		textArea_masCara = new JTextArea();
+		textArea_masCara.setBounds(164, 548, 840, 22);
+		panel.add(textArea_masCara);
+		
+		textArea_masEconomico = new JTextArea();
+		textArea_masEconomico.setBounds(164, 589, 840, 22);
+		panel.add(textArea_masEconomico);
+		
+		btnEstadisticasPrecios = new JButton("Estadisticas Precios");
+		btnEstadisticasPrecios.setForeground(new Color(0, 128, 0));
+		btnEstadisticasPrecios.setBounds(791, 625, 213, 23);
+		panel.add(btnEstadisticasPrecios);
+		
+		label = new JLabel("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+		label.setBounds(10, 519, 991, 14);
+		panel.add(label);
 
 		// Hacemos visible nuestra ventana.
 		this.setVisible(true);
 		// Cargamos controlador y le asignamos qué modelo controlar
+		@SuppressWarnings("unused")
 		Controlador c = new Controlador(modelo, this);
 
 	}
@@ -401,6 +423,7 @@ public class Vista2 extends JFrame implements Observer {
 		return lblElijaIdioma;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public JComboBox getComboBox_Idioma() {
 		return comboBox_Idioma;
 	}
@@ -411,6 +434,18 @@ public class Vista2 extends JFrame implements Observer {
 
 	public JButton getBtn_actualizarPromos() {
 		return btn_actualizarPromos;
+	}
+
+	public JTextArea getTextArea_masCara() {
+		return textArea_masCara;
+	}
+
+	public JTextArea getTextArea_masEconomico() {
+		return textArea_masEconomico;
+	}
+
+	public JButton getBtnEstadisticasPrecios() {
+		return btnEstadisticasPrecios;
 	}
 	
 	

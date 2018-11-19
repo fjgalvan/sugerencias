@@ -18,14 +18,14 @@ public final class MoneyCalculation {
 	
 	
 	
-	public static void main(String[] args) {
-		double d1 = 374.56;
-		double d2 = 374.26;
-		BigDecimal amountOne = new BigDecimal("374.56");
-		BigDecimal amountTwo = new BigDecimal("374.26");
-		MoneyCalculation calc = new MoneyCalculation(amountOne, amountTwo);
-		calc.doCalculations();
-	}
+//	public static void main(String[] args) {
+//		double d1 = 374.56;
+//		double d2 = 374.26;
+//		BigDecimal amountOne = new BigDecimal("374.56");
+//		BigDecimal amountTwo = new BigDecimal("374.26");
+//		MoneyCalculation calc = new MoneyCalculation(amountOne, amountTwo);
+//		calc.doCalculations();
+//	}
 
 	public MoneyCalculation(BigDecimal amountOne, BigDecimal amountTwo) {
 		this.amountOne = rounded(amountOne);

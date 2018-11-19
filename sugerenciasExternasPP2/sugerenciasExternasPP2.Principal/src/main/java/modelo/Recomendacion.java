@@ -1,28 +1,16 @@
 package modelo;
 
-import java.io.FileReader; 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
-
-import org.bson.Document;
-
 import promo.Twitter.PromoTwitter;
-import properties.Constants;
-import sugerencias.ConvertirString_a_Sugerencia;
 import sugerencias.Sugerencias;
 import util_.Date;
-import validaciones.ValidarFechaPromo;
-import validaciones.ValidarTwitter;
 import bo.ProductosBo;
-
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
-import com.mongodb.client.MongoCollection;
 
 public class Recomendacion {
 	PromoTwitter pt = null;
@@ -72,7 +60,7 @@ public class Recomendacion {
 				String ubicacion=(String) doc.get("ubicacion");
 				String producto=(String) doc.get("producto");
 				Double preciod=(Double) doc.get("precio");
-				String precio= String.valueOf(preciod);
+//				String precio= String.valueOf(preciod);
 //				Date fechaDeVigenciaD=(Date) doc.get("dd");//("fechaDeVigencia");
 //				System.out.println("dd: "+ fechaDeVigenciaD);
 				Date fechaDeVigencia= new Date(31,12,2018);

@@ -1,11 +1,5 @@
 package mvc;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.Properties;
-
 import listeners.CambioDeIdiomaListener;
 import listeners.FiltroListener;
 import listeners.GuardarPreferenciaListener;
@@ -13,11 +7,7 @@ import listeners.RegistroEmailUsuarioListener;
 import listeners.RegistroNombreUsuarioListener;
 import listeners.RegistroNuevoUsuarioListener;
 import mvc_modelo_observable.Modelo;
-
 import javax.swing.JTextArea;
-
-import properties.Constants;
-import properties.PropertiesPrincipal;
 
 /**
  * Controlador del MVC. Se encuentra dentro de la vista y es llamado por esta

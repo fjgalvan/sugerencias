@@ -28,12 +28,12 @@ import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 import validaciones.ValidarTwitter;
  
-public class UsoTwitterDeUsuario implements InterfaceConectores
+public class ConectorTwitter implements InterfaceConectores
 {
 	Twitter twitter;
 	DBCollection promosNuevas;
 	
-	public  UsoTwitterDeUsuario(){
+	public  ConectorTwitter(){
 		
 	}
 	

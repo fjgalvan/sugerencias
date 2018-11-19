@@ -10,7 +10,7 @@ import com.mongodb.BasicDBObject;
 
 import conexiones.PromoTwitterStub;
 import conexiones.Interfaz.ConexionDinamica;
-import conexiones.conexionTwitter.UsoTwitterDeUsuario;
+import conexiones.conexionTwitter.ConectorTwitter;
 import bo.CustomersBo;
 import bo.ProductosBo;
 import promo.Twitter.PromoTwitter;

@@ -18,7 +18,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import conexiones.conexionTwitter.UsoTwitterDeUsuario;
+import conexiones.conexionTwitter.ConectorTwitter;
 import dao.mongoDB.MyConstants;
 import properties.Constants;
 import properties.PropertiesPrincipal;
@@ -38,7 +38,7 @@ public class ConectorTwitterStubTest {
 	@Test
 	public void conectarTwitterTest() {
 
-		UsoTwitterDeUsuario ct= mock(UsoTwitterDeUsuario.class);
+		ConectorTwitter ct= mock(ConectorTwitter.class);
 		when(ct.conectarsePruebaTwitter()).thenReturn(map);
 		try {
 			Assert.assertEquals(ct.conectarsePruebaTwitter(),map);

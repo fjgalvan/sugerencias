@@ -8,21 +8,13 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
-
 import com.mongodb.DBCollection;
-
-import modelo.Producto;
-import modelo.Usuario;
 import properties.Constants;
 import twitter4j.TwitterException;
-import conexiones.conexionTwitter.UsoTwitterDeUsuario;
-import dao.filtrosDeUsuario.TaggearComidas;
-import dao.mongoDB.MongoConcrete;
 import dao.mongoDB.MongoConcreteStub;
 
 public class RecolectorPromos {
 	Properties propConexion;
-	//MongoConcrete mongoDB;
 	MongoConcreteStub mongoDB;
 	
 	private List<InterfaceConectores> listaDeConectores = new ArrayList<InterfaceConectores>();
@@ -34,7 +26,7 @@ public class RecolectorPromos {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		mongoDB= new MongoConcreteStub(); //MongoConcrete();
+		mongoDB= new MongoConcreteStub();
 	}
 
 	public List<InterfaceConectores> cargarListaConectores()
@@ -50,11 +42,11 @@ public class RecolectorPromos {
 			System.out.println("Dentro del While");
 			Object key = keys.nextElement();
 			System.out.println(key + " = " + propConexion.get(key));
-			InterfaceConectores ic= (InterfaceConectores) conexionExternaDinamica(key.toString());//(propConexion.get(key).toString());
+			InterfaceConectores ic= (InterfaceConectores) conexionExternaDinamica(key.toString());
 			listaDeConectores.add(ic);
 		}
 		System.out.println("propConexion size: "+propConexion.size());
-		System.out.println("listaDeConectores: "+listaDeConectores.size());//18 deberia ser 9
+		System.out.println("listaDeConectores: "+listaDeConectores.size());
 		return listaDeConectores;
 	}
 
@@ -66,30 +58,21 @@ public class RecolectorPromos {
 			SecurityException, InstantiationException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException,
 			TwitterException {
-		// Crear clase de tipo UsoTwitterDeUsuario.
+		// Crear clase de tipo ConectorTwitter.
 		Class<?> myClass = Class.forName(propConexion.getProperty(nombreConexionExterna));// paquete.nombreClase
 		// Crear llamada de constructor con tipos de argumento.
 		Constructor<?> ctr = myClass.getDeclaredConstructor();
-		// Finalmente crear objeto de tipo de una ConexionExterna y pasar datos
-		// al constructor.
-		// String arg1 = "My User Data";
-		// Object object = ctr.newInstance(new Object[] { arg1 });
 		Object object = ctr.newInstance(new Object[] {});
 
 		return object;
 	}
 
 	public void buscarPromociones() {
-		int i=0;
+		@SuppressWarnings("unused")
 		DBCollection promociones;
 		for (InterfaceConectores conector : listaDeConectores) {
 			conector.conectarse();
 			promociones= conector.getPromo(mongoDB.getPromos());
-			//promociones.aggregate(conector.getPromo());
-			//guardo la colleccion en la base de DAO
-			//mongoDB.agregarNuevosDocumentos(promociones);//repite _id
-			System.out.println("contador recoPromo: "+i);
-			i++;
 		}
 	}
 

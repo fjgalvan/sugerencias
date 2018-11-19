@@ -8,7 +8,7 @@ import java.util.Properties;
 
 import properties.Constants;
 import twitter4j.TwitterException;
-import conexiones.conexionTwitter.UsoTwitterDeUsuario;
+import conexiones.conexionTwitter.ConectorTwitter;
 
 public class ConexionDinamica {
 	Properties propConexion;
@@ -29,7 +29,7 @@ public class ConexionDinamica {
 			SecurityException, InstantiationException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException,
 			TwitterException {
-		// Crear clase de tipo UsoTwitterDeUsuario.
+		// Crear clase de tipo ConectorTwitter.
 		Class<?> myClass = Class.forName(propConexion
 				.getProperty(nombreConexionExterna));// paquete.nombreClase
 		// Crear llamada de constructor con tipos de argumento.
@@ -51,7 +51,7 @@ public class ConexionDinamica {
 		ConexionDinamica c = new ConexionDinamica();
 
 		// Escriba-cast y acceda a los datos de la clase Base.
-		UsoTwitterDeUsuario conexion = (UsoTwitterDeUsuario) c
+		ConectorTwitter conexion = (ConectorTwitter) c
 				.conexionExternaDinamica("twitter");
 		conexion.conexionConTwitterDeUsuario();
 		conexion.RecuperarListadoDeUltimosTweetsEscritos();

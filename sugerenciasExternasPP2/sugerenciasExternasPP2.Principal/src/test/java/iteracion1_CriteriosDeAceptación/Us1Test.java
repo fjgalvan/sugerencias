@@ -11,14 +11,14 @@ import org.junit.Test;
 import promo.Twitter.PromoTwitter;
 import conexiones.conexionExel.ExcelParserJSON;
 import conexiones.conexionExel.LeerFicherosExcel;
-import conexiones.conexionTwitter.UsoTwitterDeUsuario;
+import conexiones.conexionTwitter.ConectorTwitter;
 import dao.mongoDB.MyConstants;
 import sugerencias.ConvertirString_a_Sugerencia;
 import sugerencias.SugerenciaTwitter;
 import validaciones.ValidarTwitter;
 
 public class Us1Test {
-	UsoTwitterDeUsuario t= new UsoTwitterDeUsuario();
+	ConectorTwitter t= new ConectorTwitter();
 	List<String> listaTweets = new ArrayList<String>();
 	String s= "#promo:mcDonalds_sanIsidro_lista(hamburguesa/50.0,helado/40.0)_20-09-2018";
 	String sInvalid= "#promos:mcDonalds_sanIsidro_lista(hamburguesa/50.0,papas/40.0)_20-09-2018";
