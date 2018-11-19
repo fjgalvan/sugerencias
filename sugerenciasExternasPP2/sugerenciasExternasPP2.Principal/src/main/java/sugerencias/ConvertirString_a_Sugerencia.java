@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import util.Date;
+import util_.Date;
 
 public class ConvertirString_a_Sugerencia {
 	String twitterString;

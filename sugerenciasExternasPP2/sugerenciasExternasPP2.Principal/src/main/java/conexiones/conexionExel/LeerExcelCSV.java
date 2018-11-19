@@ -1,6 +1,6 @@
 package conexiones.conexionExel;
 
-import java.io.FileReader; 
+import java.io.FileReader;  
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -8,13 +8,14 @@ import properties.Constants;
 import properties.PropertiesPrincipal;
 import twitter4j.TwitterException;
 
+import com.mongodb.DBCollection;
 import com.opencsv.CSVReader;
 
-import conexiones.Interfaz.InterfaceConexion;
+import conexiones.Interfaz.InterfaceConectores;
 import dao.mongoDB.MyConstants;
 
 @SuppressWarnings("unused")
-public class LeerExcelCSV implements InterfaceConexion{
+public class LeerExcelCSV implements InterfaceConectores{
 	public static final char SEPARATOR=';';
 	public static final char QUOTE='"';
 	static String[] nextLine=null;
@@ -58,6 +59,12 @@ public class LeerExcelCSV implements InterfaceConexion{
 	static { 
 		leerExcelCSV();
     }
+
+	@Override
+	public DBCollection getPromo(DBCollection coll) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	 
 }

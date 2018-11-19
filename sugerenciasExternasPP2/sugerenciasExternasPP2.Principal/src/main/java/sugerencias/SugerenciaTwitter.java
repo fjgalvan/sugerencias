@@ -9,7 +9,7 @@ import promo.Twitter.PromoTwitter;
 import conexiones.conexionTwitter.ConectorTwitterJ;
 import conexiones.conexionTwitter.UsoTwitterDeUsuario;
 import twitter4j.TwitterException;
-import util.Date;
+import util_.Date;
 
 public class SugerenciaTwitter extends Sugerencias{
 	

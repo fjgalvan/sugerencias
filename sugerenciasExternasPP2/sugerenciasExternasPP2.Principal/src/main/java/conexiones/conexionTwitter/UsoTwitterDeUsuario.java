@@ -1,21 +1,19 @@
 package conexiones.conexionTwitter;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;  
 import java.util.HashMap;
 
+import promo.Twitter.PromoTwitter;
 import properties.Constants;
 import properties.PropertiesPrincipal;
 
 import com.google.gson.Gson;
+import com.mongodb.DBCollection;
 
-
-
-
-
-
-
-
+import conexiones.Interfaz.InterfaceConectores;
+import dao.mongoDB.MongoConcreteStub;
 import dao.mongoDB.MyConstants;
 import sugerencias.Sugerencias;
 import sugerencias.SugerenciaTwitter;
@@ -28,10 +26,12 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
+import validaciones.ValidarTwitter;
  
-public class UsoTwitterDeUsuario
+public class UsoTwitterDeUsuario implements InterfaceConectores
 {
-	static Twitter twitter;
+	Twitter twitter;
+	DBCollection promosNuevas;
 	
 	public  UsoTwitterDeUsuario(){
 		
@@ -94,4 +94,40 @@ public class UsoTwitterDeUsuario
 		} catch (TwitterException e) {e.printStackTrace();}
 		return map;
 	}
+
+	@Override
+	public void conectarse(){
+		try {
+			conexionConTwitterDeUsuario();
+		} catch (TwitterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+
+
+	@Override
+	public DBCollection getPromo(DBCollection promosViejas) {
+		promosNuevas= promosViejas;
+		ResponseList<Status> listado = null;
+		PromoTwitter pts= new PromoTwitter();
+		try {
+			listado=RecuperarListadoDeUltimosTweetsEscritos();
+		} catch (TwitterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for (int i = 0; i < listado.size(); i++){
+			 System.out.println("tweet: "+listado.get(i).getText());
+			 ValidarTwitter v= new ValidarTwitter(listado.get(i).getText());
+			 if(v.twitterStringValido()){
+				System.out.println("Tweet valido: "+listado.get(i).getText());
+				promosNuevas=pts.mostrarListProdDeTwitter(listado.get(i).getText(), promosNuevas);
+			 }
+		 }
+		return promosNuevas;//pts.getCollection();
+	}
+	
 }

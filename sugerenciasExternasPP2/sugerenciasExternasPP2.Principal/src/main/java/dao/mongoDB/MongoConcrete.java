@@ -21,11 +21,36 @@ public class MongoConcrete implements InterfaceMongoAccess {
 	MongoClient myClient = null;
 	private static DB db; 
 	private static DBCollection promos;
-	
+
+	//si la coneccion es distininto de null hay que conectarse, esto es un singleton
 	public MongoConcrete(){
-		
+		getDB();
 	}
 
+	public DB getDB(){
+		if(db == null){
+			conectarseMongoDB();
+		}
+		return db;
+	}
+	
+	public void agregarNuevosDocumentos(DBCollection nuevasPromos){
+		DBCursor cursor = nuevasPromos.find();
+		try {
+			int i = 1;
+			while (cursor.hasNext()) {
+				System.out.println("Document: " + i);
+				//System.out.println(cursor.next());
+				BasicDBObject doc= (BasicDBObject) cursor.next();
+				promos.insert(doc);
+				i++;
+			}
+		} finally {
+			cursor.close();
+		}
+	}
+	
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void conectarseMongoDB() {
@@ -73,6 +98,8 @@ public class MongoConcrete implements InterfaceMongoAccess {
 			cursor.close();
 		}
 	}
+	
+	
 	
 	public void modificarTodoElContenidoDeUnDocumento(String clave, String valorViejo, String valorNuevo){
 		 BasicDBObjectBuilder whereBuilder = BasicDBObjectBuilder.start();

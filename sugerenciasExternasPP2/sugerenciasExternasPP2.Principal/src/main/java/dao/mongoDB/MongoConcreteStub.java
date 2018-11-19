@@ -3,7 +3,9 @@ package dao.mongoDB;
 import java.net.InetSocketAddress;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 
@@ -18,9 +20,30 @@ public class MongoConcreteStub implements InterfaceMongoAccess{
 	DBCollection coll;
 	
 	public MongoConcreteStub(){
-		
+		getDB();
+	}
+	public MongoClient getDB(){
+		if(client == null){
+			conectarseMongoDB();
+		}
+		return client;
 	}
 	
+//	public void agregarNuevosDocumentos(DBCollection nuevasPromos){
+//		DBCursor cursor = nuevasPromos.find();
+//		try {
+//			int i = 1;
+//			while (cursor.hasNext()) {
+//				System.out.println("Document: " + i);
+//				//System.out.println(cursor.next());
+//				BasicDBObject doc= (BasicDBObject) cursor.next();
+//				coll.insert(doc);
+//				i++;
+//			}
+//		} finally {
+//			cursor.close();
+//		}
+//	}
 	@SuppressWarnings("deprecation")
 	public void init(){
 		server = new MongoServer(new MemoryBackend());
@@ -45,6 +68,18 @@ public class MongoConcreteStub implements InterfaceMongoAccess{
 
 	@Override
 	public DBCollection leerColeccion() {
+		
+		DBCursor cursor = coll.find();
+		try {
+			int i = 1;
+			while (cursor.hasNext()) {
+				System.out.println("Document: " + i);
+				System.out.println(cursor.next());
+				i++;
+			}
+		} finally {
+			cursor.close();
+		}
 		return coll;
 	}
 

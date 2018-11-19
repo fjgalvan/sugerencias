@@ -1,25 +1,21 @@
 package conexiones.conexionExel;
 
-import java.io.File;
+import java.io.File; 
 import java.io.FileInputStream;
 import java.util.Iterator;
- 
-
-
-
-
-
-
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import conexiones.Interfaz.InterfaceConexion;
+import com.mongodb.DBCollection;
+
+import conexiones.Interfaz.InterfaceConectores;
+import promo.Excel.PromoExcel;
 import properties.Constants;
  
-public class LeerFicherosExcel implements InterfaceConexion{
+public class LeerFicherosExcel implements InterfaceConectores{
 	static Integer aux=0;
 	
 	@Override
@@ -169,4 +165,11 @@ public class LeerFicherosExcel implements InterfaceConexion{
 	static { 
 		LeerExcelXLSX();
     }
+
+	@Override
+	public DBCollection getPromo(DBCollection promosViejas) {
+		PromoExcel pe= new PromoExcel();
+		pe.leerPromo(promosViejas);
+		return pe.getCollection();
+	}
 }

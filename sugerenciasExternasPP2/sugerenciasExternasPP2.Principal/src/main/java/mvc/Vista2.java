@@ -62,6 +62,7 @@ public class Vista2 extends JFrame implements Observer {
 	private JButton btnCambiarIdioma;
 	private JButton btn_GuardarPreferencia;
 	private Button button;
+	private JButton btn_actualizarPromos;
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Vista2(Modelo modelo) {
@@ -186,12 +187,12 @@ public class Vista2 extends JFrame implements Observer {
 		btnFiltrarPreferencia = new JButton("Filtrar Preferencia!");
 
 		btnFiltrarPreferencia.setForeground(new Color(0, 0, 255));
-		btnFiltrarPreferencia.setBounds(516, 203, 156, 23);
+		btnFiltrarPreferencia.setBounds(503, 203, 156, 23);
 		panel.add(btnFiltrarPreferencia);
 
 		btn_refrescar = new JButton("Refrescar Filtros");
 		btn_refrescar.setForeground(Color.BLUE);
-		btn_refrescar.setBounds(707, 203, 156, 23);
+		btn_refrescar.setBounds(669, 203, 144, 23);
 		panel.add(btn_refrescar);
 
 		textField_usuario = new JTextField();
@@ -235,6 +236,11 @@ public class Vista2 extends JFrame implements Observer {
 
 		button = new Button("PressMe");
 		panel.add(button);
+		
+		btn_actualizarPromos = new JButton("Actualizar Promos");
+		btn_actualizarPromos.setForeground(Color.RED);
+		btn_actualizarPromos.setBounds(823, 204, 156, 22);
+		panel.add(btn_actualizarPromos);
 
 		// Hacemos visible nuestra ventana.
 		this.setVisible(true);
@@ -403,4 +409,9 @@ public class Vista2 extends JFrame implements Observer {
 		return btn_GuardarPreferencia;
 	}
 
+	public JButton getBtn_actualizarPromos() {
+		return btn_actualizarPromos;
+	}
+	
+	
 }

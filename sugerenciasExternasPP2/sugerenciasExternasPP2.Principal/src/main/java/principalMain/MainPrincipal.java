@@ -25,24 +25,11 @@ import modelo.Usuario;
 public class MainPrincipal {
 
 	@SuppressWarnings("unused")
-	public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException {
+	public static void main(String[] args) throws ClassNotFoundException,
+			NoSuchMethodException, SecurityException, InstantiationException,
+			IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, TwitterException {
 		ArrayList<Preferencias> listaPreferencias = new ArrayList<Preferencias>();
-
-		// Usuario u= new Usuario("javier", "javier@yahoo.com.ar");
-		// Preferencias p1= new Preferencias(1,"chatarras");//codigo-descripcion
-		// Preferencias p2= new Preferencias(2,"postres");
-		// listaPreferencias.add(p1);
-		// listaPreferencias.add(p2);
-		// CustomerDto c1= new CustomerDto("1",u,listaPreferencias);
-		// listaPreferencias.clear();
-		//
-		// Usuario u2= new Usuario("fernando", "fernando@yahoo.com.ar");
-		// Preferencias p3= new Preferencias(3,"sanas");
-		// Preferencias p4= new Preferencias(2,"postres");
-		// listaPreferencias.add(p3);
-		// listaPreferencias.add(p4);
-		// CustomerDto c2= new CustomerDto("2",u2,listaPreferencias);
-		// listaPreferencias.clear();
 
 		Usuario u3 = new Usuario("cristian", "cristian@yahoo.com.ar");
 		Preferencias p5 = new Preferencias(4, "pastas");
@@ -64,13 +51,14 @@ public class MainPrincipal {
 		pBo.getListaDeProductos();
 		pBo.mostrarListaDeProductos();
 
-		//Plugin
+		// Plugin
 		ConexionDinamica c = new ConexionDinamica();
 
 		// Escriba-cast y acceda a los datos de la clase Base.
-		MongoConcrete conexionMongoReal = (MongoConcrete) c.conexionExternaDinamica("mongoDB");
-//		// Me conecto a la base de datos real de MongoDB
-//		MongoConcrete mongoReal = new MongoConcrete();
+		MongoConcrete conexionMongoReal = (MongoConcrete) c
+				.conexionExternaDinamica("mongoDB");
+		// // Me conecto a la base de datos real de MongoDB
+		// MongoConcrete mongoReal = new MongoConcrete();
 		conexionMongoReal.conectarseMongoDB();
 
 		// Leo la coleccion de documentos de MongoDB
@@ -85,8 +73,9 @@ public class MainPrincipal {
 		System.out.println("Leo preferencias del customer");
 		recomendacion.leerPreferencias();
 		System.out.println("Fin, Leo preferencias del customer");
-		recomendacion.mostrarListProdDeTwitter(sComidaValida,
-				conexionMongoReal.leerColeccion());
+//		recomendacion.mostrarListProdDeTwitter(sComidaValida,
+//				conexionMongoReal.leerColeccion())
+		recomendacion.mostrarRecomendaciones(conexionMongoReal.leerColeccion());
 		System.out.println("Recomendacion: "
 				+ recomendacion.buscarPreferenciasUsuarioConFiltro());// boolean
 
@@ -94,12 +83,13 @@ public class MainPrincipal {
 		CustomersBo cBo = new CustomersBo();
 		cBo.getListaDeCustomers();
 		cBo.mostrarListaDeCustomers();
-		
-		//-----------------------------------------------
+
+		// -----------------------------------------------
 //		ConexionDinamica c = new ConexionDinamica();
 //
 //		// Escriba-cast y acceda a los datos de la clase Base.
-//		PromoTwitterStub conexion = (PromoTwitterStub) c.conexionExternaDinamica("twitterStub");
+//		PromoTwitterStub conexion = (PromoTwitterStub) c
+//				.conexionExternaDinamica("twitterStub");
 //		conexion.conectarseMongoDBstub();
 //		conexion.mostrarListProdDeTwitter(sComidaValida);
 	}

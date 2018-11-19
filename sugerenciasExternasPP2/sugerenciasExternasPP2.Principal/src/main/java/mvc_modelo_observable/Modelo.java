@@ -2,6 +2,7 @@ package mvc_modelo_observable;
 
 import java.io.FileReader; 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -9,14 +10,19 @@ import bo.CustomersBo;
 import bo.ProductosBo;
 
 import com.mongodb.DBObject;
+
+import conexiones.Interfaz.RecolectorPromos;
 import dao.mongoDB.MongoConcreteStub;
 
 import java.util.Observable;
 
 import modelo.Customer;
 import modelo.Preferencias;
+import modelo.Producto;
+import modelo.Promocion;
 import modelo.Recomendacion;
 import properties.Constants;
+import twitter4j.TwitterException;
 
 
 public class Modelo extends Observable {
@@ -30,14 +36,14 @@ public class Modelo extends Observable {
 	private Recomendacion r4;
 	private Recomendacion r5;
 	private Recomendacion r6;
-	String s = "#promo:mcDonalds_sanIsidro_lista(hamburguesa/50.0,helado/40.0,ensalada/20.0,fideos/30.0)_20-12-2018";
+	//String s = "#promo:mcDonalds_sanIsidro_lista(hamburguesa/50.0,helado/40.0,ensalada/20.0,fideos/30.0)_20-12-2018";
 	// MongoConcrete m;
-	MongoConcreteStub m;
+	MongoConcreteStub mongo;
 	String filtroEspecial = "";
-	String filtroChatarras = "";
-	String filtroPostres = "";
-	String filtroSanas = "";
-	String filtroPastas = "";
+	static String filtroChatarras = "";
+	static String filtroPostres = "";
+	static String filtroSanas = "";
+	static String filtroPastas = "";
 	String preferenciasChatarras = "";
 	String preferenciasPostres = "";
 	String preferenciasSanas = "";
@@ -48,8 +54,16 @@ public class Modelo extends Observable {
 	/**
 	 * Constructora del modelo. Crea un modelo, inicializa variables. Crea la
 	 * lista de los observadores.
+	 * @throws TwitterException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
+	 * @throws ClassNotFoundException 
 	 */
-	public Modelo(String valor, String nombreUsuario, String emailUsuario) {
+	public Modelo(String valor, String nombreUsuario, String emailUsuario) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException {
 		this.valorString = valor;
 		this.email = emailUsuario;
 		this.usuario = nombreUsuario;
@@ -75,8 +89,8 @@ public class Modelo extends Observable {
 		ProductosBo pBo = new ProductosBo();
 		pBo.getListaDeProductos();
 		pBo.mostrarListaDeProductos();
-		m = new MongoConcreteStub();
-		m.conectarseMongoDB();
+		mongo = new MongoConcreteStub();
+		mongo.conectarseMongoDB();
 	}
 
 	public void inicializar() {
@@ -98,75 +112,57 @@ public class Modelo extends Observable {
 
 	public void filtroA() {
 		r.buscarPreferenciasUsuarioConFiltro();
-		DBObject valor2 = r.getF2();
-		DBObject valor4 = r.getF4();
-
-		String[] parts = valor2.toString().split(",");
-		String[] parts2 = valor4.toString().split(",");
-
-		String valor2String = parts[1] + " | " + parts[2] + " | " + parts[3]
-				+ " , " + parts[4] + " , " + parts[5] + " | " + parts[7]
-				+ " | " + parts[8] + "\n" + parts2[1] + " | " + parts2[2]
-				+ " | " + parts2[3] + " , " + parts2[4] + " , " + parts2[5]
-				+ " | " + parts2[7] + " | " + parts2[8];
-
+		r.getlRecomendaciones();
+		String valor2String= setFiltroString(r);
 		setModeloFiltros(valor2String, usuario, email);
 	}
 
 	public void filtroB() {
 		r2.buscarPreferenciasUsuarioConFiltro();
-		DBObject valor2 = r2.getF2();
-		DBObject valor4 = r2.getF4();
-		String[] parts = valor2.toString().split(",");
-		String[] parts2 = valor4.toString().split(",");
-
-		String valor2String = parts[1] + " | " + parts[2] + " | " + parts[3]
-				+ " , " + parts[4] + " , " + parts[5] + " | " + parts[7]
-				+ " | " + parts[8] + "\n" + parts2[1] + " | " + parts2[2]
-				+ " | " + parts2[3] + " , " + parts2[4] + " , " + parts2[5]
-				+ " | " + parts2[7] + " | " + parts2[8];
-
+		r2.getlRecomendaciones();
+		String valor2String= setFiltroString(r2);
 		setModeloFiltros(valor2String, usuario, email);
 	}
-
+	
+	public String setFiltroString(Recomendacion reco){
+		String filtroFinal="";
+		
+		for (Promocion prod : reco.getlRecomendaciones()) {
+			filtroFinal= filtroFinal+ 
+					"\n"+"local: "+prod.getNombreLocal()
+					+"| ubicacion: "+prod.getUbicacion()
+					+"| producto: "+prod.getProducto().getDescripcion()
+					+"| precio: "+prod.getPrecio()
+					+"| fechaDeVigencia: "+prod.getFechaVigencia().getDate();
+		}
+		return filtroFinal;
+	}
+	
 	public void filtroChatarras() {
-
 		r3.buscarPreferenciasUsuarioConFiltro();
-		DBObject valor2 = r3.getF2();
-		String[] parts = valor2.toString().split(",");
-		filtroChatarras = parts[1] + " | " + parts[2] + " | " + parts[3]
-				+ " , " + parts[4] + " , " + parts[5] + " | " + parts[7]
-				+ " | " + parts[8];
+		r3.getlRecomendaciones();
+		filtroChatarras= setFiltroString(r3);
 		setModeloFiltros(filtroChatarras, usuario, email);
 	}
 
 	public void filtroPostres() {
 		r4.buscarPreferenciasUsuarioConFiltro();
-		DBObject valor2 = r4.getF2();
-		String[] parts = valor2.toString().split(",");
-		filtroPostres = parts[1] + " | " + parts[2] + " | " + parts[3] + " , "
-				+ parts[4] + " , " + parts[5] + " | " + parts[7] + " | "
-				+ parts[8];
+		r4.getlRecomendaciones();
+		filtroPostres= setFiltroString(r4);
 		setModeloFiltros(filtroPostres, usuario, email);
 	}
 
 	public void filtroSanas() {
 		r5.buscarPreferenciasUsuarioConFiltro();
-		DBObject valor2 = r5.getF2();
-		String[] parts = valor2.toString().split(",");
-		filtroSanas = parts[1] + " | " + parts[2] + " | " + parts[3] + " , "
-				+ parts[4] + " , " + parts[5] + " | " + parts[7] + " | "
-				+ parts[8];
+		r5.getlRecomendaciones();
+		filtroSanas= setFiltroString(r5);
 		setModeloFiltros(filtroSanas, usuario, email);
 	}
 
 	public void filtroPastas() {
 		r6.buscarPreferenciasUsuarioConFiltro();
-		DBObject valor2 = r6.getF2();
-		String[] parts = valor2.toString().split(",");
-		filtroPastas = parts[1] + " | " + parts[2] + " | " + parts[3] + " , "
-				+ parts[4] + " , " + parts[5] + " | " + parts[7] + " | "
-				+ parts[8];
+		r6.getlRecomendaciones();
+		filtroPastas= setFiltroString(r6);
 		setModeloFiltros(filtroPastas, usuario, email);
 	}
 
@@ -225,7 +221,7 @@ public class Modelo extends Observable {
 		cBo.mostrarListaDeCustomers();
 	}
 
-	public void cargarRecomendaciones() {//Ahora cargo las recomendaciones para todos los cBo
+	public void cargarRecomendaciones() throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException {//Ahora cargo las recomendaciones para todos los cBo
 
 			r= new Recomendacion(cBo.getListaCustomers().get(5));
 			cargarUnaRecomendacion(r, cBo.getListaCustomers().get(5));
@@ -247,9 +243,32 @@ public class Modelo extends Observable {
 			
 	}
 	
-	public void cargarUnaRecomendacion(Recomendacion reco, Customer user){
+//	public void cargarUnaRecomendacion(Recomendacion reco, Customer user){
+//		System.out.println("\ncustomer recomendacion: "+ user.getUserName().getUsuario());
+//		reco.leerPreferencias();
+//		reco.mostrarListProdDeTwitter(s, m.getPromos());
+//	}
+	
+	public void cargarUnaRecomendacion(Recomendacion reco, Customer user) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException{
+		RecolectorPromos c = new RecolectorPromos();
+
+		c.cargarListaConectores();
+		c.buscarPromociones();
+		System.out.println("c.getMongoDB().getPromos().count(): "+c.getMongoDB().getPromos().count());
+		c.getMongoDB().leerColeccion();
+		//--------------
 		System.out.println("\ncustomer recomendacion: "+ user.getUserName().getUsuario());
 		reco.leerPreferencias();
-		reco.mostrarListProdDeTwitter(s, m.getPromos());
+		//reco.mostrarListProdDeTwitter(promoExtra,c.getMongoDB().getPromos());//(s, m.getPromos());
+		reco.mostrarRecomendaciones(c.getMongoDB().getPromos());
 	}
+
+	public MongoConcreteStub getMongo() {
+		return mongo;
+	}
+
+	public void setMongo(MongoConcreteStub mongo) {
+		this.mongo = mongo;
+	}
+	
 }

@@ -1,5 +1,8 @@
 package mvc;
 
+import java.lang.reflect.InvocationTargetException;
+
+import twitter4j.TwitterException;
 import dao.mongoDB.MongoConcreteStub;
 import mvc_modelo_observable.Modelo;
 
@@ -7,7 +10,7 @@ import mvc_modelo_observable.Modelo;
 public class MVC_sePP2vistas {
 
     @SuppressWarnings("unused")
-	public static void main(String args[]){
+	public static void main(String args[]) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException{
     	//MongoConcrete i= new MongoConcrete();
     	MongoConcreteStub i= new MongoConcreteStub();//error en m.getCollection() del modelo proveniente del MongoConcrete()
     	//i.conectarseMongoDB();

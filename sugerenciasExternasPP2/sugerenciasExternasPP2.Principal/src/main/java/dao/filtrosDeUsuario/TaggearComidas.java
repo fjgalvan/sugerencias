@@ -47,7 +47,8 @@ public class TaggearComidas {
 	public DBCollection taggearComidas() {
 		Enumeration<Object> keys = p.keys();
 		BasicDBObject newDocument = new BasicDBObject();
-
+		System.out.println("DBCollection taggearComidas()");
+		
 		while (keys.hasMoreElements()) {
 			Object key = keys.nextElement();
 			if (p.get(key).equals("sanas")) {// si encuebtro algun tipo de

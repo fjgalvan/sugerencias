@@ -1,9 +1,9 @@
 package sugerencias;
 
-import java.util.HashMap;  
+import java.util.HashMap;   
 
 import promo.Interfaz.InterfacePromo;
-import util.Date;
+import util_.Date;
 
 public class Sugerencias {
 	private String local;
@@ -12,6 +12,8 @@ public class Sugerencias {
 	private HashMap<String,Double> lComidas = new HashMap<String,Double>();//(producto, precio)
 	private String producto;
 	private Double precio;
+	private String precioString;
+	private String fechaDeVigenciaString;
 	
 	
 	public Sugerencias(String local, String ubicacion, HashMap<String,Double> listaProductosPrecios, Date fechaDeVigencia) 
@@ -38,6 +40,14 @@ public class Sugerencias {
         this.fechaDeVigencia= fechaDeVigencia2;
 	}
 	
+	public Sugerencias(String local2, String ubicacion2, String producto2,
+			String precio2, String fechaDeVigencia2) {
+		this.local= local2;
+        this.ubicacion= ubicacion2;
+	    this.producto= producto2;
+        this.precioString= precio2;
+        this.fechaDeVigenciaString= fechaDeVigencia2;
+	}
 	public void leerSugerencias(){
 	}
 	

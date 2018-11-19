@@ -1,11 +1,13 @@
 package conexiones.conexionTwitter;
 
-import java.io.BufferedReader; 
+import java.io.BufferedReader;  
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
-import conexiones.Interfaz.InterfaceConexion;
+import com.mongodb.DBCollection;
+
+import conexiones.Interfaz.InterfaceConectores;
 import properties.Constants;
 import properties.PropertiesPrincipal;
 import twitter4j.conf.ConfigurationBuilder;
@@ -15,7 +17,7 @@ import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
  
-public class ConectorTwitterJ implements InterfaceConexion
+public class ConectorTwitterJ implements InterfaceConectores
 {
 	
 	public ConectorTwitterJ(){
@@ -92,5 +94,13 @@ public class ConectorTwitterJ implements InterfaceConexion
     	try {conectarConUsuarioDeTwitter();
 		} catch (IOException | TwitterException e) {e.printStackTrace();}
     }
+
+
+
+	@Override
+	public DBCollection getPromo(DBCollection coll) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

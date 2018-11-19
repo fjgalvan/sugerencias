@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import java.util.HashMap;
 import org.bson.Document;
 
 import promo.Interfaz.InterfacePromo;
+import twitter4j.TwitterException;
 
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -36,8 +38,11 @@ import com.mongodb.MongoException;
 
 
 
+
+
 import conexiones.conexionExel.ExcelParserJSON;
 import dao.filtrosDeUsuario.TaggearComidas;
+import dao.mongoDB.MongoConcreteStub;
 
 @SuppressWarnings({ "unused", "deprecation" })
 public class PromoExcel implements InterfacePromo{
@@ -47,7 +52,8 @@ public class PromoExcel implements InterfacePromo{
     	
     }
     
-	public void leerPromo() {
+	public void leerPromo(DBCollection promos) {
+		this.collection= promos;
     	parsearExcelBson();
 	}
 
@@ -64,9 +70,9 @@ public class PromoExcel implements InterfacePromo{
 		//DBCollection collection = null;
 		try {
 
-			Mongo mongo = new Mongo("localhost", 27017);
-			DB db = mongo.getDB("yourdb100");
-			collection = db.getCollection("excelPromoJc100SON");
+//			Mongo mongo = new Mongo("localhost", 27017);
+//			DB db = mongo.getDB("yourdb100");
+//			collection = db.getCollection("excelPromoJc100SON");
 			
 			// convert JSON to DBObject directly
 			DBObject dbObject = (DBObject) JSON
@@ -101,6 +107,12 @@ public class PromoExcel implements InterfacePromo{
 	public DBCollection getPromo() {
 		return getCollection();
 	}
-
+	
+	public static void main(String[] args) {
+		PromoExcel pe= new PromoExcel();
+		MongoConcreteStub mongoStub= new MongoConcreteStub();
+		pe.leerPromo(mongoStub.getPromos());
+		
+	}
 	
 }

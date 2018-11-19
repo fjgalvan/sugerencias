@@ -9,6 +9,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 
+import conexiones.Interfaz.InterfaceConectores;
 import dao.mongoDB.MyConstants;
 import de.bwaldvogel.mongo.MongoServer;
 import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
@@ -19,9 +20,10 @@ import sugerencias.Sugerencias;
 import validaciones.ValidarFechaPromo;
 import validaciones.ValidarTwitter;
 
-public class PromoTwitterStub implements InterfacePromo{
+public class PromoTwitterStub implements InterfaceConectores{//InterfacePromo{
 
 	String s= "#promo:mcDonalds_sanIsidro_lista(hamburguesa/50.0,helado/40.0,ensalada/20.0,fideos/30.0)_20-12-2018";
+	String s2= "#promo:cafeMartinez_sanIsidro_lista(pancho/25.0,gelatina/20.0,pollo/50.0,ravioles/30.0)_20-12-2018";
 	PromoTwitter pt = null;
 	boolean res=false;
 	
@@ -31,10 +33,18 @@ public class PromoTwitterStub implements InterfacePromo{
 	private static DBCollection collection;
 
 	
-	@Override
+	//@Override
 	public DBCollection getPromo() {
 		// TODO Auto-generated method stub
 		return collection;
+	}
+	@Override
+	public DBCollection getPromo(DBCollection promosViejas) {
+		
+		PromoTwitter pts= new PromoTwitter();
+		pts.mostrarListProdDeTwitter(s2, promosViejas);
+		
+		return pts.getCollection();
 	}
 	public DBCollection conectarseMongoDBstub() {//(String nombreBase, String nombreColeccion)
 		return setUp();
@@ -100,9 +110,9 @@ public DBCollection mostrarListProdDeTwitter(String s){
 }
 
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	@Override
+	public void conectarse() {
+		
 	}
 
 }

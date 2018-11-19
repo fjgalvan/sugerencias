@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Enumeration;
 import java.util.Properties;
 
@@ -15,6 +16,7 @@ import mvc.Controlador;
 import mvc.Vista2;
 import mvc_modelo_observable.Modelo;
 import properties.Constants;
+import twitter4j.TwitterException;
 
 
 public class FiltroListener implements ActionListener{
@@ -76,6 +78,34 @@ public class FiltroListener implements ActionListener{
             	try {
 					cargarUsuarios();
 				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		v.getBtn_actualizarPromos().addMouseListener(new MouseAdapter() {
+			@Override
+            public void mouseClicked(MouseEvent e) {
+				v.getChckbx_filtrosSanas().setSelected(false);
+            	v.getChckbx_filtrosPostres().setSelected(false);
+            	v.getChckbx_filtrosChatarras().setSelected(false);
+            	v.getChckbx_filtrosPastas().setSelected(false);
+            	Controlador.controladorDeCheckbox(m,v,false,false,false,false);
+            	try {
+					cargarUsuarios();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+            	
+            	try {
+            		m.getMongo().finish();
+            		m.ConectarMongoDBStub();
+					m.cargarRecomendaciones();
+				} catch (ClassNotFoundException | NoSuchMethodException
+						| SecurityException | InstantiationException
+						| IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException | TwitterException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}

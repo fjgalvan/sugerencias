@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.bson.Document;
 
+import promo.Excel.PromoExcel;
 import promo.Interfaz.InterfacePromo;
 import sugerencias.ConvertirString_a_Sugerencia;
 import sugerencias.Sugerencias;
@@ -31,6 +32,7 @@ import com.mongodb.util.JSON;
 
 import conexiones.conexionTwitter.UsoTwitterDeUsuario;
 import dao.filtrosDeUsuario.TaggearComidas;
+import dao.mongoDB.MongoConcreteStub;
 
 public class PromoTwitter implements InterfacePromo {
 	List<String> listaTweets = new ArrayList<String>();
@@ -116,12 +118,13 @@ public class PromoTwitter implements InterfacePromo {
 	}
 
 	public DBCollection parsearBSON(String s, DBCollection collection2) {
+		this.collection = collection2;
 		HashMap<String, Double> l = new HashMap<String, Double>();
 		try {
 			// convert JSON to DBObject directly
 			DBObject bson = (DBObject) JSON.parse(s);
 			System.out.println("BasicDBObject bson= " + bson.toString());
-			collection2.insert(bson);
+			this.collection.insert(bson);
 
 			// ACTUALIZO EL BSON
 			BasicDBObject newDocument = new BasicDBObject();
@@ -129,15 +132,15 @@ public class PromoTwitter implements InterfacePromo {
 					new BasicDBObject().append("listaProductosPrecios", null));
 			BasicDBObject searchQuery = new BasicDBObject().append(
 					"listaProductosPrecios", l);
-			collection2.update(searchQuery, newDocument);
+			this.collection.update(searchQuery, newDocument);
 			// TAGGEO INICIAL
-			this.collection = collection2;
-			TaggearComidas tcI = new TaggearComidas(collection2);
-			this.collection = tcI.taggeoInicial(collection2);
+			//this.collection = collection2;
+//			TaggearComidas tcI = new TaggearComidas(this.collection);
+//			this.collection = tcI.taggeoInicial(this.collection);
 
 			// TAGGEO PROMOS DE COMIDAS
-			this.collection = collection2;
-			TaggearComidas tc = new TaggearComidas(collection2);
+			//this.collection = collection2;
+			TaggearComidas tc = new TaggearComidas(this.collection);//(collection2);
 			this.collection = tc.taggearComidas();
 
 			// ELIMINO PROMOS DE COMIDAS INCORRECTOS
@@ -147,18 +150,18 @@ public class PromoTwitter implements InterfacePromo {
 		} catch (MongoException e) {
 			e.printStackTrace();
 		}
-		this.collection = collection2;
+		//this.collection = collection2;
 		return this.collection;
 	}
 
-	public DBCollection conectarseAbaseMongoDB(String nombreBase,
-			String nombreColeccion) {
-		mongo = new Mongo("localhost", 27017);
-		db = mongo.getDB(nombreBase);
-		collection = db.getCollection(nombreColeccion);
-
-		return collection;
-	}
+//	public DBCollection conectarseAbaseMongoDB(String nombreBase,
+//			String nombreColeccion) {
+//		mongo = new Mongo("localhost", 27017);
+//		db = mongo.getDB(nombreBase);
+//		collection = db.getCollection(nombreColeccion);
+//
+//		return collection;
+//	}
 
 	public Mongo getMongo() {
 		return mongo;
@@ -176,5 +179,10 @@ public class PromoTwitter implements InterfacePromo {
 	public DBCollection getPromo() {
 		return getCollection();
 	}
-
+//	public static void main(String[] args) {
+//		PromoTwitter pe= new PromoTwitter();
+//		MongoConcreteStub mongoStub= new MongoConcreteStub();
+//		pe.mostrarListProdDeTwitter("",mongoStub.getPromos());
+//		
+//	}
 }
