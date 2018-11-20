@@ -122,10 +122,24 @@ public class FiltroListener implements ActionListener{
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
+            	//Funciona sin Timer
+//            	try {
+//            		m.getMongo().finish();
+//            		m.ConectarMongoDBStub();
+//					m.cargarRecomendaciones();
+//				} catch (ClassNotFoundException | NoSuchMethodException
+//						| SecurityException | InstantiationException
+//						| IllegalAccessException | IllegalArgumentException
+//						| InvocationTargetException | TwitterException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
             	
+            	//Funciona con Timer
             	try {
             		m.getMongo().finish();
-            		m.ConectarMongoDBStub();
+            		v.getTm().start(); //COMIENZA A CARGAR TODAS LAS PROMOS CADA CIERTO TIEMPO
+                	m.setMongo(v.getBasePromosActual()); //Obtengo la colleccion de Promos actual
 					m.cargarRecomendaciones();
 				} catch (ClassNotFoundException | NoSuchMethodException
 						| SecurityException | InstantiationException
@@ -134,6 +148,7 @@ public class FiltroListener implements ActionListener{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+            	//v.getTm().stop(); //DENTIENE LA BUSQUEDA DE CARGAS Y PROMOS
 			}
 		});
 		

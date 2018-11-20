@@ -3,24 +3,40 @@ package mvc;
 import java.awt.Button; 
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.Timer;
+
 import mvc_modelo_observable.Modelo;
+
 import java.awt.Color;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Observer;
 import java.util.Observable;
+
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
+
 import java.awt.Component;
+
 import javax.swing.Box;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
+
+import twitter4j.TwitterException;
+
+import com.mongodb.DBCollection;
+
+import conexiones.Interfaz.RecolectorPromos;
+import dao.mongoDB.MongoConcreteStub;
 
 @SuppressWarnings("serial")
 public class Vista2 extends JFrame implements Observer {
@@ -59,6 +75,8 @@ public class Vista2 extends JFrame implements Observer {
 	private JTextArea textArea_masEconomico;
 	private JButton btnEstadisticasPrecios;
 	private JLabel label;
+	private Timer tm;
+	private MongoConcreteStub basePromosActual;
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Vista2(Modelo modelo) {
@@ -262,7 +280,22 @@ public class Vista2 extends JFrame implements Observer {
 		label = new JLabel("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		label.setBounds(10, 519, 991, 14);
 		panel.add(label);
-
+		
+		tm = new Timer(60000, new ActionListener() { //1.000 = 1 segundo // 60.000= 1 minuto // 3.600.000= 1 hora
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					basePromosActual= cargarTodasLasPromos();
+				} catch (ClassNotFoundException | NoSuchMethodException
+						| SecurityException | InstantiationException
+						| IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException | TwitterException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
 		// Hacemos visible nuestra ventana.
 		this.setVisible(true);
 		// Cargamos controlador y le asignamos qué modelo controlar
@@ -447,6 +480,22 @@ public class Vista2 extends JFrame implements Observer {
 	public JButton getBtnEstadisticasPrecios() {
 		return btnEstadisticasPrecios;
 	}
-	
+	public MongoConcreteStub cargarTodasLasPromos() throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException{
+		RecolectorPromos c = new RecolectorPromos();
+
+		c.cargarListaConectores();
+		c.buscarPromociones();
+		System.out.println("c.getMongoDB().getPromos().count(): "+c.getMongoDB().getPromos().count());
+		c.getMongoDB().leerColeccion();
+		return c.getMongoDB();
+	}
+
+	public Timer getTm() {
+		return tm;
+	}
+
+	public MongoConcreteStub getBasePromosActual() {
+		return basePromosActual;
+	}
 	
 }
