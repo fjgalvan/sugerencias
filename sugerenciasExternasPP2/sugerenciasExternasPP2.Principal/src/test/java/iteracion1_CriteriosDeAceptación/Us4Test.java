@@ -1,6 +1,6 @@
 package iteracion1_CriteriosDeAceptación;
 
-import static org.junit.Assert.assertFalse; 
+import static org.junit.Assert.assertFalse;  
 import static org.junit.Assert.assertTrue;
 
 import java.io.FileReader;
@@ -24,7 +24,6 @@ import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 
-import dao.filtrosDeUsuario.FiltrosDeUsuarioAyB;
 import dao.mongoDB.MongoConcreteStub;
 import dao.mongoDB.MyConstants;
 import de.bwaldvogel.mongo.MongoServer;

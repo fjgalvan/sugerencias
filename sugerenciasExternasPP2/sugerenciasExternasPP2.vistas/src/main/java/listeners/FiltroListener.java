@@ -1,6 +1,6 @@
 package listeners;
 
-import java.awt.event.ActionEvent;
+import java.awt.event.ActionEvent; 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -8,15 +8,21 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import com.mongodb.DBCollection;
+
+import estadisticas.PromosOpuestosEnPrecio;
 import mvc.Controlador;
 import mvc.Vista2;
 import mvc_modelo_observable.Modelo;
 import properties.Constants;
+import twitter4j.TwitterException;
 
 
+@SuppressWarnings("unused")
 public class FiltroListener implements ActionListener{
 	Vista2 v;
 	Modelo m;
@@ -81,6 +87,71 @@ public class FiltroListener implements ActionListener{
 			}
 		});
 		
+		v.getBtnEstadisticasPrecios().addMouseListener(new MouseAdapter() {
+			@Override
+            public void mouseClicked(MouseEvent e) {
+				DBCollection coll = null;
+				try {
+//            		m.getMongo().finish();
+//            		m.ConectarMongoDBStub();
+					coll=m.cargarTodasLasPromos();
+				} catch (ClassNotFoundException | NoSuchMethodException
+						| SecurityException | InstantiationException
+						| IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException | TwitterException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				PromosOpuestosEnPrecio estadistica= new PromosOpuestosEnPrecio();
+				v.getTextArea_masCara().setText(estadistica.getPromoMasCara(coll).toString()); 
+				v.getTextArea_masEconomico().setText(estadistica.getPromoMasEconomica(coll).toString());
+			}
+		});
+		
+		v.getBtn_actualizarPromos().addMouseListener(new MouseAdapter() {
+			@Override
+            public void mouseClicked(MouseEvent e) {
+				v.getChckbx_filtrosSanas().setSelected(false);
+            	v.getChckbx_filtrosPostres().setSelected(false);
+            	v.getChckbx_filtrosChatarras().setSelected(false);
+            	v.getChckbx_filtrosPastas().setSelected(false);
+            	Controlador.controladorDeCheckbox(m,v,false,false,false,false);
+            	try {
+					cargarUsuarios();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+            	//Funciona sin Timer
+//            	try {
+//            		m.getMongo().finish();
+//            		m.ConectarMongoDBStub();
+//					m.cargarRecomendaciones();
+//				} catch (ClassNotFoundException | NoSuchMethodException
+//						| SecurityException | InstantiationException
+//						| IllegalAccessException | IllegalArgumentException
+//						| InvocationTargetException | TwitterException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+            	
+            	//Funciona con Timer
+            	try {
+            		m.getMongo().finish();
+            		v.getTm().start(); //COMIENZA A CARGAR TODAS LAS PROMOS CADA CIERTO TIEMPO
+                	m.setMongo(v.getBasePromosActual()); //Obtengo la colleccion de Promos actual
+					m.cargarRecomendaciones();
+				} catch (ClassNotFoundException | NoSuchMethodException
+						| SecurityException | InstantiationException
+						| IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException | TwitterException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            	//v.getTm().stop(); //DENTIENE LA BUSQUEDA DE CARGAS Y PROMOS
+			}
+		});
+		
 		 v.getChckbx_filtrosChatarras().addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseClicked(MouseEvent e) {
@@ -134,6 +205,7 @@ public class FiltroListener implements ActionListener{
 	        });
 
 		 }
+	@SuppressWarnings("unchecked")
 	public void cargarUsuarios() throws FileNotFoundException, IOException{
 
 		String aux=""; 
