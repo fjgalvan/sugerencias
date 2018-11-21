@@ -1,6 +1,6 @@
 package iteracion1_CriteriosDeAceptación;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertFalse; 
 import static org.junit.Assert.assertTrue;
 
 import java.io.FileReader;
@@ -37,36 +37,18 @@ public class Us4Test {
 	String s= "#promo:mcDonalds_sanIsidro_lista(hamburguesa/50.0,helado/40.0,ensalada/20.0,fideos/30.0)_31-12-2018";
 	PromoTwitter pt = null;
 	boolean res= false;
-	//FiltrosDeUsuarioAyB f;
 	Recomendacion f_a;
 	Recomendacion f_b;
 	Properties p1;
 	Properties p2;
 	TwitterParsers tp;
 	
-//	private MongoClient client;
-//    private MongoServer server;
-//    private static DB db; 
 	private DBCollection collection;
 	private MongoConcreteStub mongo;
 
 	@Before
     public void setUp() {
-//        server = new MongoServer(new MemoryBackend());
-//
-//        // bind on a random local port
-//        InetSocketAddress serverAddress = server.bind();
-//
-//        client = new MongoClient(new ServerAddress(serverAddress));
-//        //collection = client.getDatabase("testdb").getCollection("testcollection");
-//        db = client.getDB(MyConstants.DB_NAME);
-//        collection= db.getCollection(MyConstants.DB_NAME);
-//        
-//        tp= new TwitterParsers(collection);
-//        
-//        System.out.println("init");
-		//f= new FiltrosDeUsuarioAyB();
-		//f.mostrarListProdDeTwitter(s, collection);
+
 		System.out.println("Creo el Mongo");
 		mongo= new MongoConcreteStub();
 		
