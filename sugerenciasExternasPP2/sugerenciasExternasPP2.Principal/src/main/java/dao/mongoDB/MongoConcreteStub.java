@@ -102,4 +102,8 @@ public class MongoConcreteStub implements InterfaceMongoAccess{
 	public  DBCollection getPromos() {
 		return coll;
 	}
+	public void setColl(DBCollection coll) {
+		this.coll = coll;
+	}
+	
 }

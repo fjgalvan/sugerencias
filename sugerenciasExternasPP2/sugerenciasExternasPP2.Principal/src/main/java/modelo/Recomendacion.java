@@ -3,10 +3,15 @@ package modelo;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import promo.Twitter.PromoTwitter;
+import sugerencias.ConvertirString_a_Sugerencia;
 import sugerencias.Sugerencias;
 import util_.Date;
+import validaciones.ValidarFechaPromo;
+import validaciones.ValidarTwitter;
 import bo.ProductosBo;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -33,8 +38,8 @@ public class Recomendacion {
 		// -------
 	}
 
-	public void leerPreferencias() {// Cada usuario tiene 2 preferencias
-
+	public List<Preferencias> leerPreferencias() {// Cada usuario tiene 2 preferencias
+		List<Preferencias> lista= new ArrayList<Preferencias>();
 		// Declaramos el Iterador e imprimimos los Elementos del ArrayList
 		Iterator<Preferencias> nombreIterator = this.customer
 				.getListaPreferencias().iterator();
@@ -42,7 +47,9 @@ public class Recomendacion {
 			Preferencias elemento = nombreIterator.next();
 			System.out.println("Preferencia: " + elemento.getCodigo()
 					+ "--desc: " + elemento.getDescripcion());
+			lista.add(elemento);
 		}
+		return lista;
 	}
 
 	public DBCollection mostrarRecomendaciones(DBCollection coll) {
@@ -89,56 +96,56 @@ public class Recomendacion {
 		return coll;
 	}
 
-//	// // Guardo las promos de Twitter
-//	public DBCollection mostrarListProdDeTwitter(String s, DBCollection coll) {
-//
-//		ArrayList<Sugerencias> lSugerencias;
-//		// Valido formato del Tweet y Fecha de Vencimiento de la promo del Tweet
-//		ValidarTwitter vt = new ValidarTwitter(s);
-//		ValidarFechaPromo vf = new ValidarFechaPromo(s);
-//		if ((vt.twitterStringValido()) && (vf.VigenciaPromoValida())) {
-//			// Parseo el Tweet a Sugerencia
-//			ConvertirString_a_Sugerencia cs = new ConvertirString_a_Sugerencia(
-//					s);
-//			cs.convertirLocal();
-//			cs.convertirUbicacion();
-//			cs.convertirLista();
-//			cs.convertirFecha();
-//			// Obtengo una lista de Sugerencias
-//			lSugerencias = new ArrayList<Sugerencias>();
-//			lSugerencias = cs.getListSugerenciaTwitter();
-//
-//			// Obtengo una lista de Promociones
-//			lPromciones = new ArrayList<Promocion>();
-//			for (Sugerencias sug : lSugerencias) {
-//				Producto producto = buscarObjetoProducto(sug.getProducto());
-//				Promocion pro = new Promocion(sug.getLocal(),
-//						sug.getUbicacion(), producto, sug.getPrecio(),
-//						sug.getFechaDeVigencia());
-//				lPromciones.add(pro);
-//			}
-//
-//			// Declaramos el Iterador e imprimimos los Elementos del ArrayList
-//			// de Sugerencias
-//			Iterator<Sugerencias> nombreIterator = lSugerencias.iterator();
-//			while (nombreIterator.hasNext()) {
-//				Sugerencias elemento = nombreIterator.next();
-//			}
-//
-//			// Declaramos el Iterador e imprimimos los Elementos del ArrayList
-//			// de Promocion
-//			Iterator<Promocion> nIterator = lPromciones.iterator();
-//			while (nIterator.hasNext()) {
-//				Promocion elemento = nIterator.next();
-//			}
-//
-//			// PARSEO A JSON y A BSON
-//			System.out.println("PARSEO A JSON y A BSON");
-//			pt = new PromoTwitter();
-//			pt.parsear_a_JSON(lSugerencias, coll);
-//		}
-//		return pt.getCollection();
-//	}
+	// // Guardo las promos de Twitter
+	public DBCollection mostrarListProdDeTwitter(String s, DBCollection coll) {
+
+		ArrayList<Sugerencias> lSugerencias;
+		// Valido formato del Tweet y Fecha de Vencimiento de la promo del Tweet
+		ValidarTwitter vt = new ValidarTwitter(s);
+		ValidarFechaPromo vf = new ValidarFechaPromo(s);
+		if ((vt.twitterStringValido()) && (vf.VigenciaPromoValida())) {
+			// Parseo el Tweet a Sugerencia
+			ConvertirString_a_Sugerencia cs = new ConvertirString_a_Sugerencia(
+					s);
+			cs.convertirLocal();
+			cs.convertirUbicacion();
+			cs.convertirLista();
+			cs.convertirFecha();
+			// Obtengo una lista de Sugerencias
+			lSugerencias = new ArrayList<Sugerencias>();
+			lSugerencias = cs.getListSugerenciaTwitter();
+
+			// Obtengo una lista de Promociones
+			lPromciones = new ArrayList<Promocion>();
+			for (Sugerencias sug : lSugerencias) {
+				Producto producto = buscarObjetoProducto(sug.getProducto());
+				Promocion pro = new Promocion(sug.getLocal(),
+						sug.getUbicacion(), producto, sug.getPrecio(),
+						sug.getFechaDeVigencia());
+				lPromciones.add(pro);
+			}
+
+			// Declaramos el Iterador e imprimimos los Elementos del ArrayList
+			// de Sugerencias
+			Iterator<Sugerencias> nombreIterator = lSugerencias.iterator();
+			while (nombreIterator.hasNext()) {
+				Sugerencias elemento = nombreIterator.next();
+			}
+
+			// Declaramos el Iterador e imprimimos los Elementos del ArrayList
+			// de Promocion
+			Iterator<Promocion> nIterator = lPromciones.iterator();
+			while (nIterator.hasNext()) {
+				Promocion elemento = nIterator.next();
+			}
+
+			// PARSEO A JSON y A BSON
+			System.out.println("PARSEO A JSON y A BSON");
+			pt = new PromoTwitter();
+			pt.parsear_a_JSON(lSugerencias, coll);
+		}
+		return pt.getCollection();
+	}
 
 	// Busco en el listado de todos los productos que menejo
 	private Producto buscarObjetoProducto(String producto) {
@@ -190,8 +197,8 @@ public class Recomendacion {
 			}
 		}
 		try {
-			comida1 = comidas.get(0);
-			comida2 = comidas.get(1);
+			comida1 = comidas.get(0);System.out.println("comida1: "+comida1);
+			comida2 = comidas.get(1);System.out.println("comida2: "+comida2);
 		} catch (Exception e) {
 		}
 
