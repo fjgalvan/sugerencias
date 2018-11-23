@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.codec.language.Nysiis;
+
 import promo.Twitter.PromoTwitter;
 import sugerencias.ConvertirString_a_Sugerencia;
 import sugerencias.Sugerencias;
@@ -16,6 +18,8 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+
+import configurables.MyConstantsModelo;
 
 public class Recomendacion {
 	PromoTwitter pt = null;
@@ -45,15 +49,14 @@ public class Recomendacion {
 				.getListaPreferencias().iterator();
 		while (nombreIterator.hasNext()) {
 			Preferencias elemento = nombreIterator.next();
-			System.out.println("Preferencia: " + elemento.getCodigo()
-					+ "--desc: " + elemento.getDescripcion());
+//			System.out.println("Preferencia: " + elemento.getCodigo()
+//					+ "--desc: " + elemento.getDescripcion());
 			lista.add(elemento);
 		}
 		return lista;
 	}
 
 	public DBCollection mostrarRecomendaciones(DBCollection coll) {
-		System.out.println("mostarRecom size: "+coll.count());
 		// Obtengo una lista de Promociones
 		lPromciones = new ArrayList<Promocion>();
 		lSugerencias = new ArrayList<Sugerencias>();
@@ -61,12 +64,11 @@ public class Recomendacion {
 		try {
 			while (cursor.hasNext()) {
 
-				System.out.println("HOLA mostrarRecomendaciones");
 				DBObject doc= cursor.next();
-				String local=(String) doc.get("local");
-				String ubicacion=(String) doc.get("ubicacion");
-				String producto=(String) doc.get("producto");
-				Double preciod=(Double) doc.get("precio");
+				String local=(String) doc.get(MyConstantsModelo.promoLocal);
+				String ubicacion=(String) doc.get(MyConstantsModelo.promoUbicacion);
+				String producto=(String) doc.get(MyConstantsModelo.promoProducto);
+				Double preciod=(Double) doc.get(MyConstantsModelo.promoPrecio);
 //				String precio= String.valueOf(preciod);
 //				Date fechaDeVigenciaD=(Date) doc.get("dd");//("fechaDeVigencia");
 //				System.out.println("dd: "+ fechaDeVigenciaD);
@@ -77,13 +79,12 @@ public class Recomendacion {
 		} finally {
 			cursor.close();
 		}
-		System.out.println("lSugerencias size: "+lSugerencias.size());
 		for (Sugerencias sug : lSugerencias) {
 			try {
 		
 			Producto producto = buscarObjetoProducto(sug.getProducto());
-			System.out.println("producto: "+sug.getProducto());
-			System.out.println("producto-descripcio: "+producto.getNombre()+"-"+producto.getDescripcion());
+//			System.out.println("producto: "+sug.getProducto());
+//			System.out.println("producto-descripcio: "+producto.getNombre()+"-"+producto.getDescripcion());
 			Promocion pro = new Promocion(sug.getLocal(), sug.getUbicacion(),
 					producto, sug.getPrecio(), sug.getFechaDeVigencia());
 			lPromciones.add(pro);
@@ -140,7 +141,6 @@ public class Recomendacion {
 			}
 
 			// PARSEO A JSON y A BSON
-			System.out.println("PARSEO A JSON y A BSON");
 			pt = new PromoTwitter();
 			pt.parsear_a_JSON(lSugerencias, coll);
 		}
@@ -149,7 +149,7 @@ public class Recomendacion {
 
 	// Busco en el listado de todos los productos que menejo
 	private Producto buscarObjetoProducto(String producto) {
-		System.out.println("producto: "+producto);
+//		System.out.println("producto: "+producto);
 		Producto ObjProducto = null;
 		// Busco el codigo y la descripcion del producto
 		// Leo todos los Productos que tengo en ProductosBo
@@ -189,27 +189,27 @@ public class Recomendacion {
 						.equals(this.customer.getListaPreferencias().get(i)
 								.getDescripcion())) {
 					comidas.add(elemento.getProducto().getNombre());
-					System.out.println("Se encontró la preferencia nº: " + i);
-					System.out.println("comida: "
-							+ elemento.getProducto().getNombre());
+//					System.out.println("Se encontró la preferencia nº: " + i);
+//					System.out.println("comida: "
+//							+ elemento.getProducto().getNombre());
 					lRecomendaciones.add(elemento);//(promo);
 				}
 			}
 		}
 		try {
-			comida1 = comidas.get(0);System.out.println("comida1: "+comida1);
-			comida2 = comidas.get(1);System.out.println("comida2: "+comida2);
+			comida1 = comidas.get(0);
+			comida2 = comidas.get(1);
 		} catch (Exception e) {
 		}
 
 		BasicDBObject filtro2 = new BasicDBObject();
-		filtro2.put("producto", comida1);
+		filtro2.put(MyConstantsModelo.promoProducto, comida1);
 		DBCursor cur2 = col.find(filtro2);
 		while (cur2.hasNext()) {
 			f2 = cur2.next();
 		}
 		BasicDBObject filtro4 = new BasicDBObject();
-		filtro4.put("producto", comida2);
+		filtro4.put(MyConstantsModelo.promoProducto, comida2);
 		DBCursor cur4 = col.find(filtro4);
 		while (cur4.hasNext()) {
 			f4 = cur4.next();

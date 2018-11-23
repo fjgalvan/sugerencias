@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.mongodb.DBCollection;
 
 import conexiones.Interfaz.InterfaceConectores;
+import configurables.MyConstantsConexiones;
 import dao.mongoDB.MongoConcreteStub;
 import dao.mongoDB.MyConstants;
 import sugerencias.Sugerencias;
@@ -73,7 +74,7 @@ public class ConectorTwitter implements InterfaceConectores
     
     @SuppressWarnings("unused")
 	public void actualizarEstadoCreandoNuevosTweets(String tweet){
-    	tweet= "#promo: mcDonalds_beccar_hamburguesa_50_20-09-2018.";
+    	tweet= MyConstantsConexiones.tweet;
         try {
 			Status tweetEscrito = twitter.updateStatus(tweet);
 		} catch (TwitterException e1) {
@@ -85,7 +86,6 @@ public class ConectorTwitter implements InterfaceConectores
     	final SugerenciaTwitter st = new SugerenciaTwitter(s.getLocal(), s.getUbicacion(), s.getListaProductosPrecios(), s.getFechaDeVigencia());
     	final Gson gson = new Gson();
     	final String representacionJSON = gson.toJson(st);
-    	System.out.println("\n\n"+representacionJSON);
     }
     
     public HashMap<String, String> conectarsePruebaTwitter() {
@@ -100,7 +100,6 @@ public class ConectorTwitter implements InterfaceConectores
 		try {
 			conexionConTwitterDeUsuario();
 		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -116,18 +115,17 @@ public class ConectorTwitter implements InterfaceConectores
 		try {
 			listado=RecuperarListadoDeUltimosTweetsEscritos();
 		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		for (int i = 0; i < listado.size(); i++){
-			 System.out.println("tweet: "+listado.get(i).getText());
+			 //System.out.println("tweet: "+listado.get(i).getText());
 			 ValidarTwitter v= new ValidarTwitter(listado.get(i).getText());
 			 if(v.twitterStringValido()){
-				System.out.println("Tweet valido: "+listado.get(i).getText());
+				//System.out.println("Tweet valido: "+listado.get(i).getText());
 				promosNuevas=pts.mostrarListProdDeTwitter(listado.get(i).getText(), promosNuevas);
 			 }
 		 }
-		return promosNuevas;//pts.getCollection();
+		return promosNuevas;
 	}
 	
 }

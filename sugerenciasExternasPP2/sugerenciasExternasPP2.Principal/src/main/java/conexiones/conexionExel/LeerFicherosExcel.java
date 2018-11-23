@@ -12,6 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.mongodb.DBCollection;
 
 import conexiones.Interfaz.InterfaceConectores;
+import configurables.MyConstantsConexiones;
 import promo.Excel.PromoExcel;
 import properties.Constants;
  
@@ -26,7 +27,7 @@ public class LeerFicherosExcel implements InterfaceConectores{
 	@SuppressWarnings({ "unused", "resource" })
 	public static void LeerExcelXLSX() {
 		String rutaArchivo= Constants.ROUTE_EXCEL_xlsx;
-		String hoja = "mcDonald";
+		String hoja = MyConstantsConexiones.hojaExcelXlsx;
 		
  
 		try (FileInputStream file = new FileInputStream(new File(rutaArchivo))) {
@@ -62,9 +63,9 @@ public class LeerFicherosExcel implements InterfaceConectores{
 	
 	@SuppressWarnings({ "unused", "resource" })
 	public static boolean validarExcel(){
-		String nombreArchivo = "Sugerencias.xlsx";
-		String rutaArchivo = "C:\\Ficheros-Excel\\" + nombreArchivo;
-		String hoja = "mcDonald";//= "Hoja1";
+		String nombreArchivo = MyConstantsConexiones.nombreArchivoExcelXlsx;
+		String rutaArchivo =  MyConstantsConexiones.rutaArchivoExcelXlsx+ nombreArchivo;
+		String hoja = MyConstantsConexiones.hojaExcelXlsx;//= "Hoja1";
 		boolean valido= false;
 		Integer cont=0; 
 		Integer contFilas=0;
@@ -108,17 +109,17 @@ public class LeerFicherosExcel implements InterfaceConectores{
 		return valido;
 	}
 	public static void ValidarColumnas(Integer cont, Cell cell){
-		if((cont==0) && (cell.getStringCellValue().equals("local"))) {aux= aux+1; cont= cont+1;} 
-		if((cont==1) && (cell.getStringCellValue().equals("Ubicacion"))) {aux= aux+1; cont= cont+1;} 
-		if((cont==2) && (cell.getStringCellValue().equals("Producto"))) {aux= aux+1; cont= cont+1;} 
-		if((cont==3) && (cell.getStringCellValue().equals("Precio"))) {aux= aux+1; cont= cont+1;} 
-		if((cont==4) && (cell.getStringCellValue().equals("fechaDeVigencia"))) {aux= aux+1; cont= cont+1;} 
+		if((cont==0) && (cell.getStringCellValue().equals(MyConstantsConexiones.promoLocal))) {aux= aux+1; cont= cont+1;} 
+		if((cont==1) && (cell.getStringCellValue().equals(MyConstantsConexiones.promoUbicacion))) {aux= aux+1; cont= cont+1;} 
+		if((cont==2) && (cell.getStringCellValue().equals(MyConstantsConexiones.promoProducto))) {aux= aux+1; cont= cont+1;} 
+		if((cont==3) && (cell.getStringCellValue().equals(MyConstantsConexiones.promoPrecio))) {aux= aux+1; cont= cont+1;} 
+		if((cont==4) && (cell.getStringCellValue().equals(MyConstantsConexiones.promoFechaDeVigencia))) {aux= aux+1; cont= cont+1;} 
 		
 	}
 	@SuppressWarnings({ "unused", "resource" })
 	public static boolean validarExcel(String ruta){
 		String rutaArchivo = ruta;
-		String hoja = "mcDonald";
+		String hoja = MyConstantsConexiones.hojaExcelXlsx;
 		boolean valido= false;
 		Integer cont=0; 
 		Integer contFilas=0;

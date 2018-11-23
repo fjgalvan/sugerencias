@@ -40,9 +40,9 @@ public class ProductosBo {
 
 	public void mostrarListaDeProductos() {
 		for (Producto prod: listaProducto) {
-//		    System.out.println(prod.getCodigo());
-//		    System.out.println(prod.getNombre());
-//		    System.out.println(prod.getDescripcion()+"\n");
+		    System.out.println(prod.getCodigo());
+		    System.out.println(prod.getNombre());
+		    System.out.println(prod.getDescripcion()+"\n");
 		}
 		
 	}

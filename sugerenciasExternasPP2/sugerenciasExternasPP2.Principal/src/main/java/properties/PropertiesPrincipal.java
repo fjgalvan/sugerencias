@@ -31,6 +31,6 @@ private Properties propiedades;
 	}
 	
 	public void modificar(String clave, String valor){
-		propiedades.setProperty("cuatro", "4");
+		//propiedades.setProperty("cuatro", "4");
 	}
 }

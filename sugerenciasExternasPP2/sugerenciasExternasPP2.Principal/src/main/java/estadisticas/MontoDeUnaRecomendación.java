@@ -68,20 +68,4 @@ public class MontoDeUnaRecomendación {
 		return doubleRes;
 		
 	}
-	
-	
-	
-//	public static void main(String[] args) {
-//		MontoDeUnaRecomendación m= new MontoDeUnaRecomendación();
-//		Usuario u= new Usuario("fernando","fernando@yahoo.com.ar");
-//		Usuario u2= new Usuario("javier","javier@yahoo.com.ar");
-//		String res="";
-//		res=m.getRecomendacion(u2);
-//		System.out.println("res: "+res);
-//		
-//		m.getPrecioRecomendacion(res);
-//
-//	}
-
-	
 }

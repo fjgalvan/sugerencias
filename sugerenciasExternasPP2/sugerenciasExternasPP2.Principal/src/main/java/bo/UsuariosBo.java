@@ -11,6 +11,7 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import configurables.MyConstantsBo;
 import properties.Constants;
 import validaciones.ValidarEmail;
 import modelo.Preferencias;
@@ -62,9 +63,7 @@ public class UsuariosBo {
 
 		while (keys.hasMoreElements()) {
 			Object key = keys.nextElement();
-			//System.out.println(key + " = " + usuariosProperties.get(key));
 		}
-
 	}
 
 	public boolean elUsuarioYaExiste(String nombreUsuario, String emailUsuario) {
@@ -111,9 +110,9 @@ public class UsuariosBo {
 		    
 			try {
 			  os=new FileOutputStream(Constants.ROUTE_USUARIOS);
-			  usuariosProperties.store(os, "Fichero de Propiedades de Usuarios!");
+			  usuariosProperties.store(os, MyConstantsBo.OsUsuarios);
 			  os=new FileOutputStream(Constants.ROUTE_USUARIOS_PREFERENCIAS);
-			  usuariosPreferenciasProperties.store(os, "Fichero de Preferencias de Usuarios!");
+			  usuariosPreferenciasProperties.store(os, MyConstantsBo.OsUsuarioPreferencias);
 			  return true;
 			} catch(IOException ioe) {ioe.printStackTrace(); return false;}
 			
@@ -134,10 +133,4 @@ public class UsuariosBo {
 		return listaUsuarios;
 	}
 
-	public static void main(String[] args) throws IOException {
-		UsuariosBo user = new UsuariosBo();
-		
-		 user.agregarNuevoUsuario("pablo","pablo@yahoo.com.ar");
-		 user.getListaDeUsuarios();
-	}
 }

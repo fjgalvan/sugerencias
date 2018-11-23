@@ -9,6 +9,7 @@ import java.util.Properties;
 import properties.Constants;
 import twitter4j.TwitterException;
 import conexiones.conexionTwitter.ConectorTwitter;
+import configurables.MyConstantsConexiones;
 
 public class ConexionDinamica {
 	Properties propConexion;
@@ -52,7 +53,7 @@ public class ConexionDinamica {
 
 		// Escriba-cast y acceda a los datos de la clase Base.
 		ConectorTwitter conexion = (ConectorTwitter) c
-				.conexionExternaDinamica("twitter");
+				.conexionExternaDinamica(MyConstantsConexiones.conexionExternaTwitter);
 		conexion.conexionConTwitterDeUsuario();
 		conexion.RecuperarListadoDeUltimosTweetsEscritos();
 	}

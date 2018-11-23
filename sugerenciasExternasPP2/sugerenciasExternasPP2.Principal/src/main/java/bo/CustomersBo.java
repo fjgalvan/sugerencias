@@ -7,6 +7,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 
+import configurables.MyConstantsBo;
 import modelo.Customer;
 import modelo.Preferencias;
 import modelo.Usuario;
@@ -36,20 +37,20 @@ public class CustomersBo {
 			Usuario userName= new Usuario(parts[0], parts[1]);
 			listaPreferencias= new ArrayList<Preferencias>();
 			for(int i=2; i<parts.length; i++){
-				if(parts[i].toString().equals("chatarras")){
-					Preferencias pref= new Preferencias(1,"chatarras");
+				if(parts[i].toString().equals(MyConstantsBo.tagChatarras)){
+					Preferencias pref= new Preferencias(1,MyConstantsBo.tagChatarras);
 					listaPreferencias.add(pref);
 				}
-				if(parts[i].toString().equals("postres")){
-					Preferencias pref= new Preferencias(2,"postres");
+				if(parts[i].toString().equals(MyConstantsBo.tagPostres)){
+					Preferencias pref= new Preferencias(2,MyConstantsBo.tagPostres);
 					listaPreferencias.add(pref);
 				}
-				if(parts[i].toString().equals("sanas")){
-					Preferencias pref= new Preferencias(3,"sanas");
+				if(parts[i].toString().equals(MyConstantsBo.tagSanas)){
+					Preferencias pref= new Preferencias(3,MyConstantsBo.tagSanas);
 					listaPreferencias.add(pref);
 				}
-				if(parts[i].toString().equals("pastas")){
-					Preferencias pref= new Preferencias(4,"pastas");
+				if(parts[i].toString().equals(MyConstantsBo.tagPastas)){
+					Preferencias pref= new Preferencias(4,MyConstantsBo.tagPastas);
 					listaPreferencias.add(pref);
 				}
 			}

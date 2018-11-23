@@ -111,7 +111,7 @@ public class PromoTwitter implements InterfacePromo {
 		for (int i = 0; i < l.size(); i++) {
 			Gson gson = new Gson();
 			String representacionJSON = gson.toJson(l.get(i));
-			System.out.println("\n\nJSON: " + representacionJSON);
+			//System.out.println("\n\nJSON: " + representacionJSON);
 			parsearBSON(representacionJSON, collection2);
 		}
 
@@ -157,14 +157,6 @@ public class PromoTwitter implements InterfacePromo {
 		return this.collection;
 	}
 
-//	public DBCollection conectarseAbaseMongoDB(String nombreBase,
-//			String nombreColeccion) {
-//		mongo = new Mongo("localhost", 27017);
-//		db = mongo.getDB(nombreBase);
-//		collection = db.getCollection(nombreColeccion);
-//
-//		return collection;
-//	}
 
 	public Mongo getMongo() {
 		return mongo;
@@ -182,10 +174,4 @@ public class PromoTwitter implements InterfacePromo {
 	public DBCollection getPromo() {
 		return getCollection();
 	}
-//	public static void main(String[] args) {
-//		PromoTwitter pe= new PromoTwitter();
-//		MongoConcreteStub mongoStub= new MongoConcreteStub();
-//		pe.mostrarListProdDeTwitter("",mongoStub.getPromos());
-//		
-//	}
 }

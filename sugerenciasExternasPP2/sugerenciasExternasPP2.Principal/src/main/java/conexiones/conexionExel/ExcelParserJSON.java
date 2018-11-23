@@ -21,11 +21,6 @@ import dao.mongoDB.MyConstants;
 
 public class  ExcelParserJSON{
 	static DBCollection collection;
-	
-//	public static void main(String[] args) {
-//		String ej= ExcelJSONformat();
-//		System.out.println(ej);
-//	}
 
 	public static String ExcelJSONformat() {
 		File input = new File(MyConstants.input_excel);
@@ -34,7 +29,6 @@ public class  ExcelParserJSON{
 		try {
 			jo=getExcelDataAsJsonObject(input);
 		} catch (InvalidFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return(jo.toString());

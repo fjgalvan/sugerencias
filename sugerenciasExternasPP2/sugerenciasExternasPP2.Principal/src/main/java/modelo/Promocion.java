@@ -2,7 +2,6 @@ package modelo;
 
 import util_.Date;
 
-//import java.util.Date;
 
 public class Promocion {
 	String nombreLocal;

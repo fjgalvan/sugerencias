@@ -27,21 +27,21 @@ public class MongoConcreteStub implements InterfaceMongoAccess{
 		return client;
 	}
 	
-//	public void agregarNuevosDocumentos(DBCollection nuevasPromos){
-//		DBCursor cursor = nuevasPromos.find();
-//		try {
-//			int i = 1;
-//			while (cursor.hasNext()) {
-//				System.out.println("Document: " + i);
-//				//System.out.println(cursor.next());
-//				BasicDBObject doc= (BasicDBObject) cursor.next();
-//				coll.insert(doc);
-//				i++;
-//			}
-//		} finally {
-//			cursor.close();
-//		}
-//	}
+	public void agregarNuevosDocumentos(DBCollection nuevasPromos){
+		DBCursor cursor = nuevasPromos.find();
+		try {
+			int i = 1;
+			while (cursor.hasNext()) {
+				System.out.println("Document: " + i);
+				//System.out.println(cursor.next());
+				BasicDBObject doc= (BasicDBObject) cursor.next();
+				coll.insert(doc);
+				i++;
+			}
+		} finally {
+			cursor.close();
+		}
+	}
 	@SuppressWarnings("deprecation")
 	public void init(){
 		server = new MongoServer(new MemoryBackend());

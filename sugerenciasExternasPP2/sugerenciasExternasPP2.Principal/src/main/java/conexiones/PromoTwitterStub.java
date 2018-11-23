@@ -10,6 +10,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 
 import conexiones.Interfaz.InterfaceConectores;
+import configurables.MyConstantsConexiones;
 import dao.mongoDB.MyConstants;
 import de.bwaldvogel.mongo.MongoServer;
 import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
@@ -22,8 +23,8 @@ import validaciones.ValidarTwitter;
 
 public class PromoTwitterStub implements InterfaceConectores{//InterfacePromo{
 
-	String s= "#promo:mcDonalds_sanIsidro_lista(hamburguesa/50.0,helado/40.0,ensalada/20.0,fideos/30.0)_20-12-2018";
-	String s2= "#promo:cafeMartinez_sanIsidro_lista(pancho/25.0,gelatina/20.0,pollo/50.0,ravioles/30.0)_20-12-2018";
+	String s= MyConstantsConexiones.tweetStub1;
+	String s2= MyConstantsConexiones.tweetStub2;
 	PromoTwitter pt = null;
 	boolean res=false;
 	
@@ -75,18 +76,16 @@ public class PromoTwitterStub implements InterfaceConectores{//InterfacePromo{
 public DBCollection mostrarListProdDeTwitter(String s){
 		
 		ArrayList<Sugerencias> l;
-		System.out.println("mostrarListProdDeTwitter !");
 		ValidarTwitter vt = new ValidarTwitter(s);
 		ValidarFechaPromo vf= new ValidarFechaPromo(s);
-		System.out.println("vt.twitterStringValido(): "+vt.twitterStringValido());
-		System.out.println("vf.VigenciaPromoValida(): "+vf.VigenciaPromoValida());
+		//System.out.println("vt.twitterStringValido(): "+vt.twitterStringValido());
+		//System.out.println("vf.VigenciaPromoValida(): "+vf.VigenciaPromoValida());
 		if((vt.twitterStringValido()) && (vf.VigenciaPromoValida()) ){
 			ConvertirString_a_Sugerencia cs= new ConvertirString_a_Sugerencia(s);//s
 			cs.convertirLocal();
 			cs.convertirUbicacion();
 			cs.convertirLista();
 			cs.convertirFecha();
-			//cs.getSugerenciaTwitter();
 			l = new ArrayList<Sugerencias>();
 			l= cs.getListSugerenciaTwitter();
 			

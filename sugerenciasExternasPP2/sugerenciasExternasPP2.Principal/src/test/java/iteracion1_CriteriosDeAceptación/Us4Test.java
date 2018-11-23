@@ -1,11 +1,10 @@
 package iteracion1_CriteriosDeAceptación;
 
-import static org.junit.Assert.assertFalse;  
+import static org.junit.Assert.assertFalse;   
 import static org.junit.Assert.assertTrue;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -18,18 +17,10 @@ import modelo.Usuario;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.mongodb.DB;
 import com.mongodb.DBCollection;
-import com.mongodb.MongoClient;
-import com.mongodb.ServerAddress;
 
 import dao.mongoDB.MongoConcreteStub;
-import dao.mongoDB.MyConstants;
-import de.bwaldvogel.mongo.MongoServer;
-import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
 import promo.Twitter.PromoTwitter;
-import promo.Twitter.TwitterParsers;
 import properties.Constants;
 
 public class Us4Test {
@@ -40,7 +31,6 @@ public class Us4Test {
 	Recomendacion f_b;
 	Properties p1;
 	Properties p2;
-	TwitterParsers tp;
 	
 	private DBCollection collection;
 	private MongoConcreteStub mongo;

@@ -36,17 +36,12 @@ public class RecolectorPromos {
 			TwitterException {
 
 		Enumeration<Object> keys = propConexion.keys();
-		System.out.println("propConexion size: "+propConexion.size());
-		System.out.println("listaDeConectores INICIO: "+listaDeConectores.size());
 		while (keys.hasMoreElements()) {
-			System.out.println("Dentro del While");
 			Object key = keys.nextElement();
-			System.out.println(key + " = " + propConexion.get(key));
+			//System.out.println(key + " = " + propConexion.get(key));
 			InterfaceConectores ic= (InterfaceConectores) conexionExternaDinamica(key.toString());
 			listaDeConectores.add(ic);
 		}
-		System.out.println("propConexion size: "+propConexion.size());
-		System.out.println("listaDeConectores: "+listaDeConectores.size());
 		return listaDeConectores;
 	}
 
@@ -80,8 +75,6 @@ public class RecolectorPromos {
 		return listaDeConectores;
 	}
 
-	
-	// -------------------------------------------------------------------------------------//
 	public MongoConcreteStub getMongoDB() {
 		return mongoDB;
 	}
@@ -89,20 +82,5 @@ public class RecolectorPromos {
 	public void finishMongo(){
 		mongoDB.finish();
 	}
-//	public static void main(String args[]) throws ClassNotFoundException,
-//			NoSuchMethodException, SecurityException, InstantiationException,
-//			IllegalAccessException, IllegalArgumentException,
-//			InvocationTargetException, TwitterException {
-//
-//		RecolectorPromos c = new RecolectorPromos();
-//
-//		c.cargarListaConectores();
-//		c.buscarPromociones();
-//		System.out.println("c.getMongoDB().getPromos().count(): "+c.getMongoDB().getPromos().count());
-//		TaggearComidas tc= new TaggearComidas(c.getMongoDB().getPromos());
-//		tc.eliminarComidasSinTaggear(c.getMongoDB().getPromos());
-//		c.getMongoDB().leerColeccion();
-//		
-//	}
 
 }

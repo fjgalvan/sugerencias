@@ -7,6 +7,8 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
+import configurables.MyConstantsEstadisticas;
+
 public class PromosOpuestosEnPrecio {
 
 	public PromosOpuestosEnPrecio() {
@@ -25,10 +27,10 @@ public class PromosOpuestosEnPrecio {
 			while (cursor.hasNext()) {
 
 				DBObject doc = cursor.next();
-				String local = (String) doc.get("local");
-				String ubicacion = (String) doc.get("ubicacion");
-				String producto = (String) doc.get("producto");
-				Double preciod = (Double) doc.get("precio");
+				String local = (String) doc.get(MyConstantsEstadisticas.promoLocal);
+				String ubicacion = (String) doc.get(MyConstantsEstadisticas.promoUbicacion);
+				String producto = (String) doc.get(MyConstantsEstadisticas.promoProducto);
+				Double preciod = (Double) doc.get(MyConstantsEstadisticas.promoPrecio);
 				//String precio = String.valueOf(preciod);
 				// Date fechaDeVigenciaD=(Date)
 				// doc.get("dd");//("fechaDeVigencia");
@@ -63,10 +65,10 @@ public class PromosOpuestosEnPrecio {
 			while (cursor.hasNext()) {
 
 				DBObject doc = cursor.next();
-				String local = (String) doc.get("local");
-				String ubicacion = (String) doc.get("ubicacion");
-				String producto = (String) doc.get("producto");
-				Double preciod = (Double) doc.get("precio");
+				String local = (String) doc.get(MyConstantsEstadisticas.promoLocal);
+				String ubicacion = (String) doc.get(MyConstantsEstadisticas.promoUbicacion);
+				String producto = (String) doc.get(MyConstantsEstadisticas.promoProducto);
+				Double preciod = (Double) doc.get(MyConstantsEstadisticas.promoPrecio);
 				//String precio = String.valueOf(preciod);
 				// Date fechaDeVigenciaD=(Date)
 				// doc.get("dd");//("fechaDeVigencia");

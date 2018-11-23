@@ -40,7 +40,6 @@ public class MongoConcrete implements InterfaceMongoAccess {
 			int i = 1;
 			while (cursor.hasNext()) {
 				System.out.println("Document: " + i);
-				//System.out.println(cursor.next());
 				BasicDBObject doc= (BasicDBObject) cursor.next();
 				promos.insert(doc);
 				i++;
@@ -76,13 +75,14 @@ public class MongoConcrete implements InterfaceMongoAccess {
 		promos.remove(searchQuery);
 	}
 	
-	public void cantidadColeccion(){
+	public long cantidadColeccion(){
 		long rowCount = promos.count();
 		// List of Collections
 		Set<String> collections = db.getCollectionNames(); 
 	    for(String coll: collections)  {
 	        //System.out.println("Collection: "+ coll);
 	    }
+	    return rowCount;
 	}
 	
 	public void buscarYmostrarTodosLosDocumentos(){

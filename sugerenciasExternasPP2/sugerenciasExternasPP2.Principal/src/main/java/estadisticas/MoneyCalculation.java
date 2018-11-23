@@ -5,27 +5,12 @@ import java.math.RoundingMode;
 import java.util.Currency;
 import java.util.Objects;
 
+import configurables.MyConstantsEstadisticas;
+
 public final class MoneyCalculation {
 	private BigDecimal amountOne;
 	private BigDecimal amountTwo;
-	private static RoundingMode ROUNDING_MODE = RoundingMode.HALF_EVEN;
-	private static int DECIMALS = 2;
-	private static int EXTRA_DECIMALS = 4;
-	private static final BigDecimal TWO = new BigDecimal("2");
-	private static BigDecimal HUNDRED = new BigDecimal("100");
-	private static BigDecimal PERCENTAGE = new BigDecimal("5.25");
 	
-	
-	
-	
-//	public static void main(String[] args) {
-//		double d1 = 374.56;
-//		double d2 = 374.26;
-//		BigDecimal amountOne = new BigDecimal("374.56");
-//		BigDecimal amountTwo = new BigDecimal("374.26");
-//		MoneyCalculation calc = new MoneyCalculation(amountOne, amountTwo);
-//		calc.doCalculations();
-//	}
 
 	public MoneyCalculation(BigDecimal amountOne, BigDecimal amountTwo) {
 		this.amountOne = rounded(amountOne);
@@ -55,23 +40,23 @@ public final class MoneyCalculation {
 	}
 
 	private BigDecimal getAverage() {
-		return getSum().divide(TWO, ROUNDING_MODE);
+		return getSum().divide(MyConstantsEstadisticas.TWO, MyConstantsEstadisticas.ROUNDING_MODE);
 	}
 
 	private BigDecimal getPercentage() {
-		BigDecimal result = amountOne.multiply(PERCENTAGE);
-		result = result.divide(HUNDRED, ROUNDING_MODE);
+		BigDecimal result = amountOne.multiply(MyConstantsEstadisticas.PERCENTAGE);
+		result = result.divide(MyConstantsEstadisticas.HUNDRED, MyConstantsEstadisticas.ROUNDING_MODE);
 		return rounded(result);
 	}
 
 	private BigDecimal getPercentageChange() {
 		BigDecimal fractionalChange = getDifference().divide(amountOne,
-				EXTRA_DECIMALS, ROUNDING_MODE);
-		return rounded(fractionalChange.multiply(HUNDRED));
+				MyConstantsEstadisticas.EXTRA_DECIMALS, MyConstantsEstadisticas.ROUNDING_MODE);
+		return rounded(fractionalChange.multiply(MyConstantsEstadisticas.HUNDRED));
 	}
 
 	private BigDecimal rounded(BigDecimal number) {
-		return number.setScale(DECIMALS, ROUNDING_MODE);
+		return number.setScale(MyConstantsEstadisticas.DECIMALS, MyConstantsEstadisticas.ROUNDING_MODE);
 	}
 	
 }

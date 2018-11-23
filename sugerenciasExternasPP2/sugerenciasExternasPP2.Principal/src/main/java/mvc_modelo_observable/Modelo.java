@@ -82,7 +82,7 @@ public class Modelo extends Observable {
 		// Leo todos los Productos que tengo en ProductosBo
 		ProductosBo pBo = new ProductosBo();
 		pBo.getListaDeProductos();
-		pBo.mostrarListaDeProductos();
+		//pBo.mostrarListaDeProductos();
 		mongo = new MongoConcreteStub();
 		mongo.conectarseMongoDB();
 	}
@@ -100,7 +100,7 @@ public class Modelo extends Observable {
 		// Leo todos los Productos que tengo en ProductosBo
 		ProductosBo pBo = new ProductosBo();
 		pBo.getListaDeProductos();
-		pBo.mostrarListaDeProductos();
+		//pBo.mostrarListaDeProductos();
 
 	}
 
@@ -237,21 +237,15 @@ public class Modelo extends Observable {
 			
 	}
 	
-//	public void cargarUnaRecomendacion(Recomendacion reco, Customer user){
-//		System.out.println("\ncustomer recomendacion: "+ user.getUserName().getUsuario());
-//		reco.leerPreferencias();
-//		reco.mostrarListProdDeTwitter(s, m.getPromos());
-//	}
-	
 	public void cargarUnaRecomendacion(Recomendacion reco, Customer user) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException{
 		RecolectorPromos c = new RecolectorPromos();
 
 		c.cargarListaConectores();
 		c.buscarPromociones();
-		System.out.println("c.getMongoDB().getPromos().count(): "+c.getMongoDB().getPromos().count());
+		//System.out.println("c.getMongoDB().getPromos().count(): "+c.getMongoDB().getPromos().count());
 		c.getMongoDB().leerColeccion();
 		//--------------
-		System.out.println("\ncustomer recomendacion: "+ user.getUserName().getUsuario());
+		//System.out.println("\ncustomer recomendacion: "+ user.getUserName().getUsuario());
 		reco.leerPreferencias();
 		//reco.mostrarListProdDeTwitter(promoExtra,c.getMongoDB().getPromos());//(s, m.getPromos());
 		reco.mostrarRecomendaciones(c.getMongoDB().getPromos());
@@ -270,7 +264,7 @@ public class Modelo extends Observable {
 
 		c.cargarListaConectores();
 		c.buscarPromociones();
-		System.out.println("c.getMongoDB().getPromos().count(): "+c.getMongoDB().getPromos().count());
+		//System.out.println("c.getMongoDB().getPromos().count(): "+c.getMongoDB().getPromos().count());
 		DBCollection promos= c.getMongoDB().leerColeccion();
 		c.finishMongo();//cierro la base,
 		return promos;

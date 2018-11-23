@@ -12,17 +12,7 @@ import java.util.ArrayList;
 public class Customer {
 	private final String id;
 	private final Usuario userName;
-	// private final Preferencias preferencias;
-	// private final Preferencias preferencias2;
 	private ArrayList<Preferencias> listaPreferencias;
-
-	// public CustomerDto(String id, Usuario userName, Preferencias
-	// preferencias,Preferencias preferencias2) {
-	// this.id = id;
-	// this.userName = userName;
-	// this.preferencias= preferencias;
-	// this.preferencias2=preferencias2;
-	// }
 
 	public Customer(String id, Usuario userName,
 			ArrayList<Preferencias> listaPreferencias) {

@@ -18,6 +18,9 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 
+import configurables.MyConstantsConexiones;
+import configurables.MyConstantsDAO;
+
 public class TaggearComidas {
 	DBCollection collection;
 	Properties p;
@@ -47,40 +50,39 @@ public class TaggearComidas {
 	public DBCollection taggearComidas() {
 		Enumeration<Object> keys = p.keys();
 		BasicDBObject newDocument = new BasicDBObject();
-		System.out.println("DBCollection taggearComidas()");
 		
 		while (keys.hasMoreElements()) {
 			Object key = keys.nextElement();
-			if (p.get(key).equals("sanas")) {// si encuebtro algun tipo de
+			if (p.get(key).equals(MyConstantsDAO.tagSanas)) {// si encuebtro algun tipo de
 												// comida sana
 				newDocument.append("$set",
-						new BasicDBObject().append("lComidas", "sanas"));
+						new BasicDBObject().append(MyConstantsDAO.tipoDeComida, MyConstantsDAO.tagSanas));
 				BasicDBObject searchQuery = new BasicDBObject().append(
-						"producto", key);
+						MyConstantsDAO.promoProducto, key);
 				collection.update(searchQuery, newDocument);
 			}
-			if (p.get(key).equals("chatarras")) {// si encuebtro algun tipo de
+			if (p.get(key).equals(MyConstantsDAO.tagChatarras)) {// si encuebtro algun tipo de
 													// comida sana
 				newDocument.append("$set",
-						new BasicDBObject().append("lComidas", "chatarras"));
+						new BasicDBObject().append(MyConstantsDAO.tipoDeComida, MyConstantsDAO.tagChatarras));
 				BasicDBObject searchQuery = new BasicDBObject().append(
-						"producto", key);
+						MyConstantsDAO.promoProducto, key);
 				collection.update(searchQuery, newDocument);
 			}
-			if (p.get(key).equals("pastas")) {// si encuebtro algun tipo de
+			if (p.get(key).equals(MyConstantsDAO.tagPastas)) {// si encuebtro algun tipo de
 												// comida sana
 				newDocument.append("$set",
-						new BasicDBObject().append("lComidas", "pastas"));
+						new BasicDBObject().append(MyConstantsDAO.tipoDeComida, MyConstantsDAO.tagPastas));
 				BasicDBObject searchQuery = new BasicDBObject().append(
-						"producto", key);
+						MyConstantsDAO.promoProducto, key);
 				collection.update(searchQuery, newDocument);
 			}
-			if (p.get(key).equals("postres")) {// si encuebtro algun tipo de
+			if (p.get(key).equals(MyConstantsDAO.tagPostres)) {// si encuebtro algun tipo de
 												// comida sana
 				newDocument.append("$set",
-						new BasicDBObject().append("lComidas", "postres"));
+						new BasicDBObject().append(MyConstantsDAO.tipoDeComida, MyConstantsDAO.tagPostres));
 				BasicDBObject searchQuery = new BasicDBObject().append(
-						"producto", key);
+						MyConstantsDAO.promoProducto, key);
 				collection.update(searchQuery, newDocument);
 			}
 		}
@@ -90,7 +92,7 @@ public class TaggearComidas {
 
 	public DBCollection eliminarComidasSinTaggear(DBCollection collection3) {
 		lComidasVacia = new HashMap<String, Double>();
-		BasicDBObject searchQueryEliminar = new BasicDBObject().append("lComidas", "vacia");
+		BasicDBObject searchQueryEliminar = new BasicDBObject().append(MyConstantsDAO.tipoDeComida, MyConstantsDAO.tipoComidaDefault);
 		collection3.remove(searchQueryEliminar);
 		this.collection= collection3;
 		return collection3;
@@ -99,10 +101,10 @@ public class TaggearComidas {
 	public DBCollection taggeoInicial(DBCollection collection3){
 		System.out.println("taggeoInicial");
 		BasicDBObjectBuilder whereBuilder2 = BasicDBObjectBuilder.start();
-		whereBuilder2.append("local", "mcDonalds");
+		whereBuilder2.append(MyConstantsDAO.promoLocal, MyConstantsDAO.localMcDonalds);
 		DBObject where2 = whereBuilder2.get();
 		BasicDBObject update2= new BasicDBObject();
-		update2.append("$set", new BasicDBObject().append("lComidas", "vacia"));
+		update2.append("$set", new BasicDBObject().append(MyConstantsDAO.tipoDeComida, MyConstantsDAO.tipoComidaDefault));
 		collection3.update(where2, update2);
 		this.collection= collection3;
 		return collection3;
@@ -113,7 +115,7 @@ public class TaggearComidas {
 
 		while (keys.hasMoreElements()) {
 			Object key = keys.nextElement();
-			//System.out.println(key + " = " + p.get(key));
+			System.out.println(key + " = " + p.get(key));
 		}
 	}
 
