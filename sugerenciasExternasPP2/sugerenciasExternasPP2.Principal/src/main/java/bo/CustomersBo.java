@@ -31,37 +31,29 @@ public class CustomersBo {
 
 		while (keys.hasMoreElements()) {
 			Object key = keys.nextElement();
-			//System.out.println(key + " = " + customersProperties.get(key));
 			String[] parts = customersProperties.getProperty(key.toString())
 					.split(",");
 			Usuario userName= new Usuario(parts[0], parts[1]);
-			//System.out.println("User: "+userName.getUsuario()+", Email:"+ userName.geteMail());
 			listaPreferencias= new ArrayList<Preferencias>();
-			//System.out.println("parts.length: "+parts.length);
 			for(int i=2; i<parts.length; i++){
 				if(parts[i].toString().equals("chatarras")){
 					Preferencias pref= new Preferencias(1,"chatarras");
 					listaPreferencias.add(pref);
-					//System.out.println("prefiere chatarras");
 				}
 				if(parts[i].toString().equals("postres")){
 					Preferencias pref= new Preferencias(2,"postres");
 					listaPreferencias.add(pref);
-					//System.out.println("prefiere postres");
 				}
 				if(parts[i].toString().equals("sanas")){
 					Preferencias pref= new Preferencias(3,"sanas");
 					listaPreferencias.add(pref);
-					//System.out.println("prefiere sanas");
 				}
 				if(parts[i].toString().equals("pastas")){
 					Preferencias pref= new Preferencias(4,"pastas");
 					listaPreferencias.add(pref);
-					//System.out.println("prefiere pastas");
 				}
 			}
 			Customer customer = new Customer(key.toString(), userName, listaPreferencias);
-			//System.out.println(customer.getId()+", "+ customer.getUserName().getUsuario()+", "+ customer.getUserName().geteMail()+", "+ customer.getListaPreferencias().get(0).getDescripcion());
 			listaCustomers.add(customer);
 		}
 		return listaCustomers;

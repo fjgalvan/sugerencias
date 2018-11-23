@@ -212,7 +212,7 @@ public class Modelo extends Observable {
 	public void cargarCustomers() {
 		cBo = new CustomersBo();
 		cBo.getListaDeCustomers();
-		cBo.mostrarListaDeCustomers();
+		//cBo.mostrarListaDeCustomers();
 	}
 
 	public void cargarRecomendaciones() throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException {//Ahora cargo las recomendaciones para todos los cBo
@@ -271,6 +271,8 @@ public class Modelo extends Observable {
 		c.cargarListaConectores();
 		c.buscarPromociones();
 		System.out.println("c.getMongoDB().getPromos().count(): "+c.getMongoDB().getPromos().count());
-		return c.getMongoDB().leerColeccion();
+		DBCollection promos= c.getMongoDB().leerColeccion();
+		c.finishMongo();//cierro la base,
+		return promos;
 	}
 }

@@ -85,7 +85,10 @@ public class RecolectorPromos {
 	public MongoConcreteStub getMongoDB() {
 		return mongoDB;
 	}
-
+	
+	public void finishMongo(){
+		mongoDB.finish();
+	}
 //	public static void main(String args[]) throws ClassNotFoundException,
 //			NoSuchMethodException, SecurityException, InstantiationException,
 //			IllegalAccessException, IllegalArgumentException,
