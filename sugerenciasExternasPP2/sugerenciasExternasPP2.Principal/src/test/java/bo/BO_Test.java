@@ -12,6 +12,8 @@ import modelo.Usuario;
 
 import org.junit.Test;
 
+import validaciones.FechaActual;
+
 public class BO_Test {
 	@Test
     public void customerBoTest(){
@@ -49,6 +51,13 @@ public class BO_Test {
 		uBo.getUsuariosProperties();
 		uBo.getUsuariosPreferenciasProperties();
 		uBo.getListaUsuarios();
+		
+		FechaActual f= new FechaActual();
+		FechaActual.FechaActualMostrar();
+		f.getDiaActual();
+		f.getMesActual();
+		f.getAnnioActual();
+		
 	}
 	
 }
