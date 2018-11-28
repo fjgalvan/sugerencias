@@ -36,37 +36,25 @@ public class LeerFicherosExcel implements InterfaceConectores{
 	public static List<String> LeerExcelXLSX() {
 		String rutaArchivo= Constants.ROUTE_EXCEL_xlsx;
 		String hoja = MyConstantsConexiones.hojaExcelXlsx;
-		
- 
 		try (FileInputStream file = new FileInputStream(new File(rutaArchivo))) {
-			// leer archivo excel
-			XSSFWorkbook worbook = new XSSFWorkbook(file);
-			//obtener la hoja que se va leer
-			XSSFSheet sheet = worbook.getSheetAt(0);
-			//obtener todas las filas de la hoja excel
-			Iterator<Row> rowIterator = sheet.iterator();
- 
-			Row row;
-			// se recorre cada fila hasta el final
+			XSSFWorkbook worbook = new XSSFWorkbook(file);// leer archivo excel
+			XSSFSheet sheet = worbook.getSheetAt(0);//obtener la hoja que se va leer
+			Iterator<Row> rowIterator = sheet.iterator();//obtener todas las filas de la hoja excel
+			Row row;// se recorre cada fila hasta el final
 			while (rowIterator.hasNext()) {
 				row = rowIterator.next();
-				//se obtiene las celdas por fila
-				Iterator<Cell> cellIterator = row.cellIterator();
+				Iterator<Cell> cellIterator = row.cellIterator();//se obtiene las celdas por fila
 				Cell cell;
-				//se recorre cada celda
-				while (cellIterator.hasNext()) {
-					// se obtiene la celda en específico y se la imprime
-					cell = cellIterator.next();
+				while (cellIterator.hasNext()) {//se recorre cada celda
+					cell = cellIterator.next();// se obtiene la celda en específico y se la imprime
 					//System.out.print(cell.getStringCellValue()+" | ");
 					listaCeldasExcel.add(cell.getStringCellValue());
-				}
-				//System.out.println();
+				}//System.out.println();
 			}
 		} catch (Exception e) {
 			e.getMessage();
 		}
 		validarExcel();
-		//convertirEnSugerencias();
 		return listaCeldasExcel;
 	}
 	
@@ -83,30 +71,21 @@ public class LeerFicherosExcel implements InterfaceConectores{
 		Integer contCeldas=0;
 		
 		try (FileInputStream file = new FileInputStream(new File(rutaArchivo))) {
-			// leer archivo excel
-			XSSFWorkbook worbook = new XSSFWorkbook(file);
-			//obtener la hoja que se va leer
-			XSSFSheet sheet = worbook.getSheetAt(0);
-			//obtener todas las filas de la hoja excel
-			Iterator<Row> rowIterator = sheet.iterator();
- 
+			XSSFWorkbook worbook = new XSSFWorkbook(file);// leer archivo excel
+			XSSFSheet sheet = worbook.getSheetAt(0);//obtener la hoja que se va leer
+			Iterator<Row> rowIterator = sheet.iterator();//obtener todas las filas de la hoja excel
 			Row row;
-			// se recorre cada fila hasta el final
-			while (rowIterator.hasNext()) {
+			while (rowIterator.hasNext()) {// se recorre cada fila hasta el final
 				contFilas= contFilas+1;
 				row = rowIterator.next();
-				//se obtiene las celdas por fila
-				Iterator<Cell> cellIterator = row.cellIterator();
+				Iterator<Cell> cellIterator = row.cellIterator();//se obtiene las celdas por fila
 				Cell cell;
-				//se recorre cada celda
-				while (cellIterator.hasNext()) {
-					// se obtiene la celda en específico y se la imprime
-					cell = cellIterator.next();
+				while (cellIterator.hasNext()) {//se recorre cada celda
+					cell = cellIterator.next();// se obtiene la celda en específico y se la imprime
 					ValidarColumnas(contCeldas, cell);
 					//System.out.print(cell.getStringCellValue()+" | ");
 					contCeldas= contCeldas+1;
-				}
-				//System.out.println();
+				}//System.out.println();
 			}
 		} catch (Exception e) {
 			e.getMessage();
@@ -115,8 +94,6 @@ public class LeerFicherosExcel implements InterfaceConectores{
 		if((cont==6) &&(aux==6)){
 			valido= true;
 		}
-		//System.out.println("cont: "+cont);
-		//System.out.println("valido: "+valido);
 		return valido;
 	}
 	public static void ValidarColumnas(Integer cont, Cell cell){
@@ -137,30 +114,21 @@ public class LeerFicherosExcel implements InterfaceConectores{
 		Integer contCeldas=0;
 		
 		try (FileInputStream file = new FileInputStream(new File(rutaArchivo))) {
-			// leer archivo excel
-			XSSFWorkbook worbook = new XSSFWorkbook(file);
-			//obtener la hoja que se va leer
-			XSSFSheet sheet = worbook.getSheetAt(0);
-			//obtener todas las filas de la hoja excel
-			Iterator<Row> rowIterator = sheet.iterator();
- 
+			XSSFWorkbook worbook = new XSSFWorkbook(file);// leer archivo excel
+			XSSFSheet sheet = worbook.getSheetAt(0);//obtener la hoja que se va leer
+			Iterator<Row> rowIterator = sheet.iterator();//obtener todas las filas de la hoja excel
 			Row row;
-			// se recorre cada fila hasta el final
-			while (rowIterator.hasNext()) {
+			while (rowIterator.hasNext()) {// se recorre cada fila hasta el final
 				contFilas= contFilas+1;
 				row = rowIterator.next();
-				//se obtiene las celdas por fila
-				Iterator<Cell> cellIterator = row.cellIterator();
+				Iterator<Cell> cellIterator = row.cellIterator();//se obtiene las celdas por fila
 				Cell cell;
-				//se recorre cada celda
-				while (cellIterator.hasNext()) {
-					// se obtiene la celda en específico y se la imprime
-					cell = cellIterator.next();
+				while (cellIterator.hasNext()) {//se recorre cada celda
+					cell = cellIterator.next();// se obtiene la celda en específico y se la imprime
 					ValidarColumnas(contCeldas, cell);
 					//System.out.print(cell.getStringCellValue()+" | ");
 					contCeldas= contCeldas+1;
-				}
-				//System.out.println();
+				}//System.out.println();
 			}
 		} catch (Exception e) {
 			e.getMessage();
@@ -169,8 +137,6 @@ public class LeerFicherosExcel implements InterfaceConectores{
 		if((cont==6) &&(aux==6)){
 			valido= true;
 		}
-		//System.out.println("cont: "+cont);
-		//System.out.println("valido: "+valido);
 		return valido;
 	}
 	
