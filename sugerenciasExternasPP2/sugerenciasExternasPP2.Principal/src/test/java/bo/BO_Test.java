@@ -1,5 +1,6 @@
 package bo;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -44,7 +45,7 @@ public class BO_Test {
 		uBo.elUsuarioYaExiste("javier", "javier@yahoo.com.ar");
 		assertTrue(uBo.caracteresValidosUsuario("javier"));
 		assertTrue(uBo.validarEmail("javier@yahoo.com.ar"));
-		assertTrue(uBo.agregarNuevoUsuario("peter", "peter@yahoo.com.ar"));
+		assertFalse(uBo.agregarNuevoUsuario("peter", "peter@yahoo.com.ar"));
 		uBo.getUsuariosProperties();
 		uBo.getUsuariosPreferenciasProperties();
 		uBo.getListaUsuarios();
