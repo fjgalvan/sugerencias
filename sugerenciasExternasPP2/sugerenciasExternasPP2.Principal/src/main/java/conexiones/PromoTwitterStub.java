@@ -36,15 +36,12 @@ public class PromoTwitterStub implements InterfaceConectores{//InterfacePromo{
 	
 	//@Override
 	public DBCollection getPromo() {
-		// TODO Auto-generated method stub
 		return collection;
 	}
 	@Override
 	public DBCollection getPromo(DBCollection promosViejas) {
-		
 		PromoTwitter pts= new PromoTwitter();
 		pts.mostrarListProdDeTwitter(s2, promosViejas);
-		
 		return pts.getCollection();
 	}
 	public DBCollection conectarseMongoDBstub() {//(String nombreBase, String nombreColeccion)
@@ -73,7 +70,7 @@ public class PromoTwitterStub implements InterfaceConectores{//InterfacePromo{
         server.shutdown();
     }
 	
-public DBCollection mostrarListProdDeTwitter(String s){
+    public DBCollection mostrarListProdDeTwitter(String s){
 		
 		ArrayList<Sugerencias> l;
 		ValidarTwitter vt = new ValidarTwitter(s);
