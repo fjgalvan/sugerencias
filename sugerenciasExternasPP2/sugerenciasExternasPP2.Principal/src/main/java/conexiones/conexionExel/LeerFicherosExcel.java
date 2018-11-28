@@ -37,16 +37,16 @@ public class LeerFicherosExcel implements InterfaceConectores{
 		String rutaArchivo= Constants.ROUTE_EXCEL_xlsx;
 		String hoja = MyConstantsConexiones.hojaExcelXlsx;
 		try (FileInputStream file = new FileInputStream(new File(rutaArchivo))) {
-			XSSFWorkbook worbook = new XSSFWorkbook(file);// leer archivo excel
-			XSSFSheet sheet = worbook.getSheetAt(0);//obtener la hoja que se va leer
-			Iterator<Row> rowIterator = sheet.iterator();//obtener todas las filas de la hoja excel
-			Row row;// se recorre cada fila hasta el final
+			XSSFWorkbook worbook = new XSSFWorkbook(file);
+			XSSFSheet sheet = worbook.getSheetAt(0);
+			Iterator<Row> rowIterator = sheet.iterator();
+			Row row;
 			while (rowIterator.hasNext()) {
 				row = rowIterator.next();
-				Iterator<Cell> cellIterator = row.cellIterator();//se obtiene las celdas por fila
+				Iterator<Cell> cellIterator = row.cellIterator();
 				Cell cell;
-				while (cellIterator.hasNext()) {//se recorre cada celda
-					cell = cellIterator.next();// se obtiene la celda en específico y se la imprime
+				while (cellIterator.hasNext()) {
+					cell = cellIterator.next();
 					//System.out.print(cell.getStringCellValue()+" | ");
 					listaCeldasExcel.add(cell.getStringCellValue());
 				}//System.out.println();
@@ -64,24 +64,24 @@ public class LeerFicherosExcel implements InterfaceConectores{
 	public static boolean validarExcel(){
 		String nombreArchivo = MyConstantsConexiones.nombreArchivoExcelXlsx;
 		String rutaArchivo =  MyConstantsConexiones.rutaArchivoExcelXlsx+ nombreArchivo;
-		String hoja = MyConstantsConexiones.hojaExcelXlsx;//= "Hoja1";
+		String hoja = MyConstantsConexiones.hojaExcelXlsx;
 		boolean valido= false;
 		Integer cont=0; 
 		Integer contFilas=0;
 		Integer contCeldas=0;
 		
 		try (FileInputStream file = new FileInputStream(new File(rutaArchivo))) {
-			XSSFWorkbook worbook = new XSSFWorkbook(file);// leer archivo excel
-			XSSFSheet sheet = worbook.getSheetAt(0);//obtener la hoja que se va leer
-			Iterator<Row> rowIterator = sheet.iterator();//obtener todas las filas de la hoja excel
+			XSSFWorkbook worbook = new XSSFWorkbook(file);
+			XSSFSheet sheet = worbook.getSheetAt(0);
+			Iterator<Row> rowIterator = sheet.iterator();
 			Row row;
-			while (rowIterator.hasNext()) {// se recorre cada fila hasta el final
+			while (rowIterator.hasNext()) {
 				contFilas= contFilas+1;
 				row = rowIterator.next();
-				Iterator<Cell> cellIterator = row.cellIterator();//se obtiene las celdas por fila
+				Iterator<Cell> cellIterator = row.cellIterator();
 				Cell cell;
-				while (cellIterator.hasNext()) {//se recorre cada celda
-					cell = cellIterator.next();// se obtiene la celda en específico y se la imprime
+				while (cellIterator.hasNext()) {
+					cell = cellIterator.next();
 					ValidarColumnas(contCeldas, cell);
 					//System.out.print(cell.getStringCellValue()+" | ");
 					contCeldas= contCeldas+1;
@@ -111,17 +111,17 @@ public class LeerFicherosExcel implements InterfaceConectores{
 		Integer contCeldas=0;
 		
 		try (FileInputStream file = new FileInputStream(new File(rutaArchivo))) {
-			XSSFWorkbook worbook = new XSSFWorkbook(file);// leer archivo excel
-			XSSFSheet sheet = worbook.getSheetAt(0);//obtener la hoja que se va leer
-			Iterator<Row> rowIterator = sheet.iterator();//obtener todas las filas de la hoja excel
+			XSSFWorkbook worbook = new XSSFWorkbook(file);
+			XSSFSheet sheet = worbook.getSheetAt(0);
+			Iterator<Row> rowIterator = sheet.iterator();
 			Row row;
-			while (rowIterator.hasNext()) {// se recorre cada fila hasta el final
+			while (rowIterator.hasNext()) {
 				contFilas= contFilas+1;
 				row = rowIterator.next();
-				Iterator<Cell> cellIterator = row.cellIterator();//se obtiene las celdas por fila
+				Iterator<Cell> cellIterator = row.cellIterator();
 				Cell cell;
-				while (cellIterator.hasNext()) {//se recorre cada celda
-					cell = cellIterator.next();// se obtiene la celda en específico y se la imprime
+				while (cellIterator.hasNext()) {
+					cell = cellIterator.next();
 					ValidarColumnas(contCeldas, cell);
 					//System.out.print(cell.getStringCellValue()+" | ");
 					contCeldas= contCeldas+1;
