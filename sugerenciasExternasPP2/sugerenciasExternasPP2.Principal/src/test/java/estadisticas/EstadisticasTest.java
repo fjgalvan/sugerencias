@@ -26,6 +26,8 @@ public class EstadisticasTest {
 		mongo.setColl(modelo.cargarTodasLasPromos());
 		p.getPromoMasCara(m.getMongo().getPromos());
 		p.getPromoMasEconomica(m.getMongo().getPromos());
+		p.getPromoMasCara(modelo.cargarTodasLasPromos());
+		p.getPromoMasEconomica(modelo.cargarTodasLasPromos());
 	}
 	
 	
