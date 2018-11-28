@@ -31,6 +31,7 @@ public class MontoDeUnaRecomendación {
 				recomendacion= propiedades.getProperty(usuario.getUsuario());
 			}
 		}
+		//System.out.println("recomendacion: "+recomendacion);
 		return recomendacion;
 		
 	}
