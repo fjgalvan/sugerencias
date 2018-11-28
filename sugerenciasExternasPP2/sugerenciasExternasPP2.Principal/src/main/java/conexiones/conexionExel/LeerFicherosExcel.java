@@ -21,6 +21,9 @@ import sugerencias.SugerenciaExcel;
 import util_.Date;
  
 public class LeerFicherosExcel implements InterfaceConectores{
+	public LeerFicherosExcel(){
+		
+	}
 	static Integer aux=0;
 	private static List<String> listaCeldasExcel;
 	@Override

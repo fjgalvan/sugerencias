@@ -63,7 +63,7 @@ public class PromoTwitter implements InterfacePromo {
 		for (int i = 0; i < rl.size(); i++) {
 			listaTweets.add(rl.get(i).getText());
 		}
-		System.out.println("listaTweets: "+listaTweets);
+		//System.out.println("listaTweets: "+listaTweets);
 		return listaTweets;
 	}
 

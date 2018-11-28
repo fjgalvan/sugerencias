@@ -55,11 +55,7 @@ public class LeerExcelCSV implements InterfaceConectores{
 
 	public String[] getNextLine() {
 		return nextLine;
-	}	
-	
-	static { 
-		leerExcelCSV();
-    }
+	}
 
 	@Override
 	public DBCollection getPromo(DBCollection coll) {
