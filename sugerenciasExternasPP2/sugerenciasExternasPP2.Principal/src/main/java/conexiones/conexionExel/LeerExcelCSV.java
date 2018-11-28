@@ -37,7 +37,8 @@ public class LeerExcelCSV implements InterfaceConectores{
 	   try {
 	         reader = new CSVReader(new FileReader(pp.leerValorDeUnaClave(MyConstants.excelRuta)),SEPARATOR,QUOTE);
 	         while ((nextLine = reader.readNext()) != null) {
-	            System.out.println(Arrays.toString(nextLine));
+	        	 Arrays.toString(nextLine);
+	            //System.out.println(Arrays.toString(nextLine));
 	         }
 	      } catch (Exception e) {
 	    	  System.out.println("no se pudo abrir el excel.csv");

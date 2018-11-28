@@ -67,12 +67,8 @@ public class PromoExcel implements InterfacePromo{
     
 	public DBCollection parsearBSON(String s){
 		HashMap<String,Double> l= new HashMap<String,Double>();
-		//DBCollection collection = null;
 		try {
 
-//			Mongo mongo = new Mongo("localhost", 27017);
-//			DB db = mongo.getDB("yourdb100");
-//			collection = db.getCollection("excelPromoJc100SON");
 			
 			// convert JSON to DBObject directly
 			DBObject dbObject = (DBObject) JSON
@@ -90,7 +86,8 @@ public class PromoExcel implements InterfacePromo{
 			//IMPRIMO BSON
 			DBCursor cursorDoc3 = tc.getCollection().find();//collection.find();
 			while (cursorDoc3.hasNext()) {
-				System.out.println(cursorDoc3.next());
+				cursorDoc3.next();
+				//System.out.println(cursorDoc3.next());
 			}
 		} catch (MongoException e) {
 			e.printStackTrace();

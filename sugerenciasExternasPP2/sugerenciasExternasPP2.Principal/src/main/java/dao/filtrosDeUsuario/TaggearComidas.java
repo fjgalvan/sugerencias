@@ -98,8 +98,15 @@ public class TaggearComidas {
 		return collection3;
 	}
 	
+//	public DBCollection eliminarSinTag(DBCollection collection3) {
+//		lComidasVacia = new HashMap<String, Double>();
+//		BasicDBObject searchQueryEliminar = new BasicDBObject().append(MyConstantsDAO.tipoDeComida, lComidasVacia);
+//		collection3.remove(searchQueryEliminar);
+//		this.collection= collection3;
+//		return collection3;
+//	}
+	
 	public DBCollection taggeoInicial(DBCollection collection3){
-		System.out.println("taggeoInicial");
 		BasicDBObjectBuilder whereBuilder2 = BasicDBObjectBuilder.start();
 		whereBuilder2.append(MyConstantsDAO.promoLocal, MyConstantsDAO.localMcDonalds);
 		DBObject where2 = whereBuilder2.get();
@@ -110,12 +117,25 @@ public class TaggearComidas {
 		return collection3;
 		
 	}
+	
+	public DBCollection taggeoInicialLocal(DBCollection collection3, String local){
+		BasicDBObjectBuilder whereBuilder2 = BasicDBObjectBuilder.start();
+		whereBuilder2.append(MyConstantsDAO.promoLocal, local);
+		DBObject where2 = whereBuilder2.get();
+		BasicDBObject update2= new BasicDBObject();
+		update2.append("$set", new BasicDBObject().append(MyConstantsDAO.tipoDeComida, MyConstantsDAO.tipoComidaDefault));
+		collection3.update(where2, update2);
+		this.collection= collection3;
+		return collection3;
+		
+	}
+	
 	public void mostrarPropertiesDeTipoComidas() {
 		Enumeration<Object> keys = p.keys();
 
 		while (keys.hasMoreElements()) {
 			Object key = keys.nextElement();
-			System.out.println(key + " = " + p.get(key));
+			//System.out.println(key + " = " + p.get(key));
 		}
 	}
 

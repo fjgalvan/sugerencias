@@ -27,6 +27,7 @@ public class Recomendacion {
 	DBObject f4;
 	Customer customer;
 	ArrayList<Promocion> lPromciones;
+	ArrayList<Promocion> lPromcionesFinal;
 	ArrayList<Sugerencias> lSugerencias;
 	ArrayList<Promocion> lRecomendaciones;
 	DBCollection promoActual;
@@ -35,22 +36,16 @@ public class Recomendacion {
 	public Recomendacion(Customer customer) {
 		this.customer = customer;
 		this.lRecomendaciones = new ArrayList<Promocion>();
+		this.lPromcionesFinal = new ArrayList<Promocion>();
 	}
 
-	// Recomendaciones en general
-	public Recomendacion(List<Preferencias> listaPreferencias) {
-		// -------
-	}
-
-	public List<Preferencias> leerPreferencias() {// Cada usuario tiene 2 preferencias
+	public List<Preferencias> leerPreferencias() {
 		List<Preferencias> lista= new ArrayList<Preferencias>();
 		// Declaramos el Iterador e imprimimos los Elementos del ArrayList
 		Iterator<Preferencias> nombreIterator = this.customer
 				.getListaPreferencias().iterator();
 		while (nombreIterator.hasNext()) {
 			Preferencias elemento = nombreIterator.next();
-//			System.out.println("Preferencia: " + elemento.getCodigo()
-//					+ "--desc: " + elemento.getDescripcion());
 			lista.add(elemento);
 		}
 		return lista;
@@ -59,8 +54,10 @@ public class Recomendacion {
 	public DBCollection mostrarRecomendaciones(DBCollection coll) {
 		// Obtengo una lista de Promociones
 		lPromciones = new ArrayList<Promocion>();
+		
 		lSugerencias = new ArrayList<Sugerencias>();
 		DBCursor cursor = coll.find();
+		cursor.next();
 		try {
 			while (cursor.hasNext()) {
 
@@ -69,10 +66,24 @@ public class Recomendacion {
 				String ubicacion=(String) doc.get(MyConstantsModelo.promoUbicacion);
 				String producto=(String) doc.get(MyConstantsModelo.promoProducto);
 				Double preciod=(Double) doc.get(MyConstantsModelo.promoPrecio);
-//				String precio= String.valueOf(preciod);
-//				Date fechaDeVigenciaD=(Date) doc.get("dd");//("fechaDeVigencia");
-//				System.out.println("dd: "+ fechaDeVigenciaD);
-				Date fechaDeVigencia= new Date(31,12,2018);
+				
+				String d= doc.get("fechaDeVigencia").toString();
+				
+				String[] parts = d.split(":");
+				String part1 = parts[1]; // 31, "mm" 
+				String[] parts1 = part1.split(",");
+				String ddString= ""+parts1[0].charAt(1)+parts1[0].charAt(2);
+				int dd = Integer.parseInt(ddString);
+
+				String part2 = parts[2]; // 12, "aaaa"
+				String[] parts2 = part2.split(",");
+				int mm = Integer.parseInt(""+parts2[0].charAt(1)+parts2[0].charAt(2));
+				
+				String part3 = parts[3]; // 2018 }
+				String[] parts3 = part3.split("}");
+				int aaaa = Integer.parseInt(""+parts3[0].charAt(1)+parts3[0].charAt(2)+parts3[0].charAt(3)+parts3[0].charAt(4));
+				
+				Date fechaDeVigencia= new Date(dd,mm,aaaa);
 				Sugerencias sug= new Sugerencias(local, ubicacion, producto, preciod, fechaDeVigencia);
 				lSugerencias.add(sug);
 			}
@@ -83,11 +94,12 @@ public class Recomendacion {
 			try {
 		
 			Producto producto = buscarObjetoProducto(sug.getProducto());
-//			System.out.println("producto: "+sug.getProducto());
-//			System.out.println("producto-descripcio: "+producto.getNombre()+"-"+producto.getDescripcion());
 			Promocion pro = new Promocion(sug.getLocal(), sug.getUbicacion(),
 					producto, sug.getPrecio(), sug.getFechaDeVigencia());
 			lPromciones.add(pro);
+			Promocion promoFinal = new Promocion(sug.getLocal(), sug.getUbicacion(),
+					producto.getNombre(), sug.getPrecio(), sug.getFechaDeVigencia());
+			lPromcionesFinal.add(promoFinal);
 			}catch(Exception e){
 			}
 		}
@@ -124,6 +136,9 @@ public class Recomendacion {
 						sug.getUbicacion(), producto, sug.getPrecio(),
 						sug.getFechaDeVigencia());
 				lPromciones.add(pro);
+				Promocion promoFinal = new Promocion(sug.getLocal(), sug.getUbicacion(),
+						producto.getNombre(), sug.getPrecio(), sug.getFechaDeVigencia());
+				lPromcionesFinal.add(promoFinal);
 			}
 
 			// Declaramos el Iterador e imprimimos los Elementos del ArrayList
@@ -139,7 +154,7 @@ public class Recomendacion {
 			while (nIterator.hasNext()) {
 				Promocion elemento = nIterator.next();
 			}
-
+			
 			// PARSEO A JSON y A BSON
 			pt = new PromoTwitter();
 			pt.parsear_a_JSON(lSugerencias, coll);
@@ -183,16 +198,15 @@ public class Recomendacion {
 			Promocion elemento = nIterator.next();
 
 			for (int i = 0; i < this.customer.getListaPreferencias().size(); i++) {
+				if(elemento.getProducto()!=null){
 				if (elemento
 						.getProducto()
 						.getDescripcion()
 						.equals(this.customer.getListaPreferencias().get(i)
 								.getDescripcion())) {
 					comidas.add(elemento.getProducto().getNombre());
-//					System.out.println("Se encontró la preferencia nº: " + i);
-//					System.out.println("comida: "
-//							+ elemento.getProducto().getNombre());
 					lRecomendaciones.add(elemento);//(promo);
+				}
 				}
 			}
 		}

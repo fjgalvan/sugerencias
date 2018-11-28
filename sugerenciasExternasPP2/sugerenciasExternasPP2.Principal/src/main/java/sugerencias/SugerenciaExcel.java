@@ -5,7 +5,7 @@ import util_.Date;
 
 public class SugerenciaExcel extends Sugerencias{
 	
-	public SugerenciaExcel(String local, String ubicacion, String producto, Double precio, Date fechaDeVigencia) 
+	public SugerenciaExcel(String local, String ubicacion, String producto, String precio, String fechaDeVigencia) 
     {
     	super(local, ubicacion, producto, precio, fechaDeVigencia);
     }

@@ -23,23 +23,36 @@ public class PromosOpuestosEnPrecio {
 
 		DBCursor cursor = promos.find();
 		try {
-			cursor.next();
+			//cursor.next();
+			
 			while (cursor.hasNext()) {
-
+				
 				DBObject doc = cursor.next();
 				String local = (String) doc.get(MyConstantsEstadisticas.promoLocal);
 				String ubicacion = (String) doc.get(MyConstantsEstadisticas.promoUbicacion);
 				String producto = (String) doc.get(MyConstantsEstadisticas.promoProducto);
 				Double preciod = (Double) doc.get(MyConstantsEstadisticas.promoPrecio);
-				//String precio = String.valueOf(preciod);
-				// Date fechaDeVigenciaD=(Date)
-				// doc.get("dd");//("fechaDeVigencia");
-				// System.out.println("dd: "+ fechaDeVigenciaD);
-				Date fechaDeVigencia = new Date(31, 12, 2018);
+				String d= doc.get("fechaDeVigencia").toString();
+				
+				String[] parts = d.split(":");
+				String part1 = parts[1]; 
+				String[] parts1 = part1.split(",");
+				String ddString= ""+parts1[0].charAt(1)+parts1[0].charAt(2);
+				int dd = Integer.parseInt(ddString);
+
+				String part2 = parts[2]; 
+				String[] parts2 = part2.split(",");
+				int mm = Integer.parseInt(""+parts2[0].charAt(1)+parts2[0].charAt(2));
+				
+				String part3 = parts[3]; 
+				String[] parts3 = part3.split("}");
+				int aaaa = Integer.parseInt(""+parts3[0].charAt(1)+parts3[0].charAt(2)+parts3[0].charAt(3)+parts3[0].charAt(4));
+				
+				Date fechaDeVigencia= new Date(dd,mm,aaaa);
 
 				System.out.println("precio double: " + preciod);
 
-				if (preciod > elMasCaro) {
+				if (preciod >= elMasCaro) {
 					elMasCaro = preciod;
 					promoMasCara = new Sugerencias(local, ubicacion, producto,
 							preciod, fechaDeVigencia);
@@ -61,21 +74,34 @@ public class PromosOpuestosEnPrecio {
 		String promoString = "";
 		DBCursor cursor = promos.find();
 		try {
-			cursor.next();
+			//cursor.next();
+			
 			while (cursor.hasNext()) {
-
+				
 				DBObject doc = cursor.next();
 				String local = (String) doc.get(MyConstantsEstadisticas.promoLocal);
 				String ubicacion = (String) doc.get(MyConstantsEstadisticas.promoUbicacion);
 				String producto = (String) doc.get(MyConstantsEstadisticas.promoProducto);
 				Double preciod = (Double) doc.get(MyConstantsEstadisticas.promoPrecio);
-				//String precio = String.valueOf(preciod);
-				// Date fechaDeVigenciaD=(Date)
-				// doc.get("dd");//("fechaDeVigencia");
-				// System.out.println("dd: "+ fechaDeVigenciaD);
-				Date fechaDeVigencia = new Date(31, 12, 2018);
+				String d= doc.get("fechaDeVigencia").toString();
+				
+				String[] parts = d.split(":");
+				String part1 = parts[1];
+				String[] parts1 = part1.split(",");
+				String ddString= ""+parts1[0].charAt(1)+parts1[0].charAt(2);
+				int dd = Integer.parseInt(ddString);
 
-				if (preciod < elMasEconomico) {
+				String part2 = parts[2]; 
+				String[] parts2 = part2.split(",");
+				int mm = Integer.parseInt(""+parts2[0].charAt(1)+parts2[0].charAt(2));
+				
+				String part3 = parts[3];
+				String[] parts3 = part3.split("}");
+				int aaaa = Integer.parseInt(""+parts3[0].charAt(1)+parts3[0].charAt(2)+parts3[0].charAt(3)+parts3[0].charAt(4));
+				
+				Date fechaDeVigencia= new Date(dd,mm,aaaa);
+
+				if ((preciod) <= (elMasEconomico)) {
 					elMasEconomico = preciod;
 					promoMasEconomico = new Sugerencias(local, ubicacion,
 							producto, preciod, fechaDeVigencia);

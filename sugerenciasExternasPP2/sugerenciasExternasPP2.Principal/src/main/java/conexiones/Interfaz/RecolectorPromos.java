@@ -6,11 +6,20 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
+
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+
+import configurables.MyConstantsModelo;
 import properties.Constants;
+import sugerencias.Sugerencias;
 import twitter4j.TwitterException;
+import util_.Date;
+import dao.filtrosDeUsuario.TaggearComidas;
 import dao.mongoDB.MongoConcreteStub;
 
 public class RecolectorPromos {
@@ -19,7 +28,7 @@ public class RecolectorPromos {
 	
 	private List<InterfaceConectores> listaDeConectores = new ArrayList<InterfaceConectores>();
 
-	public RecolectorPromos() {
+	public RecolectorPromos() {//SIN ARGUMENTOS (MongoConcreteStub mongoDB)
 		propConexion = new Properties();
 		try {
 			propConexion.load(new FileReader(Constants.ROUTE_PROPConexion));
@@ -27,6 +36,7 @@ public class RecolectorPromos {
 			e.printStackTrace();
 		}
 		mongoDB= new MongoConcreteStub();
+		//this.mongoDB= mongoDB;
 	}
 
 	public List<InterfaceConectores> cargarListaConectores()
@@ -70,7 +80,43 @@ public class RecolectorPromos {
 			promociones= conector.getPromo(mongoDB.getPromos());
 		}
 	}
+	
+	public DBCollection promosConFiltros(String tag1, String tag2){
+		
+		mongoDB.leerColeccion();
+		DBCursor cursor = mongoDB.getPromos().find();
+		DBObject docExcel=cursor.next();
+		mongoDB.getPromos().remove(docExcel);
+		try {
+			while (cursor.hasNext()) {
 
+				DBObject doc= cursor.next();
+				String local=(String) doc.get(MyConstantsModelo.promoLocal);
+				int cont=0;
+				try{
+					String lComidas=(String) doc.get("lComidas");
+					System.out.println("lComidas: "+lComidas);
+					if(!(lComidas.equals(tag1))){
+						cont= cont +1;
+					}
+					if(!(lComidas.equals(tag2))){
+						cont= cont +1;
+					}
+					if(cont==2){
+						mongoDB.getPromos().remove(doc);
+					}
+				}catch(Exception e){
+					mongoDB.getPromos().remove(doc);
+				}
+				
+			}
+		} finally {
+			cursor.close();
+		}
+		mongoDB.leerColeccion();
+		return mongoDB.getPromos();
+	}
+	
 	public  List<InterfaceConectores> getListadeconectores() {
 		return listaDeConectores;
 	}

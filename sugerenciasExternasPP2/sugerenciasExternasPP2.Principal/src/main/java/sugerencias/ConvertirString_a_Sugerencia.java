@@ -175,8 +175,7 @@ public class ConvertirString_a_Sugerencia {
 		 Map.Entry producto;
 		    while (iterador.hasNext()) {
 		        producto = (Map.Entry) iterador.next();
-		        //producto = iterador.next(); Si se usase tambien la otra linea comentada.
-		        System.out.println(producto.getKey() + " - " + producto.getValue());
+		        //System.out.println(producto.getKey() + " - " + producto.getValue());
 		        Sugerencias i= new Sugerencias(local, ubicacion, producto.getKey(), producto.getValue(), fechaDeVigencia);
 		        l.add(i);
 		    }

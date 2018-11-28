@@ -31,6 +31,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.util.JSON;
 
 import conexiones.conexionTwitter.ConectorTwitter;
+import configurables.MyConstantsDAO;
 import dao.filtrosDeUsuario.TaggearComidas;
 import dao.mongoDB.MongoConcreteStub;
 
@@ -62,6 +63,7 @@ public class PromoTwitter implements InterfacePromo {
 		for (int i = 0; i < rl.size(); i++) {
 			listaTweets.add(rl.get(i).getText());
 		}
+		System.out.println("listaTweets: "+listaTweets);
 		return listaTweets;
 	}
 
@@ -100,18 +102,14 @@ public class PromoTwitter implements InterfacePromo {
 			Gson gson = new Gson();
 			String representacionJSON = gson.toJson(listaTweets_promoComida
 					.get(i));
-			//System.out.println("\n\n" + representacionJSON);
 		}
-
 	}
 
 	public void parsear_a_JSON(ArrayList<Sugerencias> l,
 			DBCollection collection2) {
-		// this.collection= collection2;
 		for (int i = 0; i < l.size(); i++) {
 			Gson gson = new Gson();
 			String representacionJSON = gson.toJson(l.get(i));
-			//System.out.println("\n\nJSON: " + representacionJSON);
 			parsearBSON(representacionJSON, collection2);
 		}
 
@@ -123,7 +121,6 @@ public class PromoTwitter implements InterfacePromo {
 		try {
 			// convert JSON to DBObject directly
 			DBObject bson = (DBObject) JSON.parse(s);
-			System.out.println("BasicDBObject bson= " + bson.toString());
 			this.collection.insert(bson);
 
 			// ACTUALIZO EL BSON
@@ -134,18 +131,18 @@ public class PromoTwitter implements InterfacePromo {
 					"listaProductosPrecios", l);
 			this.collection.update(searchQuery, newDocument);
 			// TAGGEO INICIAL
-			//this.collection = collection2;
 			if(this.collection.count() == 1){
 				TaggearComidas tcI = new TaggearComidas(this.collection);
 				this.collection = tcI.taggeoInicial(this.collection);
 			}
-			
-
+			TaggearComidas tcI = new TaggearComidas(this.collection);
+			this.collection = tcI.taggeoInicialLocal(this.collection, MyConstantsDAO.localburguerKing);
+			this.collection = tcI.taggeoInicialLocal(this.collection, MyConstantsDAO.localMcDonalds);
+			this.collection = tcI.taggeoInicialLocal(this.collection, MyConstantsDAO.localStarBuck);
+			this.collection = tcI.taggeoInicialLocal(this.collection, MyConstantsDAO.localTearrabusi);
 			// TAGGEO PROMOS DE COMIDAS
-			//this.collection = collection2;
-			TaggearComidas tc = new TaggearComidas(this.collection);//(collection2);
+			TaggearComidas tc = new TaggearComidas(this.collection);
 			this.collection = tc.taggearComidas();
-
 			// ELIMINO PROMOS DE COMIDAS INCORRECTOS
 			TaggearComidas tc2 = new TaggearComidas(this.collection);
 			this.collection = tc2.eliminarComidasSinTaggear(this.collection);
@@ -153,7 +150,6 @@ public class PromoTwitter implements InterfacePromo {
 		} catch (MongoException e) {
 			e.printStackTrace();
 		}
-		//this.collection = collection2;
 		return this.collection;
 	}
 

@@ -8,6 +8,7 @@ public class Promocion {
 	String ubicacion;
 	Date fechaVigencia;
 	Producto Producto;
+	String productoNombre;
 	Double precio;
 
 	public Promocion(String nombreLocal, String ubicacion, Producto producto,
@@ -16,6 +17,16 @@ public class Promocion {
 		this.nombreLocal = nombreLocal;
 		this.ubicacion = ubicacion;
 		this.Producto = producto;
+		this.precio = precio;
+		this.fechaVigencia = fechaVigencia;
+	}
+	
+	public Promocion(String nombreLocal, String ubicacion, String producto,
+			Double precio, Date fechaVigencia) {
+		super();
+		this.nombreLocal = nombreLocal;
+		this.ubicacion = ubicacion;
+		this.productoNombre = producto;
 		this.precio = precio;
 		this.fechaVigencia = fechaVigencia;
 	}
@@ -63,6 +74,10 @@ public class Promocion {
 
 	public void setPrecio(Double precio) {
 		this.precio = precio;
+	}
+
+	public String getProductoNombre() {
+		return productoNombre;
 	}
 
 }

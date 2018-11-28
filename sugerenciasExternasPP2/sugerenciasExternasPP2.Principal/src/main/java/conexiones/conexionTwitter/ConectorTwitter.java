@@ -61,14 +61,10 @@ public class ConectorTwitter implements InterfaceConectores
         
       //Recupera como máx 50 tweets escritos por tí
         ResponseList<Status> listado = twitter.getUserTimeline(pagina);
-        for (int i = 0; i < listado.size(); i++)
-            System.out.println(listado.get(i).getText());
-        
-        //Recupera como máx los ultimos 50 tweets de tus tablon de novedades
-//      listado = twitter.getHomeTimeline(pagina);
-//      for (int i = 0; i < listado.size()/2; i++)//Lo divido por 2 porque se duplica
-//          System.out.println(listado.get(i).getText());
-        
+        for (int i = 0; i < listado.size(); i++){
+        	listado.get(i).getText();
+        	//System.out.println(listado.get(i).getText());
+        }
         return listado;
     }
     
@@ -104,9 +100,7 @@ public class ConectorTwitter implements InterfaceConectores
 		}
 		
 	}
-
-
-
+	
 	@Override
 	public DBCollection getPromo(DBCollection promosViejas) {
 		promosNuevas= promosViejas;
@@ -118,10 +112,8 @@ public class ConectorTwitter implements InterfaceConectores
 			e.printStackTrace();
 		}
 		for (int i = 0; i < listado.size(); i++){
-			 //System.out.println("tweet: "+listado.get(i).getText());
 			 ValidarTwitter v= new ValidarTwitter(listado.get(i).getText());
 			 if(v.twitterStringValido()){
-				//System.out.println("Tweet valido: "+listado.get(i).getText());
 				promosNuevas=pts.mostrarListProdDeTwitter(listado.get(i).getText(), promosNuevas);
 			 }
 		 }

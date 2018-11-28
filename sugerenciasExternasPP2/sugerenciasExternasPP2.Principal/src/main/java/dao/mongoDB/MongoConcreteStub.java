@@ -20,6 +20,15 @@ public class MongoConcreteStub implements InterfaceMongoAccess{
 	public MongoConcreteStub(){
 		getDB();
 	}
+	public MongoConcreteStub(String nombreBase){
+		server = new MongoServer(new MemoryBackend());
+		// bind on a random local port
+		serverAddress = server.bind();
+
+		client = new MongoClient(new ServerAddress(serverAddress));
+
+		coll = client.getDB(nombreBase).getCollection("testcoll");
+	}
 	public MongoClient getDB(){
 		if(client == null){
 			conectarseMongoDB();
@@ -71,8 +80,9 @@ public class MongoConcreteStub implements InterfaceMongoAccess{
 		try {
 			int i = 1;
 			while (cursor.hasNext()) {
-				System.out.println("Document: " + i);
-				System.out.println(cursor.next());
+//				System.out.println("Document: " + i);
+//				System.out.println(cursor.next());
+				cursor.next();
 				i++;
 			}
 		} finally {
