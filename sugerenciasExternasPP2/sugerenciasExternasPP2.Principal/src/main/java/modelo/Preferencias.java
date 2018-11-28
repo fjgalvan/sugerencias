@@ -34,12 +34,7 @@ public class Preferencias {
 		return productos;
 	}
 
-	public void setProductos(List<Producto> productos) {
-		this.productos = productos;
-	}
+	public void setProductos(List<Producto> productos) {this.productos = productos;}
 
-	public boolean pertenece(Producto p) {
-		if (productos.contains(p)) {return true;
-		}return false;
-	}
+	public boolean pertenece(Producto p) {if (productos.contains(p)) {return true;}return false;}
 }

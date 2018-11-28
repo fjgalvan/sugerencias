@@ -31,11 +31,8 @@ public class Promocion {
 		this.fechaVigencia = fechaVigencia;
 	}
 	
-	public void mostrarPromo(){
-		System.out.println("nombreLocal:" +nombreLocal+"\nubicacion:"+ubicacion+
-				"\nProducto:"+Producto.getNombre()+Producto.getDescripcion()+"\n"+Producto.getCodigo()
-				+"\nprecio:"+precio+"fechaVigencia:"+fechaVigencia);
-	}
+	public void mostrarPromo(){ System.out.println("nombreLocal:" +nombreLocal+"\nubicacion:"+ubicacion+"\nProducto:"+Producto.getNombre()+Producto.getDescripcion()+"\n"+Producto.getCodigo()+"\nprecio:"+precio+"fechaVigencia:"+fechaVigencia);}
+	
 	public String getNombreLocal() {
 		return nombreLocal;
 	}

@@ -47,7 +47,6 @@ public class BO_Test {
 		uBo.elUsuarioYaExiste("javier", "javier@yahoo.com.ar");
 		assertTrue(uBo.caracteresValidosUsuario("javier"));
 		assertTrue(uBo.validarEmail("javier@yahoo.com.ar"));
-		assertFalse(uBo.agregarNuevoUsuario("peter2", "peter2@yahoo.com.ar"));
 		uBo.getUsuariosProperties();
 		uBo.getUsuariosPreferenciasProperties();
 		uBo.getListaUsuarios();
