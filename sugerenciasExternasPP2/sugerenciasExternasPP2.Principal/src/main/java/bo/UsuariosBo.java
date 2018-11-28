@@ -101,13 +101,10 @@ public class UsuariosBo {
 	}
 
 	public boolean agregarNuevoUsuario(String nombreUsuario, String email) throws IOException{
-		if((!elUsuarioYaExiste(nombreUsuario, email)) 
-			&& (caracteresValidosUsuario(nombreUsuario))
-			&& (validarEmail(email))){
+		if((!elUsuarioYaExiste(nombreUsuario, email))&& (caracteresValidosUsuario(nombreUsuario))&& (validarEmail(email))){
 			usuariosProperties.setProperty(nombreUsuario, email);
 			usuariosPreferenciasProperties.setProperty(nombreUsuario, ",");
 			FileOutputStream os = null;	   
-		    
 			try {
 			  os=new FileOutputStream(Constants.ROUTE_USUARIOS);
 			  usuariosProperties.store(os, MyConstantsBo.OsUsuarios);
@@ -115,8 +112,6 @@ public class UsuariosBo {
 			  usuariosPreferenciasProperties.store(os, MyConstantsBo.OsUsuarioPreferencias);
 			  return true;
 			} catch(IOException ioe) {ioe.printStackTrace(); return false;}
-			
-			
 		}
 		return false;
 	}

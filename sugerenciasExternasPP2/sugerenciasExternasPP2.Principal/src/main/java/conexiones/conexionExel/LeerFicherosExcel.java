@@ -85,15 +85,12 @@ public class LeerFicherosExcel implements InterfaceConectores{
 					ValidarColumnas(contCeldas, cell);
 					//System.out.print(cell.getStringCellValue()+" | ");
 					contCeldas= contCeldas+1;
-				}//System.out.println();
+				}
 			}
-		} catch (Exception e) {
-			e.getMessage();
+		} catch (Exception e) {e.getMessage();
 		}
 		cont= contCeldas/contFilas;
-		if((cont==6) &&(aux==6)){
-			valido= true;
-		}
+		if((cont==6) &&(aux==6)){valido= true;}
 		return valido;
 	}
 	public static void ValidarColumnas(Integer cont, Cell cell){
@@ -128,15 +125,11 @@ public class LeerFicherosExcel implements InterfaceConectores{
 					ValidarColumnas(contCeldas, cell);
 					//System.out.print(cell.getStringCellValue()+" | ");
 					contCeldas= contCeldas+1;
-				}//System.out.println();
+				}
 			}
-		} catch (Exception e) {
-			e.getMessage();
-		}
+		} catch (Exception e) {e.getMessage();}
 		cont= contCeldas/contFilas;
-		if((cont==6) &&(aux==6)){
-			valido= true;
-		}
+		if((cont==6) &&(aux==6)){valido= true;}
 		return valido;
 	}
 	

@@ -22,9 +22,7 @@ public class CustomersBo {
 		customersProperties= new Properties();
 		try {
 			customersProperties.load(new FileReader(Constants.ROUTE_CUSTOMERS));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} catch (IOException e) {e.printStackTrace();}
 	}
 	public List<Customer> getListaDeCustomers(){
 		ArrayList<Preferencias> listaPreferencias;
@@ -61,15 +59,10 @@ public class CustomersBo {
 	}
 	
 	public void mostrarListaDeCustomers() {
-		System.out.println("------------------------INICIO-----------------------");
 		for (Customer user : listaCustomers) {
-			System.out.println(user.getId());
-			System.out.println(user.getUserName().getUsuario()); 
-			System.out.println(user.getUserName().geteMail());
-			System.out.println(user.getListaPreferencias().get(0).getDescripcion());
-
+			System.out.println(user.getId());System.out.println(user.getUserName().getUsuario()); 
+			System.out.println(user.getUserName().geteMail());System.out.println(user.getListaPreferencias().get(0).getDescripcion());
 		}
-		System.out.println("------------------------FIN-------------------------");
 	}
 	public List<Customer> getListaCustomers() {
 		return listaCustomers;

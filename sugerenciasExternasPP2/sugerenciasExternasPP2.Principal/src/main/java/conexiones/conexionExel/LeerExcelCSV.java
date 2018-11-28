@@ -30,7 +30,6 @@ public class LeerExcelCSV implements InterfaceConectores{
 	}
 	
 	public static void leerExcelCSV(){
-		//PrincipalPropertiesExcelCSV p= new PrincipalPropertiesExcelCSV();	
 		PropertiesPrincipal pp= new PropertiesPrincipal(Constants.ROUTE_EXCEL_CSV_PROPERTIES);
 		
 	   CSVReader reader = null;
@@ -38,17 +37,12 @@ public class LeerExcelCSV implements InterfaceConectores{
 	         reader = new CSVReader(new FileReader(pp.leerValorDeUnaClave(MyConstants.excelRuta)),SEPARATOR,QUOTE);
 	         while ((nextLine = reader.readNext()) != null) {
 	        	 Arrays.toString(nextLine);
-	            //System.out.println(Arrays.toString(nextLine));
 	         }
-	      } catch (Exception e) {
-	    	  System.out.println("no se pudo abrir el excel.csv");
+	      } catch (Exception e) {System.out.println("no se pudo abrir el excel.csv");
 	      } finally {
 	         if (null != reader) {
-	            try {
-					reader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+	            try {reader.close();
+				} catch (IOException e) {e.printStackTrace();}
 	         } 
 	     }
 	}
@@ -59,7 +53,6 @@ public class LeerExcelCSV implements InterfaceConectores{
 
 	@Override
 	public DBCollection getPromo(DBCollection coll) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

@@ -39,28 +39,18 @@ public class MongoConcreteStub implements InterfaceMongoAccess{
 	public void agregarNuevosDocumentos(DBCollection nuevasPromos){
 		DBCursor cursor = nuevasPromos.find();
 		try {
-			int i = 1;
 			while (cursor.hasNext()) {
-				System.out.println("Document: " + i);
-				//System.out.println(cursor.next());
 				BasicDBObject doc= (BasicDBObject) cursor.next();
 				coll.insert(doc);
-				i++;
 			}
-		} finally {
-			cursor.close();
-		}
+		} finally {cursor.close();}
 	}
 	@SuppressWarnings("deprecation")
 	public void init(){
 		server = new MongoServer(new MemoryBackend());
-		// bind on a random local port
-		serverAddress = server.bind();
-
+		serverAddress = server.bind();// bind on a random local port
 		client = new MongoClient(new ServerAddress(serverAddress));
-
-		coll = client.getDB("testdb").getCollection("testcoll");
-		// creates the database and collection in memory and inserts the object
+		coll = client.getDB("testdb").getCollection("testcoll");// creates the database and collection in memory and inserts the object	
 	}
 	
 	
@@ -69,25 +59,17 @@ public class MongoConcreteStub implements InterfaceMongoAccess{
 		server.shutdownNow();
 	}
 	
-	public void insert(){
-		coll.insert(new BasicDBObject("key", "value"));
-	}
+	public void insert(){coll.insert(new BasicDBObject("key", "value"));}
 
 	@Override
 	public DBCollection leerColeccion() {
 		
 		DBCursor cursor = coll.find();
 		try {
-			int i = 1;
-			while (cursor.hasNext()) {
-//				System.out.println("Document: " + i);
-//				System.out.println(cursor.next());
+			while (cursor.hasNext()) {//System.out.println("Document: " + i);//System.out.println(cursor.next());
 				cursor.next();
-				i++;
 			}
-		} finally {
-			cursor.close();
-		}
+		} finally {cursor.close();}
 		return coll;
 	}
 

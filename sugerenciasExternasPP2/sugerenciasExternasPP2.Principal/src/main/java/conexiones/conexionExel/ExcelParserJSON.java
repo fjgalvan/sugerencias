@@ -28,9 +28,7 @@ public class  ExcelParserJSON{
 		
 		try {
 			jo=getExcelDataAsJsonObject(input);
-		} catch (InvalidFormatException e) {
-			e.printStackTrace();
-		}
+		} catch (InvalidFormatException e) {e.printStackTrace();}
 		return(jo.toString());
 	}
 
@@ -66,16 +64,11 @@ public static JsonObject getExcelDataAsJsonObject(File excelFile) throws Invalid
                     if (currentRow.getCell(j) != null) {
                         if (currentRow.getCell(j).getCellTypeEnum() == CellType.STRING) {
                             jsonObject.addProperty(columnNames.get(j), currentRow.getCell(j).getStringCellValue());
-                        } else if (currentRow.getCell(j).getCellTypeEnum() == CellType.NUMERIC) {
-                            jsonObject.addProperty(columnNames.get(j), currentRow.getCell(j).getNumericCellValue());
-                        } else if (currentRow.getCell(j).getCellTypeEnum() == CellType.BOOLEAN) {
-                            jsonObject.addProperty(columnNames.get(j), currentRow.getCell(j).getBooleanCellValue());
-                        } else if (currentRow.getCell(j).getCellTypeEnum() == CellType.BLANK) {
-                            jsonObject.addProperty(columnNames.get(j), "");
+                        } else if (currentRow.getCell(j).getCellTypeEnum() == CellType.NUMERIC) {jsonObject.addProperty(columnNames.get(j), currentRow.getCell(j).getNumericCellValue());
+                        } else if (currentRow.getCell(j).getCellTypeEnum() == CellType.BOOLEAN) {jsonObject.addProperty(columnNames.get(j), currentRow.getCell(j).getBooleanCellValue());
+                        } else if (currentRow.getCell(j).getCellTypeEnum() == CellType.BLANK) {jsonObject.addProperty(columnNames.get(j), "");
                         }
-                    } else {
-                        jsonObject.addProperty(columnNames.get(j), "");
-                    }
+                    } else {jsonObject.addProperty(columnNames.get(j), "");}
                 }
                 sheetArray.add(jsonObject);
             } else {

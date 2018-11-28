@@ -37,16 +37,9 @@ public class MongoConcrete implements InterfaceMongoAccess {
 	public void agregarNuevosDocumentos(DBCollection nuevasPromos){
 		DBCursor cursor = nuevasPromos.find();
 		try {
-			int i = 1;
-			while (cursor.hasNext()) {
-				System.out.println("Document: " + i);
-				BasicDBObject doc= (BasicDBObject) cursor.next();
-				promos.insert(doc);
-				i++;
+			while (cursor.hasNext()) {BasicDBObject doc= (BasicDBObject) cursor.next();promos.insert(doc);
 			}
-		} finally {
-			cursor.close();
-		}
+		} finally {cursor.close();}
 	}
 	
 	
@@ -77,10 +70,8 @@ public class MongoConcrete implements InterfaceMongoAccess {
 	
 	public long cantidadColeccion(){
 		long rowCount = promos.count();
-		// List of Collections
 		Set<String> collections = db.getCollectionNames(); 
 	    for(String coll: collections)  {
-	        //System.out.println("Collection: "+ coll);
 	    }
 	    return rowCount;
 	}
@@ -89,14 +80,9 @@ public class MongoConcrete implements InterfaceMongoAccess {
 		DBCursor cursor = promos.find();
 		try {
 			int i = 1;
-			while (cursor.hasNext()) {
-				System.out.println("Document: " + i);
-				System.out.println(cursor.next());
-				i++;
+			while (cursor.hasNext()) {System.out.println("Document: " + i);System.out.println(cursor.next());i++;
 			}
-		} finally {
-			cursor.close();
-		}
+		} finally {cursor.close();}
 	}
 	
 	
