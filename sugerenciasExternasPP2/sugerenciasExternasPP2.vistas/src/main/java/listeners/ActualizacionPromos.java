@@ -1,4 +1,4 @@
-package dao.mongoDB;
+package listeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +10,7 @@ import javax.swing.Timer;
 import mvc.Vista2;
 import mvc_modelo_observable.Modelo;
 import conexiones.Interfaz.RecolectorPromos;
+import dao.mongoDB.MongoConcreteStub;
 import twitter4j.TwitterException;
 
 public class ActualizacionPromos {

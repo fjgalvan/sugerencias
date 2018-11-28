@@ -10,6 +10,10 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+
+import dao.mongoDB.MongoConcreteStub;
 import mvc.Vista2;
 import mvc_modelo_observable.Modelo;
 import properties.Constants;
@@ -17,6 +21,7 @@ import properties.Constants;
 public class GuardarPreferenciaListener implements ActionListener {
 	Modelo m;
 	Vista2 v;
+	Properties propiedades;
 
 	public GuardarPreferenciaListener(Modelo m, Vista2 v) {
 		this.m = m;
@@ -28,7 +33,7 @@ public class GuardarPreferenciaListener implements ActionListener {
 		v.getBtn_GuardarPreferencia().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String Item = "";
+				String Item ="";
 				Item = v.getComboBox_eleccionDeUsuario().getSelectedItem().toString();
 				String filtrosUsuario = "";
 				if (v.getChckbx_filtrosChatarras().isSelected()) {
@@ -44,7 +49,7 @@ public class GuardarPreferenciaListener implements ActionListener {
 					filtrosUsuario = filtrosUsuario + "pastas";
 				}
 
-				Properties propiedades = new Properties();
+				propiedades = new Properties();
 				try {
 					propiedades.load(new FileReader(
 							Constants.ROUTE_USUARIOS_PREFERENCIAS));
@@ -73,6 +78,28 @@ public class GuardarPreferenciaListener implements ActionListener {
 					}
 				}
 				guardarRecomendación();
+				guardarRecomendacionMongo();
+			}
+			public DBCollection guardarRecomendacionMongo(){
+				Properties pr = new Properties();
+				try {
+					pr.load(new FileReader(
+							Constants.ROUTE_USUARIOS_RECOMENDACIONES));
+				} catch (IOException e2) {
+					e2.printStackTrace();
+				}
+				MongoConcreteStub mongoReco= new MongoConcreteStub("RecomendacionesDB");
+				Enumeration<Object> keys = pr.keys();
+				
+				BasicDBObject doc1;
+				while (keys.hasMoreElements()){
+					doc1 = new BasicDBObject();
+				   Object key = keys.nextElement();
+				   //System.out.println(key + " = "+ propiedades.get(key));
+				   doc1.append(key.toString(), pr.get(key.toString()));
+				   mongoReco.getPromos().insert(doc1);
+				}
+				return mongoReco.getPromos();
 			}
 			public void guardarRecomendación(){
 				Properties pr = new Properties();
@@ -82,7 +109,7 @@ public class GuardarPreferenciaListener implements ActionListener {
 				} catch (IOException e2) {
 					e2.printStackTrace();
 				}
-				pr.setProperty(v.getComboBox_eleccionDeUsuario().getSelectedItem().toString(), v.getTextArea_Recomendaciones().getText());
+				pr.setProperty(v.getComboBox_eleccionDeUsuario().getSelectedItem().toString(), v.getTextArea_fechaActualizacion().getText()+"\n"+ v.getTextArea_Recomendaciones().getText());
 				FileOutputStream os = null;
 
 				try {

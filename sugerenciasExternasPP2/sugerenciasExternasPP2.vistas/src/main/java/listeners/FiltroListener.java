@@ -9,12 +9,18 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Properties;
 
 import com.mongodb.DBCollection;
 
+import conexiones.Interfaz.RecolectorPromos;
 import estadisticas.PromosOpuestosEnPrecio;
+import modelo.Customer;
+import modelo.Preferencias;
+import modelo.Recomendacion;
+import modelo.Usuario;
 import mvc.Controlador;
 import mvc.Vista2;
 import mvc_modelo_observable.Modelo;
@@ -67,7 +73,7 @@ public class FiltroListener implements ActionListener{
 
 				while (keys.hasMoreElements()){
 				   Object key = keys.nextElement();
-				   System.out.println(key + " = "+ propiedades.get(key));
+				   //System.out.println(key + " = "+ propiedades.get(key));
 				}
 			}
 		});
@@ -99,7 +105,6 @@ public class FiltroListener implements ActionListener{
 						| SecurityException | InstantiationException
 						| IllegalAccessException | IllegalArgumentException
 						| InvocationTargetException | TwitterException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				
@@ -109,59 +114,13 @@ public class FiltroListener implements ActionListener{
 			}
 		});
 		
-		v.getBtn_actualizarPromos().addMouseListener(new MouseAdapter() {
-			@Override
-            public void mouseClicked(MouseEvent e) {
-				v.getChckbx_filtrosSanas().setSelected(false);
-            	v.getChckbx_filtrosPostres().setSelected(false);
-            	v.getChckbx_filtrosChatarras().setSelected(false);
-            	v.getChckbx_filtrosPastas().setSelected(false);
-            	Controlador.controladorDeCheckbox(m,v,false,false,false,false);
-            	try {
-					cargarUsuarios();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-            	//Funciona sin Timer
-//            	try {
-//            		m.getMongo().finish();
-//            		m.ConectarMongoDBStub();
-//					m.cargarRecomendaciones();
-//				} catch (ClassNotFoundException | NoSuchMethodException
-//						| SecurityException | InstantiationException
-//						| IllegalAccessException | IllegalArgumentException
-//						| InvocationTargetException | TwitterException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-            	
-            	//Funciona con Timer
-            	try {
-            		m.getMongo().finish();
-            		v.getTm().start(); //COMIENZA A CARGAR TODAS LAS PROMOS CADA CIERTO TIEMPO
-                	m.setMongo(v.getBasePromosActual()); //Obtengo la colleccion de Promos actual
-					m.cargarRecomendaciones();
-				} catch (ClassNotFoundException | NoSuchMethodException
-						| SecurityException | InstantiationException
-						| IllegalAccessException | IllegalArgumentException
-						| InvocationTargetException | TwitterException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-            	//v.getTm().stop(); //DENTIENE LA BUSQUEDA DE CARGAS Y PROMOS
-			}
-		});
 		
 		 v.getChckbx_filtrosChatarras().addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseClicked(MouseEvent e) {
 	            	if(v.getChckbx_filtrosChatarras().isSelected()){
-	            		System.out.println("selecciono filtro chatarra");
 	            		m.filtroChatarras();
-	            		
 	            	}else{
-	            		System.out.println("Deselecciono filtro chatarra");
-	            		m.setFiltroEspecial("");
 	            		m.setValorString("");
 	            	}
 	            	Controlador.controladorDeCheckbox(m,v,false,false,false,false);
@@ -173,7 +132,6 @@ public class FiltroListener implements ActionListener{
 	            	if(v.getChckbx_filtrosPostres().isSelected()){
 	            		m.filtroPostres();
 	            	}else{
-	            		m.setFiltroEspecial("");
 	            		m.setValorString("");
 	            	}
 	            	Controlador.controladorDeCheckbox(m,v,false,false,false,false);
@@ -185,7 +143,6 @@ public class FiltroListener implements ActionListener{
 	            	if(v.getChckbx_filtrosSanas().isSelected()){
 	            		m.filtroSanas();
 	            	}else{
-	            		m.setFiltroEspecial("");
 	            		m.setValorString("");
 	            	}
 	            	Controlador.controladorDeCheckbox(m,v,false,false,false,false);
@@ -197,7 +154,6 @@ public class FiltroListener implements ActionListener{
 	            	if(v.getChckbx_filtrosPastas().isSelected()){
 	            		m.filtroPastas();
 	            	}else{
-	            		m.setFiltroEspecial("");
 	            		m.setValorString("");
 	            	}
 	            	Controlador.controladorDeCheckbox(m,v,false,false,false,false);
@@ -215,14 +171,13 @@ public class FiltroListener implements ActionListener{
 		Enumeration<Object> keys = propiedades.keys();
 		while (keys.hasMoreElements()){
 		   Object key = keys.nextElement();
-		   System.out.println(key + " = "+ propiedades.get(key));
 		   if(!key.toString().equals(aux)){
 			   v.getComboBox_eleccionDeUsuario().addItem(key.toString());
 			   aux=key.toString();
-			   System.out.println("aux: "+aux);
 		   }
 		   
 		}
 		v.getComboBox_eleccionDeUsuario().addActionListener(this);
 	}
+	
 }

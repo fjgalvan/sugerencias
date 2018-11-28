@@ -11,11 +11,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.Timer;
 
 import java.awt.Color;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Observer;
 import java.util.Observable;
 
@@ -29,6 +31,10 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 
+import modelo.Customer;
+import modelo.Preferencias;
+import modelo.Recomendacion;
+import modelo.Usuario;
 import mvc_modelo_observable.Modelo;
 import twitter4j.TwitterException;
 
@@ -36,6 +42,7 @@ import com.mongodb.DBCollection;
 
 import conexiones.Interfaz.RecolectorPromos;
 import dao.mongoDB.MongoConcreteStub;
+import estadisticas.PromosOpuestosEnPrecio;
 
 @SuppressWarnings("serial")
 public class Vista2 extends JFrame implements Observer {
@@ -69,21 +76,36 @@ public class Vista2 extends JFrame implements Observer {
 	private JButton btnCambiarIdioma;
 	private JButton btn_GuardarPreferencia;
 	private Button button;
-	private JButton btn_actualizarPromos;
 	private JTextArea textArea_masCara;
 	private JTextArea textArea_masEconomico;
 	private JButton btnEstadisticasPrecios;
 	private JLabel label;
 	private Timer tm;
 	private MongoConcreteStub basePromosActual;
-
+	private String fechaActualizacion="";
+	JTextArea textArea_fechaActualizacion;
+	private JLabel lbl_TagpromoMasCaro;
+	private JLabel lblPromoDelTag;
+	private JLabel label_1;
+	private JLabel lblElijaTagsPara; 
+	private JLabel lbl_PromoMasCara;
+	private JButton btnCompararTags;
+//	private JScrollPane jsp;
+	private JTextArea textArea_tagMasCaro;
+	private JTextArea textArea_TagMasEconomico;
+	private JComboBox comboBox_tag1;
+	private JComboBox comboBox_tag2;
+	private JLabel lblHorarioltimaActualizacin;
+	private String tag1="";
+	private String tag2="";
+	private JButton btnPararActualizacion;
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Vista2(Modelo modelo) {
-
 		lblRecomendaciones = new JLabel("Recomendaciones:");
-		lblRecomendaciones.setBounds(10, 297, 116, 23);
+		lblRecomendaciones.setBounds(10, 262, 116, 23);
 		textArea_Recomendaciones = new JTextArea();
-		textArea_Recomendaciones.setBounds(126, 296, 878, 176);
+		textArea_Recomendaciones.setBounds(123, 261, 878, 176);
 		textArea_Recomendaciones.setLineWrap(true);
 		textArea_Recomendaciones.setWrapStyleWord(true);
 
@@ -97,7 +119,7 @@ public class Vista2 extends JFrame implements Observer {
 		// Indicamos a la ventana que se pueda cerrar. (La acción de cerrar)
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Le damos un tamaño por defecto a la ventana.
-		this.setSize(1030, 698);
+		this.setSize(1030, 718);
 		// Indicamos su tamaño mínimo, y máximo, ya que no vamos a "bloquearla"
 		// y permitiremos que sea redimensionable.
 		this.setMinimumSize(new Dimension(100, 100));
@@ -107,6 +129,8 @@ public class Vista2 extends JFrame implements Observer {
 
 		panel.add(lblRecomendaciones);
 		panel.add(textArea_Recomendaciones);
+//		jsp= new JScrollPane(textArea_Recomendaciones, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+//		panel.add(jsp);
 
 		// Añadimos el panel a nuestra ventana.
 		getContentPane().add(panel);
@@ -125,26 +149,26 @@ public class Vista2 extends JFrame implements Observer {
 
 		chckbx_filtrosChatarras = new JCheckBox("1_ chatarras");
 		chckbx_filtrosChatarras.setForeground(new Color(0, 0, 255));
-		chckbx_filtrosChatarras.setBounds(220, 263, 116, 23);
+		chckbx_filtrosChatarras.setBounds(234, 233, 116, 23);
 		panel.add(chckbx_filtrosChatarras);
 
 		chckbx_filtrosPostres = new JCheckBox("2_ postres");
 		chckbx_filtrosPostres.setForeground(new Color(0, 0, 255));
-		chckbx_filtrosPostres.setBounds(383, 263, 103, 23);
+		chckbx_filtrosPostres.setBounds(383, 233, 103, 23);
 		panel.add(chckbx_filtrosPostres);
 
 		chckbx_filtrosSanas = new JCheckBox("3_ sanas");
 		chckbx_filtrosSanas.setForeground(new Color(0, 0, 255));
-		chckbx_filtrosSanas.setBounds(527, 263, 97, 23);
+		chckbx_filtrosSanas.setBounds(516, 233, 97, 23);
 		panel.add(chckbx_filtrosSanas);
 
 		chckbx_filtrosPastas = new JCheckBox("4_ pastas");
 		chckbx_filtrosPastas.setForeground(new Color(0, 0, 255));
-		chckbx_filtrosPastas.setBounds(683, 263, 97, 23);
+		chckbx_filtrosPastas.setBounds(669, 233, 97, 23);
 		panel.add(chckbx_filtrosPastas);
 
 		lblElijaFiltros = new JLabel("Elija Filtros de Preferencias:");
-		lblElijaFiltros.setBounds(10, 272, 186, 14);
+		lblElijaFiltros.setBounds(10, 237, 186, 14);
 		panel.add(lblElijaFiltros);
 
 		lbl_registrarUsuario = new JLabel("Usuario:");
@@ -224,7 +248,7 @@ public class Vista2 extends JFrame implements Observer {
 
 		JLabel label_lineaHorizontal2 = new JLabel(
 				"-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-		label_lineaHorizontal2.setBounds(10, 168, 991, 14);
+		label_lineaHorizontal2.setBounds(10, 149, 991, 14);
 		panel.add(label_lineaHorizontal2);
 
 		lblElijaIdioma = new JLabel("Elija idioma:");
@@ -244,56 +268,90 @@ public class Vista2 extends JFrame implements Observer {
 
 		btn_GuardarPreferencia = new JButton("Guardar Preferencia");
 		btn_GuardarPreferencia.setForeground(new Color(0, 0, 255));
-		btn_GuardarPreferencia.setBounds(791, 485, 213, 23);
+		btn_GuardarPreferencia.setBounds(791, 448, 213, 23);
 		panel.add(btn_GuardarPreferencia);
 
 		button = new Button("PressMe");
 		panel.add(button);
 		
-		btn_actualizarPromos = new JButton("Actualizar Promos");
-		btn_actualizarPromos.setForeground(Color.RED);
-		btn_actualizarPromos.setBounds(823, 204, 156, 22);
-		panel.add(btn_actualizarPromos);
-		
-		JLabel lbl_PromoMasCara = new JLabel("Promo mas cara: ");
-		lbl_PromoMasCara.setBounds(10, 553, 144, 14);
+		lbl_PromoMasCara = new JLabel("Promo mas cara: ");
+		lbl_PromoMasCara.setBounds(10, 493, 144, 14);
 		panel.add(lbl_PromoMasCara);
 		
 		JLabel lbl_PromoMasEconomica = new JLabel("Promo mas economica:");
-		lbl_PromoMasEconomica.setBounds(10, 594, 144, 14);
+		lbl_PromoMasEconomica.setBounds(10, 518, 144, 14);
 		panel.add(lbl_PromoMasEconomica);
 		
 		textArea_masCara = new JTextArea();
-		textArea_masCara.setBounds(164, 548, 840, 22);
+		textArea_masCara.setBounds(201, 488, 800, 22);
 		panel.add(textArea_masCara);
 		
 		textArea_masEconomico = new JTextArea();
-		textArea_masEconomico.setBounds(164, 589, 840, 22);
+		textArea_masEconomico.setBounds(204, 518, 800, 22);
 		panel.add(textArea_masEconomico);
 		
 		btnEstadisticasPrecios = new JButton("Estadisticas Precios");
 		btnEstadisticasPrecios.setForeground(new Color(0, 128, 0));
-		btnEstadisticasPrecios.setBounds(791, 625, 213, 23);
+		btnEstadisticasPrecios.setBounds(788, 545, 213, 23);
 		panel.add(btnEstadisticasPrecios);
 		
 		label = new JLabel("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-		label.setBounds(10, 519, 991, 14);
+		label.setBounds(10, 470, 991, 14);
 		panel.add(label);
 		
-		tm = new Timer(60000, new ActionListener() { //1.000 = 1 segundo // 60.000= 1 minuto // 3.600.000= 1 hora
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					basePromosActual= cargarTodasLasPromos();
-				} catch (ClassNotFoundException | NoSuchMethodException
-						| SecurityException | InstantiationException
-						| IllegalAccessException | IllegalArgumentException
-						| InvocationTargetException | TwitterException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+		lblHorarioltimaActualizacin = new JLabel("Horario Última Actualización: ");
+		lblHorarioltimaActualizacin.setBounds(10, 180, 186, 14);
+		panel.add(lblHorarioltimaActualizacin);
+		
+		textArea_fechaActualizacion = new JTextArea();
+		textArea_fechaActualizacion.setBackground(new Color(127, 255, 212));
+		textArea_fechaActualizacion.setBounds(245, 173, 241, 22);
+		panel.add(textArea_fechaActualizacion);
+		textArea_fechaActualizacion.setText(fechaActualizacion);
+		
+		lblElijaTagsPara = new JLabel("Elija Tags Para Comparar:");
+		lblElijaTagsPara.setBounds(10, 592, 156, 14);
+		panel.add(lblElijaTagsPara);
+		
+		comboBox_tag1 = new JComboBox();
+		comboBox_tag1.setModel(new DefaultComboBoxModel(new String[] {"chatarras", "postres", "sanas", "pastas"}));
+		comboBox_tag1.setBounds(194, 589, 156, 20);
+		panel.add(comboBox_tag1);
+		
+		comboBox_tag2 = new JComboBox();
+		comboBox_tag2.setModel(new DefaultComboBoxModel(new String[] {"chatarras", "postres", "sanas", "pastas"}));
+		comboBox_tag2.setBounds(384, 589, 156, 20);
+		panel.add(comboBox_tag2);
+		
+		btnCompararTags = new JButton("comparar tags");
+		btnCompararTags.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				compararTagsElegidos();
 			}
 		});
+		btnCompararTags.setBounds(568, 588, 125, 23);
+		panel.add(btnCompararTags);
+		
+		lbl_TagpromoMasCaro = new JLabel("Promo del Tag mas caro:");
+		lbl_TagpromoMasCaro.setBounds(10, 628, 186, 14);
+		panel.add(lbl_TagpromoMasCaro);
+		
+		lblPromoDelTag = new JLabel("Promo del Tag mas economico:");
+		lblPromoDelTag.setBounds(10, 653, 186, 14);
+		panel.add(lblPromoDelTag);
+		
+		label_1 = new JLabel("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+		label_1.setBounds(10, 567, 991, 14);
+		panel.add(label_1);
+		
+		textArea_tagMasCaro = new JTextArea();
+		textArea_tagMasCaro.setBounds(204, 620, 800, 22);
+		panel.add(textArea_tagMasCaro);
+		
+		textArea_TagMasEconomico = new JTextArea();
+		textArea_TagMasEconomico.setBounds(206, 653, 798, 22);
+		panel.add(textArea_TagMasEconomico);
+		
 		
 		// Hacemos visible nuestra ventana.
 		this.setVisible(true);
@@ -303,12 +361,66 @@ public class Vista2 extends JFrame implements Observer {
 
 	}
 
+	protected void compararTagsElegidos() {
+		tag1= comboBox_tag1.getSelectedItem().toString();
+		tag2= comboBox_tag2.getSelectedItem().toString();
+		DBCollection coll = null;
+		ArrayList<Preferencias> listaPreferencias= new ArrayList<Preferencias>();
+		Preferencias p1 = null;
+		Preferencias p2 = null;
+		//Preferecia 1: "chatarras", 2:"postres", 3:"sanas", 4:"pastas"
+		if(tag1.equals("chatarras")){p1= new Preferencias(1,"chatarras");}
+		if(tag1.equals("postres")){p1= new Preferencias(2,"postres");}
+		if(tag1.equals("sanas")){p1= new Preferencias(3,"sanas");}
+		if(tag1.equals("pastas")){p1= new Preferencias(4,"pastas");}
+		
+		if(tag2.equals("chatarras")){p2= new Preferencias(1,"chatarras");}
+		if(tag2.equals("postres")){p2= new Preferencias(2,"postres");}
+		if(tag2.equals("sanas")){p2= new Preferencias(3,"sanas");}
+		if(tag2.equals("pastas")){p2= new Preferencias(4,"pastas");}
+		
+		listaPreferencias.add(p1);
+		listaPreferencias.add(p2);
+		Usuario u= new Usuario("u","usuario@yahoo.com.ar");
+		try {
+			Customer c1= new Customer("10", u,listaPreferencias);
+			Recomendacion r= new Recomendacion(c1);
+			coll= cargarUnaRecomendacion(r, c1);
+		} catch (ClassNotFoundException | NoSuchMethodException
+				| SecurityException | InstantiationException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException | TwitterException e1) {
+			e1.printStackTrace();
+		}
+		
+		PromosOpuestosEnPrecio estadistica= new PromosOpuestosEnPrecio();
+		textArea_tagMasCaro.setText(estadistica.getPromoMasCara(coll).toString());
+		textArea_TagMasEconomico.setText(estadistica.getPromoMasEconomica(coll).toString());
+		
+	}
+	public DBCollection cargarUnaRecomendacion(Recomendacion reco, Customer user) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException{
+		RecolectorPromos c = new RecolectorPromos();//sin argumento con mongoStub
+		
+		c.cargarListaConectores();
+		c.buscarPromociones();
+		c.promosConFiltros(tag1, tag2);
+		//c.getMongoDB().leerColeccion();
+		reco.leerPreferencias();
+		DBCollection coll=reco.mostrarRecomendaciones(c.getMongoDB().getPromos());
+		return coll;
+	}
+
 	public void update(Observable obs, Object obj) {
-		System.out.println("update");
+		//System.out.println("update");
 
 		textArea_Recomendaciones.setText(String.valueOf(((Modelo) obs)
 				.getValorString()));
+		textArea_fechaActualizacion.setText(String.valueOf(((Modelo) obs)
+				.getHoraActualizacion()));//(fechaActualizacion);
+	}
 
+	public JTextArea getTextArea_fechaActualizacion() {
+		return textArea_fechaActualizacion;
 	}
 
 	public void addFiltroListeners(ActionListener listen) {
@@ -464,10 +576,6 @@ public class Vista2 extends JFrame implements Observer {
 		return btn_GuardarPreferencia;
 	}
 
-	public JButton getBtn_actualizarPromos() {
-		return btn_actualizarPromos;
-	}
-
 	public JTextArea getTextArea_masCara() {
 		return textArea_masCara;
 	}
@@ -479,22 +587,48 @@ public class Vista2 extends JFrame implements Observer {
 	public JButton getBtnEstadisticasPrecios() {
 		return btnEstadisticasPrecios;
 	}
-	public MongoConcreteStub cargarTodasLasPromos() throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException{
-		RecolectorPromos c = new RecolectorPromos();
-
-		c.cargarListaConectores();
-		c.buscarPromociones();
-		System.out.println("c.getMongoDB().getPromos().count(): "+c.getMongoDB().getPromos().count());
-		c.getMongoDB().leerColeccion();
-		return c.getMongoDB();
-	}
-
-	public Timer getTm() {
-		return tm;
-	}
 
 	public MongoConcreteStub getBasePromosActual() {
 		return basePromosActual;
 	}
-	
+
+	public JButton getBtnCompararTags() {
+		return btnCompararTags;
+	}
+
+	public JComboBox getComboBox_tag1() {
+		return comboBox_tag1;
+	}
+
+	public JComboBox getComboBox_tag2() {
+		return comboBox_tag2;
+	}
+
+	public JTextArea getTextArea_tagMasCaro() {
+		return textArea_tagMasCaro;
+	}
+
+	public JTextArea getTextArea_TagMasEconomico() {
+		return textArea_TagMasEconomico;
+	}
+
+	public JLabel getLbl_TagpromoMasCaro() {
+		return lbl_TagpromoMasCaro;
+	}
+
+	public JLabel getLblPromoDelTag() {
+		return lblPromoDelTag;
+	}
+
+	public JLabel getLblElijaTagsPara() {
+		return lblElijaTagsPara;
+	}
+
+	public JLabel getLbl_PromoMasCara() {
+		return lbl_PromoMasCara;
+	}
+
+	public JLabel getLblHorarioltimaActualizacin() {
+		return lblHorarioltimaActualizacin;
+	}
 }
