@@ -39,11 +39,7 @@ public class Preferencias {
 	}
 
 	public boolean pertenece(Producto p) {
-
-		if (productos.contains(p)) {
-			return true;
-		}
-		return false;
-
+		if (productos.contains(p)) {return true;
+		}return false;
 	}
 }

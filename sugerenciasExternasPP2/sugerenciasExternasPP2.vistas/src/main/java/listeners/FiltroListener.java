@@ -93,26 +93,26 @@ public class FiltroListener implements ActionListener{
 			}
 		});
 		
-		v.getBtnEstadisticasPrecios().addMouseListener(new MouseAdapter() {
-			@Override
-            public void mouseClicked(MouseEvent e) {
-				DBCollection coll = null;
-				try {
-//            		m.getMongo().finish();
-//            		m.ConectarMongoDBStub();
-					coll=m.cargarTodasLasPromos();
-				} catch (ClassNotFoundException | NoSuchMethodException
-						| SecurityException | InstantiationException
-						| IllegalAccessException | IllegalArgumentException
-						| InvocationTargetException | TwitterException e1) {
-					e1.printStackTrace();
-				}
-				
-				PromosOpuestosEnPrecio estadistica= new PromosOpuestosEnPrecio();
-				v.getTextArea_masCara().setText(estadistica.getPromoMasCara(coll).toString()); 
-				v.getTextArea_masEconomico().setText(estadistica.getPromoMasEconomica(coll).toString());
-			}
-		});
+//		v.getBtnEstadisticasPrecios().addMouseListener(new MouseAdapter() {
+//			@Override
+//            public void mouseClicked(MouseEvent e) {
+//				DBCollection coll = null;
+//				try {
+////            		m.getMongo().finish();
+////            		m.ConectarMongoDBStub();
+//					coll=m.cargarTodasLasPromos();
+//				} catch (ClassNotFoundException | NoSuchMethodException
+//						| SecurityException | InstantiationException
+//						| IllegalAccessException | IllegalArgumentException
+//						| InvocationTargetException | TwitterException e1) {
+//					e1.printStackTrace();
+//				}
+//				
+//				PromosOpuestosEnPrecio estadistica= new PromosOpuestosEnPrecio();
+//				v.getTextArea_masCara().setText(estadistica.getPromoMasCara(coll).toString()); 
+//				v.getTextArea_masEconomico().setText(estadistica.getPromoMasEconomica(coll).toString());
+//			}
+//		});
 		
 		
 		 v.getChckbx_filtrosChatarras().addMouseListener(new MouseAdapter() {

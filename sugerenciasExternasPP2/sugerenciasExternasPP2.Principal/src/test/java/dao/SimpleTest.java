@@ -21,19 +21,6 @@ import dao.mongoDB.MyConstants;
 import de.bwaldvogel.mongo.MongoServer;
 import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
 
-/*
- * Servidor Java MongoDB
- * Implementación de stub del servidor central MongoDB en Java. 
- * El Protocolo de MongoDB Wire se implementa con Netty . 
- * Diferentes backends son posibles y se pueden extender fácilmente.
- * 
- * El backend en memoria es el predeterminado, de modo que mongo-java-server 
- * se puede usar como código auxiliar en las pruebas unitarias. 
- * Es compatible con las operaciones básicas de CRUD. Sin embargo, 
- * no todas las funciones están implementadas, como la búsqueda 
- * de texto completo o el mapa / reducir.
- */
-
 public class SimpleTest {
 
     //private MongoCollection<Document> collection;

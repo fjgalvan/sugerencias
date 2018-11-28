@@ -45,7 +45,7 @@ import dao.mongoDB.MongoConcreteStub;
 import estadisticas.PromosOpuestosEnPrecio;
 
 @SuppressWarnings("serial")
-public class Vista2 extends JFrame implements Observer {
+public class Vista1 extends JFrame implements Observer {
 	private JPanel panel;
 	private JLabel lblRecomendaciones;
 	private JTextArea textArea_Recomendaciones;
@@ -76,6 +76,9 @@ public class Vista2 extends JFrame implements Observer {
 	private JButton btnCambiarIdioma;
 	private JButton btn_GuardarPreferencia;
 	private Button button;
+	private JTextArea textArea_masCara;
+	private JTextArea textArea_masEconomico;
+	private JButton btnEstadisticasPrecios;
 	private JLabel label;
 	private Timer tm;
 	private MongoConcreteStub basePromosActual;
@@ -83,7 +86,9 @@ public class Vista2 extends JFrame implements Observer {
 	JTextArea textArea_fechaActualizacion;
 	private JLabel lbl_TagpromoMasCaro;
 	private JLabel lblPromoDelTag;
+	private JLabel label_1;
 	private JLabel lblElijaTagsPara; 
+	private JLabel lbl_PromoMasCara;
 	private JButton btnCompararTags;
 //	private JScrollPane jsp;
 	private JTextArea textArea_tagMasCaro;
@@ -96,7 +101,7 @@ public class Vista2 extends JFrame implements Observer {
 	private JButton btnPararActualizacion;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Vista2(Modelo modelo) {
+	public Vista1(Modelo modelo) {
 		lblRecomendaciones = new JLabel("Recomendaciones:");
 		lblRecomendaciones.setBounds(10, 262, 116, 23);
 		textArea_Recomendaciones = new JTextArea();
@@ -114,7 +119,7 @@ public class Vista2 extends JFrame implements Observer {
 		// Indicamos a la ventana que se pueda cerrar. (La acción de cerrar)
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Le damos un tamaño por defecto a la ventana.
-		this.setSize(1030, 678);
+		this.setSize(1030, 718);
 		// Indicamos su tamaño mínimo, y máximo, ya que no vamos a "bloquearla"
 		// y permitiremos que sea redimensionable.
 		this.setMinimumSize(new Dimension(100, 100));
@@ -269,6 +274,27 @@ public class Vista2 extends JFrame implements Observer {
 		button = new Button("PressMe");
 		panel.add(button);
 		
+		lbl_PromoMasCara = new JLabel("Promo mas cara: ");
+		lbl_PromoMasCara.setBounds(10, 493, 144, 14);
+		panel.add(lbl_PromoMasCara);
+		
+		JLabel lbl_PromoMasEconomica = new JLabel("Promo mas economica:");
+		lbl_PromoMasEconomica.setBounds(10, 518, 144, 14);
+		panel.add(lbl_PromoMasEconomica);
+		
+		textArea_masCara = new JTextArea();
+		textArea_masCara.setBounds(201, 488, 800, 22);
+		panel.add(textArea_masCara);
+		
+		textArea_masEconomico = new JTextArea();
+		textArea_masEconomico.setBounds(204, 518, 800, 22);
+		panel.add(textArea_masEconomico);
+		
+		btnEstadisticasPrecios = new JButton("Estadisticas Precios");
+		btnEstadisticasPrecios.setForeground(new Color(0, 128, 0));
+		btnEstadisticasPrecios.setBounds(788, 545, 213, 23);
+		panel.add(btnEstadisticasPrecios);
+		
 		label = new JLabel("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		label.setBounds(10, 470, 991, 14);
 		panel.add(label);
@@ -284,51 +310,54 @@ public class Vista2 extends JFrame implements Observer {
 		textArea_fechaActualizacion.setText(fechaActualizacion);
 		
 		lblElijaTagsPara = new JLabel("Elija Tags Para Comparar:");
-		lblElijaTagsPara.setBounds(10, 495, 156, 14);
+		lblElijaTagsPara.setBounds(10, 592, 156, 14);
 		panel.add(lblElijaTagsPara);
 		
 		comboBox_tag1 = new JComboBox();
 		comboBox_tag1.setModel(new DefaultComboBoxModel(new String[] {"chatarras", "postres", "sanas", "pastas"}));
-		comboBox_tag1.setBounds(188, 495, 156, 20);
+		comboBox_tag1.setBounds(194, 589, 156, 20);
 		panel.add(comboBox_tag1);
 		
 		comboBox_tag2 = new JComboBox();
 		comboBox_tag2.setModel(new DefaultComboBoxModel(new String[] {"chatarras", "postres", "sanas", "pastas"}));
-		comboBox_tag2.setBounds(383, 495, 156, 20);
+		comboBox_tag2.setBounds(384, 589, 156, 20);
 		panel.add(comboBox_tag2);
 		
 		btnCompararTags = new JButton("comparar tags");
-		btnCompararTags.setBackground(Color.GREEN);
 		btnCompararTags.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				compararTagsElegidos();
 			}
 		});
-		btnCompararTags.setBounds(579, 495, 125, 23);
+		btnCompararTags.setBounds(568, 588, 125, 23);
 		panel.add(btnCompararTags);
 		
 		lbl_TagpromoMasCaro = new JLabel("Promo del Tag mas caro:");
-		lbl_TagpromoMasCaro.setBounds(10, 583, 186, 14);
+		lbl_TagpromoMasCaro.setBounds(10, 628, 186, 14);
 		panel.add(lbl_TagpromoMasCaro);
 		
 		lblPromoDelTag = new JLabel("Promo del Tag mas economico:");
-		lblPromoDelTag.setBounds(10, 608, 186, 14);
+		lblPromoDelTag.setBounds(10, 653, 186, 14);
 		panel.add(lblPromoDelTag);
 		
+		label_1 = new JLabel("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+		label_1.setBounds(10, 567, 991, 14);
+		panel.add(label_1);
+		
 		textArea_tagMasCaro = new JTextArea();
-		textArea_tagMasCaro.setBounds(201, 578, 800, 22);
+		textArea_tagMasCaro.setBounds(204, 620, 800, 22);
 		panel.add(textArea_tagMasCaro);
 		
 		textArea_TagMasEconomico = new JTextArea();
-		textArea_TagMasEconomico.setBounds(203, 603, 798, 22);
+		textArea_TagMasEconomico.setBounds(206, 653, 798, 22);
 		panel.add(textArea_TagMasEconomico);
 		
 		
 		// Hacemos visible nuestra ventana.
 		this.setVisible(true);
 		// Cargamos controlador y le asignamos qué modelo controlar
-		@SuppressWarnings("unused")
-		Controlador c = new Controlador(modelo, this);
+//		@SuppressWarnings("unused")
+//		Controlador c = new Controlador(modelo, this);
 
 	}
 
@@ -547,6 +576,18 @@ public class Vista2 extends JFrame implements Observer {
 		return btn_GuardarPreferencia;
 	}
 
+	public JTextArea getTextArea_masCara() {
+		return textArea_masCara;
+	}
+
+	public JTextArea getTextArea_masEconomico() {
+		return textArea_masEconomico;
+	}
+
+	public JButton getBtnEstadisticasPrecios() {
+		return btnEstadisticasPrecios;
+	}
+
 	public MongoConcreteStub getBasePromosActual() {
 		return basePromosActual;
 	}
@@ -581,6 +622,10 @@ public class Vista2 extends JFrame implements Observer {
 
 	public JLabel getLblElijaTagsPara() {
 		return lblElijaTagsPara;
+	}
+
+	public JLabel getLbl_PromoMasCara() {
+		return lbl_PromoMasCara;
 	}
 
 	public JLabel getLblHorarioltimaActualizacin() {

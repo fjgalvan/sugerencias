@@ -2,13 +2,6 @@ package modelo;
 
 import java.util.ArrayList;
 
-/**
- * {@link Customer} is a data transfer object POJO. Instead of sending
- * individual information to client We can send related information together in
- * POJO.
- * <p>
- * Dto will not have any business logic in it.
- */
 public class Customer {
 	private final String id;
 	private final Usuario userName;

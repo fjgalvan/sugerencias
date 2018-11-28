@@ -67,16 +67,6 @@ public class Modelo extends Observable {
 		return mapRecomendacionesGeneral;
 	}
 
-	// public void ConectarMongoDB() {
-	// // Leo todos los Productos que tengo en ProductosBo
-	// ProductosBo pBo = new ProductosBo();
-	// pBo.getListaDeProductos();
-	// pBo.mostrarListaDeProductos();
-	// m = new MongoConcrete();
-	// m.conectarseMongoDB();
-	// System.out.println("Elimino la coleccion!");
-	// m.eliminarTodaLaColeccion();
-	// }
 	public void ConectarMongoDBStub() throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException {
 		// Leo todos los Productos que tengo en ProductosBo
 		ProductosBo pBo = new ProductosBo();
@@ -252,4 +242,9 @@ public class Modelo extends Observable {
 		DBCollection promos= c.getMongoDB().leerColeccion();
 		return promos;
 	}
+
+	public Recomendacion getR() {
+		return r;
+	}
+	
 }

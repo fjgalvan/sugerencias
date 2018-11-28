@@ -43,12 +43,6 @@ public final class MoneyCalculation {
 		return getSum().divide(MyConstantsEstadisticas.TWO, MyConstantsEstadisticas.ROUNDING_MODE);
 	}
 
-	private BigDecimal getPercentage() {
-		BigDecimal result = amountOne.multiply(MyConstantsEstadisticas.PERCENTAGE);
-		result = result.divide(MyConstantsEstadisticas.HUNDRED, MyConstantsEstadisticas.ROUNDING_MODE);
-		return rounded(result);
-	}
-
 	private BigDecimal getPercentageChange() {
 		BigDecimal fractionalChange = getDifference().divide(amountOne,
 				MyConstantsEstadisticas.EXTRA_DECIMALS, MyConstantsEstadisticas.ROUNDING_MODE);
