@@ -35,6 +35,7 @@ public class MongoConcreteTest {
 		mongoReal.borrarUnDocumentoDeUnaColeccion(update3);
 		mongoReal.getPromos();
 		mongoReal.setPromos(mongoReal.getPromos());
+		mongoReal.buscarYmostrarTodosLosDocumentos();
 		mongoReal.eliminarTodaLaColeccion();
 	}
     
