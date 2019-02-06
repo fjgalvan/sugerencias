@@ -20,7 +20,7 @@ public class MVC_sePP2vistas {
         
         //Cargamos el temporizador
         ActualizacionPromos actualizacion= new ActualizacionPromos(m);
-        actualizacion.actualizarPromos(MyConstantsDAO.tiempoDosMinuto, v2);
+        actualizacion.actualizarPromos(MyConstantsDAO.tiempoUnMinuto, v2);
         actualizacion.runTimer();
         //actualizacion.stopTimer();
        
