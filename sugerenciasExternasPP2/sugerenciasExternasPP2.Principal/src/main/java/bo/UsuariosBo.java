@@ -26,10 +26,11 @@ public class UsuariosBo {
 	public UsuariosBo() {
 		listaUsuarios = new ArrayList<Usuario>();
 		usuariosProperties = new Properties();
-		usuariosPreferenciasProperties= new Properties();
+		usuariosPreferenciasProperties = new Properties();
 		try {
 			usuariosProperties.load(new FileReader(Constants.ROUTE_USUARIOS));
-			usuariosPreferenciasProperties.load(new FileReader(Constants.ROUTE_USUARIOS_PREFERENCIAS));
+			usuariosPreferenciasProperties.load(new FileReader(
+					Constants.ROUTE_USUARIOS_PREFERENCIAS));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -100,10 +101,32 @@ public class UsuariosBo {
 		return res;
 	}
 
+	public boolean agregarNuevoUsuario(String nombreUsuario, String email) throws IOException{
+		if((!elUsuarioYaExiste(nombreUsuario, email)) 
+			&& (caracteresValidosUsuario(nombreUsuario))
+			&& (validarEmail(email))){
+			usuariosProperties.setProperty(nombreUsuario, email);
+			usuariosPreferenciasProperties.setProperty(nombreUsuario, ",");
+			FileOutputStream os = null;	   
+		    
+			try {
+			  os=new FileOutputStream(Constants.ROUTE_USUARIOS);
+			  usuariosProperties.store(os, MyConstantsBo.OsUsuarios);
+			  os=new FileOutputStream(Constants.ROUTE_USUARIOS_PREFERENCIAS);
+			  usuariosPreferenciasProperties.store(os, MyConstantsBo.OsUsuarioPreferencias);
+			  return true;
+			} catch(IOException ioe) {ioe.printStackTrace(); return false;}
+			
+			
+		}
+		return false;
+	}
+
+
 	public Properties getUsuariosProperties() {
 		return usuariosProperties;
 	}
-	
+
 	public Properties getUsuariosPreferenciasProperties() {
 		return usuariosPreferenciasProperties;
 	}

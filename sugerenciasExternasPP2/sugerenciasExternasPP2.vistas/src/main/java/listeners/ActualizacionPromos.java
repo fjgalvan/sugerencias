@@ -1,6 +1,6 @@
 package listeners;
 
-import java.awt.event.ActionEvent;
+import java.awt.event.ActionEvent; 
 import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
@@ -10,12 +10,14 @@ import javax.swing.Timer;
 import mvc.Vista2;
 import mvc_modelo_observable.Modelo;
 import conexiones.Interfaz.RecolectorPromos;
+import dao.mongoDB.MongoConcrete;
 import dao.mongoDB.MongoConcreteStub;
 import twitter4j.TwitterException;
 
 public class ActualizacionPromos {
 	private Timer tm;
-	private MongoConcreteStub basePromosActual;
+	//private MongoConcreteStub basePromosActual;
+	private MongoConcrete basePromosActual;
 	private Modelo m;
 	private String fechaActualizacion = "";
 
@@ -23,15 +25,17 @@ public class ActualizacionPromos {
 		this.m = m;
 	}
 
-	public MongoConcreteStub actualizarPromos(Integer tiempoDeActualizacion,
+//	public MongoConcreteStub actualizarPromos(Integer tiempoDeActualizacion,
+//			final Vista2 v) {
+	public MongoConcrete actualizarPromos(Integer tiempoDeActualizacion,
 			final Vista2 v) {
 		tm = new Timer(tiempoDeActualizacion, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if(basePromosActual !=null){
-						basePromosActual.finish();
-					}
+//					if(basePromosActual !=null){
+//						basePromosActual.finish();
+//					}
 					m.ConectarMongoDBStub();
 					m.cargarRecomendacionesGenerales(m.getMapRecomendaciones());
 					basePromosActual = cargarTodasLasPromos();
@@ -73,7 +77,8 @@ public class ActualizacionPromos {
 		tm.stop(); // DENTIENE LA BUSQUEDA DE CARGAS Y PROMOS
 	}
 
-	public MongoConcreteStub cargarTodasLasPromos()
+	//public MongoConcreteStub cargarTodasLasPromos()
+	public MongoConcrete cargarTodasLasPromos()
 			throws ClassNotFoundException, NoSuchMethodException,
 			SecurityException, InstantiationException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException,
