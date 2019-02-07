@@ -1,18 +1,14 @@
 package promo.Twitter;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import org.bson.Document;
-
-import promo.Excel.PromoExcel;
 import promo.Interfaz.InterfacePromo;
 import sugerencias.ConvertirString_a_Sugerencia;
-import sugerencias.Sugerencias;
 import sugerencias.SugerenciaTwitter;
+import sugerencias.Sugerencias;
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.TwitterException;
@@ -23,17 +19,15 @@ import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 import com.mongodb.MongoException;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.util.JSON;
 
 import conexiones.conexionTwitter.ConectorTwitter;
 import configurables.MyConstantsDAO;
 import dao.filtrosDeUsuario.TaggearComidas;
-import dao.mongoDB.MongoConcreteStub;
+//import dao.mongoDB.MongoConcreteStub; 
 
 public class PromoTwitter implements InterfacePromo {
 	List<String> listaTweets = new ArrayList<String>();

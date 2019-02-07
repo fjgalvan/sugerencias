@@ -1,6 +1,6 @@
 package conexiones.conexionTwitter;
 
-import java.io.IOException;
+import java.io.IOException; 
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;  
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import com.mongodb.DBCollection;
 
 import conexiones.Interfaz.InterfaceConectores;
 import configurables.MyConstantsConexiones;
-import dao.mongoDB.MongoConcreteStub;
+//import dao.mongoDB.MongoConcreteStub;
 import dao.mongoDB.MyConstants;
 import sugerencias.Sugerencias;
 import sugerencias.SugerenciaTwitter;

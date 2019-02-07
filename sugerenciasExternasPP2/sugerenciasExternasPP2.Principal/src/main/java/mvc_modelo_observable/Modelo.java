@@ -1,23 +1,19 @@
 package mvc_modelo_observable;
 
-import java.io.FileReader;  
+import java.io.FileReader;   
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
 import bo.CustomersBo;
 import bo.ProductosBo;
-
 import com.mongodb.DBCollection;
-
 import conexiones.Interfaz.RecolectorPromos;
-import dao.mongoDB.MongoConcreteStub;
-
+import dao.mongoDB.MongoConcrete;
+//import dao.mongoDB.MongoConcreteStub;
 import java.util.Observable;
-
 import modelo.Customer;
 import modelo.Preferencias;
 import modelo.Promocion;
@@ -33,7 +29,8 @@ public class Modelo extends Observable {
 	private CustomersBo cBo; 
 	private Recomendacion r, r2,r3,r4,r5,r6;
 	// MongoConcrete m;
-	MongoConcreteStub mongo;
+	//MongoConcreteStub mongo;
+	MongoConcrete mongo;
 	static String filtroChatarras = "";
 	static String filtroPostres = "";
 	static String filtroSanas = "";
@@ -72,7 +69,7 @@ public class Modelo extends Observable {
 		ProductosBo pBo = new ProductosBo();
 		pBo.getListaDeProductos();
 		//pBo.mostrarListaDeProductos();
-		mongo = new MongoConcreteStub();
+		mongo = new MongoConcrete("promosActual");//MongoConcreteStub();
 		//mongo.conectarseMongoDB();
 		cargarCustomers();
 		cargarMapReco();
@@ -226,11 +223,19 @@ public class Modelo extends Observable {
 		return coll;
 	}
 
-	public MongoConcreteStub getMongo() {
+//	public MongoConcreteStub getMongo() {
+//		return mongo;
+//	}
+//
+//	public void setMongo(MongoConcreteStub mongo) {
+//		this.mongo = mongo;
+//	}
+	
+	public MongoConcrete getMongo() {
 		return mongo;
 	}
 
-	public void setMongo(MongoConcreteStub mongo) {
+	public void setMongo(MongoConcrete mongo) {
 		this.mongo = mongo;
 	}
 	

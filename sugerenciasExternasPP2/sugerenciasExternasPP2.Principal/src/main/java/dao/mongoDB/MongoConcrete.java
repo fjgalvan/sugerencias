@@ -21,12 +21,19 @@ public class MongoConcrete implements InterfaceMongoAccess {
 	MongoClient myClient = null;
 	private static DB db; 
 	private static DBCollection promos;
+	
+	private String MyConstants_DB_NAME;
 
 	//si la coneccion es distininto de null hay que conectarse, esto es un singleton
 	public MongoConcrete(){
 		getDB();
 	}
-
+	
+	public MongoConcrete(String nombre_DBCollection){
+		getDB();
+		this.MyConstants_DB_NAME= nombre_DBCollection;
+	}
+	
 	public DB getDB(){
 		if(db == null){
 			conectarseMongoDB();
@@ -48,8 +55,8 @@ public class MongoConcrete implements InterfaceMongoAccess {
 	public void conectarseMongoDB() {
 		try {myClient = MongoUtils.getMongoClient();
 		} catch (UnknownHostException e) { e.printStackTrace();}
-		db = myClient.getDB(MyConstants.DB_NAME);
-		promos= db.getCollection(MyConstants.DB_NAME);
+		db = myClient.getDB(MyConstants_DB_NAME);//(MyConstants.DB_NAME);
+		promos= db.getCollection(MyConstants_DB_NAME);//(MyConstants.DB_NAME);
 	}
 	@SuppressWarnings("unused")
 	@Override

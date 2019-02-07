@@ -24,7 +24,7 @@ import promo.Twitter.PromoTwitter;
 import properties.Constants;
 
 public class Us4Test {
-	String s= "#promo:mcDonalds_sanIsidro_lista(hamburguesa/50.0,helado/40.0,ensalada/20.0,fideos/30.0)_31-12-2018";
+	String s= "#promo:mcDonalds_sanIsidro_lista(hamburguesa/50.0,helado/40.0,ensalada/20.0,fideos/30.0)_31-12-2019";
 	PromoTwitter pt = null;
 	boolean res= false;
 	Recomendacion f_a;

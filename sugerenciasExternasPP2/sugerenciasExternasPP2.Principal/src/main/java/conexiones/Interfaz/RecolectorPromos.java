@@ -1,6 +1,6 @@
 package conexiones.Interfaz;
 
-import java.io.FileReader;
+import java.io.FileReader; 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -20,11 +20,14 @@ import sugerencias.Sugerencias;
 import twitter4j.TwitterException;
 import util_.Date;
 import dao.filtrosDeUsuario.TaggearComidas;
-import dao.mongoDB.MongoConcreteStub;
+//import dao.mongoDB.MongoConcreteStub;
+import dao.mongoDB.MongoConcrete;
 
 public class RecolectorPromos {
 	Properties propConexion;
-	MongoConcreteStub mongoDB;
+	//MongoConcreteStub mongoDB;
+	MongoConcrete mongoDB;
+	
 	
 	private List<InterfaceConectores> listaDeConectores = new ArrayList<InterfaceConectores>();
 
@@ -35,7 +38,8 @@ public class RecolectorPromos {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		mongoDB= new MongoConcreteStub();
+		//mongoDB= new MongoConcreteStub();
+		mongoDB= new MongoConcrete("promosActual");
 		//this.mongoDB= mongoDB;
 	}
 
@@ -121,12 +125,18 @@ public class RecolectorPromos {
 		return listaDeConectores;
 	}
 
-	public MongoConcreteStub getMongoDB() {
+//	public MongoConcreteStub getMongoDB() {
+//		return mongoDB;
+//	}
+//	
+//	public void finishMongo(){
+//		mongoDB.finish();
+//	}
+	public MongoConcrete getMongoDB() {
 		return mongoDB;
 	}
 	
 	public void finishMongo(){
-		mongoDB.finish();
+		//mongoDB.finish();
 	}
-
 }

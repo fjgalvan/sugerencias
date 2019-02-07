@@ -20,10 +20,10 @@ import validaciones.ValidarTwitter;
 
 public class Us2Test {
 	List<String> listaTweets = new ArrayList<String>();
-	String sFechaValida= "#promo:mcDonalds_sanIsidro_lista(hamburguesa/50.0,helado/40.0)_20-12-2018";
+	String sFechaValida= "#promo:mcDonalds_sanIsidro_lista(hamburguesa/50.0,helado/40.0)_20-12-2019";
 	String sInvalid= "#promos:mcDonalds_sanIsidro_lista(hamburguesa/50.0,papas/40.0)_20-09-2018";
-	String sComidaInvalida= "#promo:mcDonalds_sanIsidro_lista(cerveza/40.0)_20-12-2018";
-	String sComidaValida= "#promo:mcDonalds_sanIsidro_lista(hamburguesa/40.0)_20-12-2018";
+	String sComidaInvalida= "#promo:mcDonalds_sanIsidro_lista(cerveza/40.0)_20-12-2019";
+	String sComidaValida= "#promo:mcDonalds_sanIsidro_lista(hamburguesa/40.0)_20-12-2019";
 	boolean res= false;
 	boolean resDate= false;
 	PromoTwitter pt = null;

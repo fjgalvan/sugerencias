@@ -1,48 +1,31 @@
 package promo.Excel;
 
-import com.fasterxml.jackson.core.JsonProcessingException;  
-
+import com.fasterxml.jackson.core.JsonProcessingException;   
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.util.JSON;
-
 import java.util.HashMap;
-
 import org.bson.Document;
-
 import promo.Interfaz.InterfacePromo;
 import twitter4j.TwitterException;
-
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 import com.mongodb.MongoException;
-
-
-
-
-
-
-
-
-
-
-
-
 import conexiones.conexionExel.ExcelParserJSON;
 import dao.filtrosDeUsuario.TaggearComidas;
-import dao.mongoDB.MongoConcreteStub;
+import dao.mongoDB.MongoConcrete;
+//import dao.mongoDB.MongoConcreteStub;
 
 @SuppressWarnings({ "unused", "deprecation" })
 public class PromoExcel implements InterfacePromo{
@@ -107,7 +90,8 @@ public class PromoExcel implements InterfacePromo{
 	
 	public static void main(String[] args) {
 		PromoExcel pe= new PromoExcel();
-		MongoConcreteStub mongoStub= new MongoConcreteStub();
+//		MongoConcreteStub mongoStub= new MongoConcreteStub();
+		MongoConcrete mongoStub= new MongoConcrete("promosActual");
 		pe.leerPromo(mongoStub.getPromos());
 		
 	}
