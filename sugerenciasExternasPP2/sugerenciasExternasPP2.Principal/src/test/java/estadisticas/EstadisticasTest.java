@@ -24,9 +24,9 @@ public class EstadisticasTest {
 		Modelo m = new Modelo("recomendaciones","usuario", "email", "horarioActualizacion");
 		m.cargarCustomers();
 		m.cargarMapReco();
-		m.cargarRecomendacionesGenerales(m.getMapRecomendaciones());
+		//m.cargarRecomendacionesGenerales(m.getMapRecomendaciones());
 		m.cargarTodasLasPromos();
-		m.ConectarMongoDBStub();
+		//m.ConectarMongoDBStub();
 		RecolectorPromos c = new RecolectorPromos();//sin argumento con mongoStub
 		
 		c.cargarListaConectores();
