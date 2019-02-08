@@ -52,6 +52,7 @@ public class Recomendacion {
 	}
 
 	public DBCollection mostrarRecomendaciones(DBCollection coll) {
+		int contadorDeCollection=1;//Empieza en 1 por formato excel
 		// Obtengo una lista de Promociones
 		lPromciones = new ArrayList<Promocion>();
 		
@@ -59,7 +60,7 @@ public class Recomendacion {
 		DBCursor cursor = coll.find();
 		cursor.next();
 		try {
-			while (cursor.hasNext()) {
+			while (cursor.hasNext() || (contadorDeCollection== (coll.count()-1))) {
 
 				DBObject doc= cursor.next();
 				String local=(String) doc.get(MyConstantsModelo.promoLocal);
@@ -86,9 +87,12 @@ public class Recomendacion {
 				Date fechaDeVigencia= new Date(dd,mm,aaaa);
 				Sugerencias sug= new Sugerencias(local, ubicacion, producto, preciod, fechaDeVigencia);
 				lSugerencias.add(sug);
+				
+				contadorDeCollection=contadorDeCollection+1;
 			}
 		} finally {
 			cursor.close();
+			//contadorDeCollection=0;
 		}
 		for (Sugerencias sug : lSugerencias) {
 			try {

@@ -36,7 +36,7 @@ public class ActualizacionPromos {
 //					if(basePromosActual !=null){
 //						basePromosActual.finish();
 //					}
-					m.ConectarMongoDBStub();// VEEEERR
+					m.ConectarMongoDBreal();// VEEEERR
 					m.cargarRecomendacionesGenerales(m.getMapRecomendaciones());
 					basePromosActual = cargarTodasLasPromos();
 					fechaActualizacion = mostrarFecha_Horario_deActualizacion();
@@ -83,8 +83,9 @@ public class ActualizacionPromos {
 			SecurityException, InstantiationException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException,
 			TwitterException {
-		RecolectorPromos c = new RecolectorPromos(); //sin argumento
-
+		//RecolectorPromos c = new RecolectorPromos(); //sin argumento
+		RecolectorPromos c = new RecolectorPromos(this.m.getMongo());
+		
 		c.cargarListaConectores();
 		c.buscarPromociones();
 //		System.out.println("c.getMongoDB().getPromos().count(): "

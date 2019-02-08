@@ -26,8 +26,8 @@ public class EstadisticasTest {
 		m.cargarMapReco();
 		//m.cargarRecomendacionesGenerales(m.getMapRecomendaciones());
 		m.cargarTodasLasPromos();
-		//m.ConectarMongoDBStub();
-		RecolectorPromos c = new RecolectorPromos();//sin argumento con mongoStub
+		m.ConectarMongoDBreal();
+		RecolectorPromos c = new RecolectorPromos(m.getMongo());//sin argumento con mongoStub
 		
 		c.cargarListaConectores();
 		c.buscarPromociones();

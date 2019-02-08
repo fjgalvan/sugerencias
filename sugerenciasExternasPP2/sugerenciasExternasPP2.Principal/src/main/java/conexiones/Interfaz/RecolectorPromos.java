@@ -31,7 +31,9 @@ public class RecolectorPromos {
 	
 	private List<InterfaceConectores> listaDeConectores = new ArrayList<InterfaceConectores>();
 
-	public RecolectorPromos() {//SIN ARGUMENTOS (MongoConcreteStub mongoDB)
+	//public RecolectorPromos() {//SIN ARGUMENTOS (MongoConcreteStub mongoDB)
+	public RecolectorPromos(MongoConcrete mongoDB) {
+		this.mongoDB=mongoDB;
 		propConexion = new Properties();
 		try {
 			propConexion.load(new FileReader(Constants.ROUTE_PROPConexion));
@@ -39,7 +41,7 @@ public class RecolectorPromos {
 			e.printStackTrace();
 		}
 		//mongoDB= new MongoConcreteStub();
-		mongoDB= new MongoConcrete("promosActual");
+		//mongoDB= new MongoConcrete("promosActual");//YA LO CREE A LA COLLECTION
 		//this.mongoDB= mongoDB;
 	}
 
@@ -99,7 +101,7 @@ public class RecolectorPromos {
 				int cont=0;
 				try{
 					String lComidas=(String) doc.get("lComidas");
-					System.out.println("lComidas: "+lComidas);
+					//System.out.println("lComidas: "+lComidas);
 					if(!(lComidas.equals(tag1))){
 						cont= cont +1;
 					}

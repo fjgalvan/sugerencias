@@ -64,16 +64,20 @@ public class Modelo extends Observable {
 		return mapRecomendacionesGeneral;
 	}
 
-	public void ConectarMongoDBStub() throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException {
+	public void ConectarMongoDBreal() throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException {
+		
 		// Leo todos los Productos que tengo en ProductosBo
 		ProductosBo pBo = new ProductosBo();
 		pBo.getListaDeProductos();
 		//pBo.mostrarListaDeProductos();
+		
 		mongo = new MongoConcrete("promosActual");//MongoConcreteStub();
+		mongo.eliminarTodaLaColeccion();
 		//mongo.conectarseMongoDB();
 		cargarCustomers();
 		cargarMapReco();
 		cargarRecomendacionesGenerales(mapRecomendacionesGeneral);
+		//cargarTodasLasPromos();
 		inicializar();
 	}
 
@@ -206,20 +210,26 @@ public class Modelo extends Observable {
 	}
 
 	public void cargarRecomendacionesGenerales(HashMap<Recomendacion, Integer> map) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException{
-			
+		int i=0;
+		
 		for (Map.Entry<Recomendacion, Integer> entry : mapRecomendacionesGeneral.entrySet()) {
 			cargarUnaRecomendacion(entry.getKey(), cBo.getListaCustomers().get(entry.getValue()));
+			i= i+1;
 		}	
 	}
 	
 	public DBCollection cargarUnaRecomendacion(Recomendacion reco, Customer user) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException{
-		RecolectorPromos c = new RecolectorPromos();//sin argumento con mongoStub
+		//RecolectorPromos c = new RecolectorPromos();//sin argumento con mongoStub
 		
+		
+		if(mongo.getPromos().count()==0){
+		RecolectorPromos c = new RecolectorPromos(mongo);
 		c.cargarListaConectores();
 		c.buscarPromociones();
-		c.getMongoDB().leerColeccion();
+		//c.getMongoDB().leerColeccion(); // CREO QUE COPIA TODO 2 VECES!!
 		reco.leerPreferencias();
-		DBCollection coll=reco.mostrarRecomendaciones(c.getMongoDB().getPromos());
+		}
+		DBCollection coll=reco.mostrarRecomendaciones(mongo.getPromos());//(c.getMongoDB().getPromos());
 		return coll;
 	}
 
@@ -240,11 +250,12 @@ public class Modelo extends Observable {
 	}
 	
 	public DBCollection cargarTodasLasPromos() throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException{
-		RecolectorPromos c = new RecolectorPromos();//sin argumento con mongoStub
-
+		//RecolectorPromos c = new RecolectorPromos();//sin argumento con mongoStub
+		RecolectorPromos c = new RecolectorPromos(mongo);
 		c.cargarListaConectores();
 		c.buscarPromociones();
 		DBCollection promos= c.getMongoDB().leerColeccion();
+		
 		return promos;
 	}
 
