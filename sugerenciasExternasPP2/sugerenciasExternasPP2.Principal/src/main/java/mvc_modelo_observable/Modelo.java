@@ -64,14 +64,13 @@ public class Modelo extends Observable {
 		return mapRecomendacionesGeneral;
 	}
 
-	public void ConectarMongoDBreal() throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException {
-		
+	public void ConectarMongoDBreal(String nameColl) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException {
 		// Leo todos los Productos que tengo en ProductosBo
 		ProductosBo pBo = new ProductosBo();
 		pBo.getListaDeProductos();
 		//pBo.mostrarListaDeProductos();
 		
-		mongo = new MongoConcrete("promosActual");//MongoConcreteStub();
+		mongo = new MongoConcrete(nameColl);//MongoConcreteStub();
 		mongo.eliminarTodaLaColeccion();
 		//mongo.conectarseMongoDB();
 		cargarCustomers();
@@ -107,12 +106,26 @@ public class Modelo extends Observable {
 		setModeloFiltros(valor2String, usuario, email);
 	}
 	
+//	public String setFiltroString(Recomendacion reco){
+//		String filtroFinal="";
+//		
+//		for (Promocion prod : reco.getlRecomendaciones()) {
+//			filtroFinal= filtroFinal+ 
+//					"\n"+"local: "+prod.getNombreLocal()
+//					+" | ubicacion: "+prod.getUbicacion()
+//					+" | producto: "+prod.getProducto().getNombre()
+//					+" | precio: "+prod.getPrecio()
+//					+" | fechaDeVigencia: "+prod.getFechaVigencia().getDate();
+//		}
+//		return filtroFinal;
+//	}
+	
 	public String setFiltroString(Recomendacion reco){
 		String filtroFinal="";
 		
 		for (Promocion prod : reco.getlRecomendaciones()) {
 			filtroFinal= filtroFinal+ 
-					"\n"+"local: "+prod.getNombreLocal()
+					"\n"+"#local: "+prod.getNombreLocal()
 					+" | ubicacion: "+prod.getUbicacion()
 					+" | producto: "+prod.getProducto().getNombre()
 					+" | precio: "+prod.getPrecio()

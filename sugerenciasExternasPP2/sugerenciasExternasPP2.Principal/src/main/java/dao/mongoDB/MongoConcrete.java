@@ -19,7 +19,7 @@ import dao.Interfaz.InterfaceMongoAccess;
 public class MongoConcrete implements InterfaceMongoAccess {
 	
 	MongoClient myClient = null;
-	private static DB db; 
+	public static DB db; 
 	private static DBCollection promos;
 	
 	private String MyConstants_DB_NAME="";
@@ -133,6 +133,10 @@ public class MongoConcrete implements InterfaceMongoAccess {
 
 	public static void setPromos(DBCollection promos) {
 		MongoConcrete.promos = promos;
+	}
+
+	public String getMyConstants_DB_NAME() {
+		return MyConstants_DB_NAME;
 	}
 	
 }

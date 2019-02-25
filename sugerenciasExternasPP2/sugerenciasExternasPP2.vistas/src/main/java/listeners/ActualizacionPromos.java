@@ -20,9 +20,11 @@ public class ActualizacionPromos {
 	private MongoConcrete basePromosActual;
 	private Modelo m;
 	private String fechaActualizacion = "";
+	private String nombreColl;
 
-	public ActualizacionPromos(Modelo m) {
+	public ActualizacionPromos(Modelo m) { 
 		this.m = m;
+		nombreColl=m.getMongo().getMyConstants_DB_NAME();
 	}
 
 //	public MongoConcreteStub actualizarPromos(Integer tiempoDeActualizacion,
@@ -36,7 +38,8 @@ public class ActualizacionPromos {
 //					if(basePromosActual !=null){
 //						basePromosActual.finish();
 //					}
-					m.ConectarMongoDBStub();// VEEEERR
+					//System.out.println("m.getMongo().getMyConstants_DB_NAME(): "+nombreColl);
+					m.ConectarMongoDBreal(nombreColl);// VEEEERR
 					m.cargarRecomendacionesGenerales(m.getMapRecomendaciones());
 					basePromosActual = cargarTodasLasPromos();
 					fechaActualizacion = mostrarFecha_Horario_deActualizacion();
@@ -83,8 +86,9 @@ public class ActualizacionPromos {
 			SecurityException, InstantiationException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException,
 			TwitterException {
-		RecolectorPromos c = new RecolectorPromos(); //sin argumento
-
+		//RecolectorPromos c = new RecolectorPromos(); //sin argumento
+		RecolectorPromos c = new RecolectorPromos(this.m.getMongo());
+		
 		c.cargarListaConectores();
 		c.buscarPromociones();
 //		System.out.println("c.getMongoDB().getPromos().count(): "

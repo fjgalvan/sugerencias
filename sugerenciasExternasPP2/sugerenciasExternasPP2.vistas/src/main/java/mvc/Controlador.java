@@ -3,6 +3,7 @@ package mvc;
 import listeners.CambioDeIdiomaListener; 
 import listeners.FiltroListener;
 import listeners.GuardarPreferenciaListener;
+import listeners.LoginListener;
 import listeners.RegistroEmailUsuarioListener;
 import listeners.RegistroNombreUsuarioListener;
 import listeners.RegistroNuevoUsuarioListener;
@@ -32,9 +33,10 @@ public class Controlador {
 		v.addFiltroListeners(new FiltroListener(v, m));
 		v.addRegistroListener(new RegistroNombreUsuarioListener(v));
 		v.addRegistroListener(new RegistroEmailUsuarioListener(v));
-		v.addRegistroNuevoUsuarioListener(new RegistroNuevoUsuarioListener(v));
+		v.addRegistroNuevoUsuarioListener(new RegistroNuevoUsuarioListener(v,m));//Se agrega el modeloz
 		v.addCambiarIdiomaListener(new CambioDeIdiomaListener(v,m));
 		v.addGuardarPreferenciasListener(new GuardarPreferenciaListener(m,v));
+		v.addLoginListener(new LoginListener(v,m));
 	}
 	public void filtroUsuarioA() {
 		m.filtroA();

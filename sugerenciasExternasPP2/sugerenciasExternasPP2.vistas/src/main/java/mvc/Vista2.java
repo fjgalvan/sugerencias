@@ -16,8 +16,11 @@ import javax.swing.JTextArea;
 import javax.swing.Timer;
 
 import java.awt.Color;
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Observer;
 import java.util.Observable;
 
@@ -31,6 +34,8 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 
+import notificaciones.BuscarArchivos;
+import notificaciones.CargarLibreriasExternas;
 import modelo.Customer;
 import modelo.Preferencias;
 import modelo.Recomendacion;
@@ -95,8 +100,19 @@ public class Vista2 extends JFrame implements Observer {
 	private String tag2="";
 	private JButton btnPararActualizacion;
 	
+	private Modelo m;
+	private JTextField textField_twitter;
+	private JLabel lblIngreseEmailDel;
+	private JTextField textField_validarEmail;
+	private JTextField textField_validezLogin;
+	
+	private JComboBox comboBox_notificacion;
+	
+	private JButton btnValidarLogin;
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Vista2(Modelo modelo) {
+		this.m= modelo;
+		
 		lblRecomendaciones = new JLabel("Recomendaciones:");
 		lblRecomendaciones.setBounds(10, 262, 116, 23);
 		textArea_Recomendaciones = new JTextArea();
@@ -176,7 +192,7 @@ public class Vista2 extends JFrame implements Observer {
 
 		btnRegistrarse = new JButton("Registrarse");
 		btnRegistrarse.setForeground(new Color(0, 128, 0));
-		btnRegistrarse.setBounds(123, 67, 116, 23);
+		btnRegistrarse.setBounds(515, 65, 116, 23);
 		panel.add(btnRegistrarse);
 
 		textArea_ValidezUsuario = new JTextArea();
@@ -202,29 +218,29 @@ public class Vista2 extends JFrame implements Observer {
 		panel.add(verticalStrut);
 
 		lbl_ElijaUsuario = new JLabel("Elija Usuario con Preferencias: ");
-		lbl_ElijaUsuario.setBounds(10, 212, 186, 14);
+		lbl_ElijaUsuario.setBounds(10, 179, 186, 14);
 		panel.add(lbl_ElijaUsuario);
 
 		comboBox_eleccionDeUsuario = new JComboBox();
 		comboBox_eleccionDeUsuario.setModel(new DefaultComboBoxModel(
 				new String[] { "Usuario A", "Usuario B" }));
-		comboBox_eleccionDeUsuario.setBounds(245, 206, 241, 20);
+		comboBox_eleccionDeUsuario.setBounds(234, 176, 241, 20);
 		panel.add(comboBox_eleccionDeUsuario);
 
 		label_lineaHorizontal = new JLabel(
 				"-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-		label_lineaHorizontal.setBounds(10, 99, 991, 14);
+		label_lineaHorizontal.setBounds(10, 83, 991, 14);
 		panel.add(label_lineaHorizontal);
 
 		btnFiltrarPreferencia = new JButton("Filtrar Preferencia!");
 
 		btnFiltrarPreferencia.setForeground(new Color(0, 0, 255));
-		btnFiltrarPreferencia.setBounds(503, 203, 156, 23);
+		btnFiltrarPreferencia.setBounds(505, 175, 156, 23);
 		panel.add(btnFiltrarPreferencia);
 
 		btn_refrescar = new JButton("Refrescar Filtros");
 		btn_refrescar.setForeground(Color.BLUE);
-		btn_refrescar.setBounds(669, 203, 144, 23);
+		btn_refrescar.setBounds(681, 175, 144, 23);
 		panel.add(btn_refrescar);
 
 		textField_usuario = new JTextField();
@@ -238,30 +254,30 @@ public class Vista2 extends JFrame implements Observer {
 		textField_Email.setColumns(10);
 
 		textArea_registroNuevoUsuario = new JTextArea();
-		textArea_registroNuevoUsuario.setBounds(266, 66, 199, 22);
+		textArea_registroNuevoUsuario.setBounds(652, 64, 199, 22);
 		panel.add(textArea_registroNuevoUsuario);
 
 		JLabel label_lineaHorizontal2 = new JLabel(
 				"-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-		label_lineaHorizontal2.setBounds(10, 149, 991, 14);
+		label_lineaHorizontal2.setBounds(10, 119, 991, 14);
 		panel.add(label_lineaHorizontal2);
 
 		lblElijaIdioma = new JLabel("Elija idioma:");
-		lblElijaIdioma.setBounds(10, 124, 103, 14);
+		lblElijaIdioma.setBounds(10, 105, 103, 14);
 		panel.add(lblElijaIdioma);
 
 		comboBox_Idioma = new JComboBox();
 		comboBox_Idioma.setModel(new DefaultComboBoxModel(new String[] {
 				"Espanol", "Ingles" }));
-		comboBox_Idioma.setBounds(126, 121, 175, 20);
+		comboBox_Idioma.setBounds(123, 102, 175, 20);
 		panel.add(comboBox_Idioma);
 
 		btnCambiarIdioma = new JButton("Cambiar Idioma");
 		btnCambiarIdioma.setForeground(new Color(153, 51, 0));
-		btnCambiarIdioma.setBounds(319, 120, 148, 23);
+		btnCambiarIdioma.setBounds(324, 101, 148, 23);
 		panel.add(btnCambiarIdioma);
 
-		btn_GuardarPreferencia = new JButton("Guardar Preferencia");
+		btn_GuardarPreferencia = new JButton("Guardar y Notificar");
 		btn_GuardarPreferencia.setForeground(new Color(0, 0, 255));
 		btn_GuardarPreferencia.setBounds(791, 448, 213, 23);
 		panel.add(btn_GuardarPreferencia);
@@ -274,12 +290,12 @@ public class Vista2 extends JFrame implements Observer {
 		panel.add(label);
 		
 		lblHorarioltimaActualizacin = new JLabel("Horario Última Actualización: ");
-		lblHorarioltimaActualizacin.setBounds(10, 180, 186, 14);
+		lblHorarioltimaActualizacin.setBounds(10, 144, 186, 14);
 		panel.add(lblHorarioltimaActualizacin);
 		
 		textArea_fechaActualizacion = new JTextArea();
 		textArea_fechaActualizacion.setBackground(new Color(127, 255, 212));
-		textArea_fechaActualizacion.setBounds(245, 173, 241, 22);
+		textArea_fechaActualizacion.setBounds(234, 139, 241, 22);
 		panel.add(textArea_fechaActualizacion);
 		textArea_fechaActualizacion.setText(fechaActualizacion);
 		
@@ -323,7 +339,58 @@ public class Vista2 extends JFrame implements Observer {
 		textArea_TagMasEconomico.setBounds(203, 603, 798, 22);
 		panel.add(textArea_TagMasEconomico);
 		
+		JLabel lblTwitter = new JLabel("Twitter:");
+		lblTwitter.setBounds(10, 69, 78, 14);
+		panel.add(lblTwitter);
 		
+		textField_twitter = new JTextField();
+		textField_twitter.setColumns(10);
+		textField_twitter.setBounds(123, 66, 344, 20);
+		panel.add(textField_twitter);
+		
+		lblIngreseEmailDel = new JLabel("Ingrese Email del Usuario: ");
+		lblIngreseEmailDel.setBounds(10, 212, 186, 14);
+		panel.add(lblIngreseEmailDel);
+		
+		textField_validarEmail = new JTextField();
+		textField_validarEmail.setBackground(Color.GREEN);
+		textField_validarEmail.setColumns(10);
+		textField_validarEmail.setBounds(234, 207, 241, 20);
+		panel.add(textField_validarEmail);
+		
+		btnValidarLogin = new JButton("Validar Login");
+		btnValidarLogin.setBackground(Color.GREEN);
+		btnValidarLogin.setForeground(Color.BLACK);
+		btnValidarLogin.setBounds(505, 209, 156, 23);
+		panel.add(btnValidarLogin);
+		
+		textField_validezLogin = new JTextField();
+		textField_validezLogin.setBackground(Color.GREEN);
+		textField_validezLogin.setColumns(10);
+		textField_validezLogin.setBounds(681, 209, 144, 20);
+		panel.add(textField_validezLogin);
+		
+		JLabel lblElijaModoDe = new JLabel("Elija modo de Notificacion: ");
+		lblElijaModoDe.setBounds(123, 448, 186, 14);
+		panel.add(lblElijaModoDe);
+		
+		comboBox_notificacion = new JComboBox();
+		comboBox_notificacion.setBounds(298, 448, 241, 20);
+		panel.add(comboBox_notificacion);
+		File miDir = new File("C:\\formas de envio");
+		BuscarArchivos ba=null;
+		try {
+			ba = new BuscarArchivos(miDir);
+			Iterator<String> nombreIterator = ba.getListaDeClases().iterator();
+			while (nombreIterator.hasNext()) {
+				String elemento = nombreIterator.next();
+				comboBox_notificacion.addItem(elemento);
+			}
+			cargarJars(ba);
+		} catch (ClassNotFoundException | IllegalArgumentException
+				| InvocationTargetException e) {
+			e.printStackTrace();
+		}
 		// Hacemos visible nuestra ventana.
 		this.setVisible(true);
 		// Cargamos controlador y le asignamos qué modelo controlar
@@ -331,7 +398,23 @@ public class Vista2 extends JFrame implements Observer {
 		Controlador c = new Controlador(modelo, this);
 
 	}
-
+	
+	public void cargarJars(BuscarArchivos ba){
+		// Cargo los archivos.jar
+		Iterator<String> nombreIterator = ba.getListaDeJar().iterator();
+		while (nombreIterator.hasNext()) {
+			String elemento = nombreIterator.next();
+			try {
+				CargarLibreriasExternas cle = new CargarLibreriasExternas(elemento);
+			} catch (MalformedURLException | NoSuchMethodException
+					| SecurityException | IllegalAccessException
+					| IllegalArgumentException | InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	protected void compararTagsElegidos() {
 		tag1= comboBox_tag1.getSelectedItem().toString();
 		tag2= comboBox_tag2.getSelectedItem().toString();
@@ -370,7 +453,8 @@ public class Vista2 extends JFrame implements Observer {
 		
 	}
 	public DBCollection cargarUnaRecomendacion(Recomendacion reco, Customer user) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, TwitterException{
-		RecolectorPromos c = new RecolectorPromos();//sin argumento con mongoStub
+		//RecolectorPromos c = new RecolectorPromos();//sin argumento con mongoStub
+		RecolectorPromos c = new RecolectorPromos(this.m.getMongo());
 		
 		c.cargarListaConectores();
 		c.buscarPromociones();
@@ -418,6 +502,10 @@ public class Vista2 extends JFrame implements Observer {
 
 	public void addGuardarPreferenciasListener(ActionListener listen) {
 		btn_GuardarPreferencia.addActionListener(listen);
+	}
+	
+	public void addLoginListener(ActionListener listen) {
+		btnValidarLogin.addActionListener(listen);
 	}
 
 	public void addController(ActionListener controller) {
@@ -586,4 +674,27 @@ public class Vista2 extends JFrame implements Observer {
 	public JLabel getLblHorarioltimaActualizacin() {
 		return lblHorarioltimaActualizacin;
 	}
+
+	public JTextField getTextField_twitter() {
+		return textField_twitter;
+	}
+
+	public JComboBox getComboBox_notificacion() {
+		return comboBox_notificacion;
+	}
+
+	public JTextField getTextField_validarEmail() {
+		return textField_validarEmail;
+	}
+
+	public JTextField getTextField_validezLogin() {
+		return textField_validezLogin;
+	}
+
+	public JButton getBtnValidarLogin() {
+		return btnValidarLogin;
+	}
+	
+	
+
 }

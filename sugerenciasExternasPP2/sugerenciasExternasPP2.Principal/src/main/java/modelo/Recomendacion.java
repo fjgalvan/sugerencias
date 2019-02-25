@@ -103,11 +103,12 @@ public class Recomendacion {
 			lPromciones.add(pro);
 			Promocion promoFinal = new Promocion(sug.getLocal(), sug.getUbicacion(),
 					producto.getNombre(), sug.getPrecio(), sug.getFechaDeVigencia());
-			lPromcionesFinal.add(promoFinal);
+			lPromcionesFinal.add(promoFinal); 
+			
 			}catch(Exception e){
 			}
 		}
-		
+		//System.out.println("lSugerencias.size(): "+lSugerencias.size());// ESTA LISTA ES PARA VER PRODUCTOS QUE ESTAN POR VENCER!
 		
 		this.promoActual= coll;
 		return coll;
